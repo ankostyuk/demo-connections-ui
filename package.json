@@ -1,0 +1,27 @@
+{
+    "name": "connections-ui",
+    "version": "1.0.0-SNAPSHOT",
+    "description": "connections-ui",
+
+    "author": {
+        "name": "nullpointer",
+        "url": "http://null-pointer.ru/"
+    },
+
+    "repository": {
+    },
+
+    "dependencies": {
+    },
+
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-copy": "*",
+        "grunt-bower-task": "*",
+
+        "lodash": "*",
+        "nullpointer-web-app": "git+ssh://git@github.com:newpointer/web-app.git"
+    }
+}

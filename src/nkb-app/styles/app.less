@@ -1,0 +1,144 @@
+/* НКБ стили */
+@import '../../../external_components/nullpointer-commons/nkb/styles/styles.less';
+
+/*
+ * Общие стили для всего приложения
+ */
+
+@import './config.less';
+
+/* header */
+.header {
+    position: relative;
+    padding: 15px 0 40px 0;
+}
+
+.header .nkb-logo {
+    position: relative;
+}
+.header .nkb-logo a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    cursor: default;
+}
+.lang-ru .header .nkb-logo a {
+    right: 20px;
+}
+.lang-en .header .nkb-logo a {
+    right: 60px;
+}
+
+.header .app-title {
+    font-size: 31.5px;
+    line-height: 40px;
+    font-weight: normal;
+    color: @defaultLightColor;
+    text-rendering: optimizelegibility;
+}
+
+/* footer */
+.footer {
+    padding: 20px 0 10px 0;
+}
+.footer .links-row {
+    margin-bottom: 10px;
+}
+.footer .links-row .span7 {
+    width: 460px;
+}
+.footer .links-row .span4 {
+    width: 260px;
+}
+.footer .links-row .span3 {
+    width: 180px;
+}
+.footer .links-row .span2 {
+    width: 120px;
+}
+.footer .nullpointer a {
+    padding-bottom: 1px;
+}
+
+/* app-login-form */
+[app-login-form] {
+    position: relative;
+    z-index: 10;
+}
+[app-login-form] .login-form {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    right: 0;
+
+    min-height: 24px;
+
+    padding: 0 10px 0 10px;
+
+    -webkit-border-radius: 0 0 3px 3px;
+       -moz-border-radius: 0 0 3px 3px;
+            border-radius: 0 0 3px 3px;
+
+    border: 1px solid @defaultShadowBorderColor;
+    border-top: 0 none;
+}
+[app-login-form] .login-form:before {
+    position: absolute;
+    z-index: -10;
+
+    content: "";
+
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: @defaultBackgroundColor;
+
+    opacity: 0.75;
+    filter: alpha(opacity=75);
+}
+[app-login-form] form {
+    margin: 0;
+    padding: 0;
+}
+[app-login-form] .span-x {
+    width: 100px;
+    margin: 0 5px 0 0;
+}
+[app-login-form] .controls {
+    margin-bottom: 10px;
+}
+[app-login-form] .login-error-message {
+    margin-bottom: 10px;
+    line-height: 1;
+}
+[app-login-form] .user-info {
+    margin-top: 1px;
+}
+[app-login-form] .user-info p {
+    margin-bottom: 5px;
+}
+[app-login-form] .credit-info .span2 {
+    width: 120px;
+}
+
+/* app-lang */
+[app-lang] {
+    position: absolute;
+    z-index: 10;
+
+    padding: 0 0 0 20px;
+
+    left: 100%;
+    top: 16px;
+}
+[app-lang] ul > li {
+    margin-bottom: 7px;
+}
+[app-lang] .active a.action {
+    color: @defaultDisabledColor !important;
+}

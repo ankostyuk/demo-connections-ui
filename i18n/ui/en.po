@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18n\n"
+"Report-Msgid-Bugs-To: feedback@null-pointer.ru\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: NULLPOINTER <feedback@null-pointer.ru>\n"
+"Language-Team: NULLPOINTER <feedback@null-pointer.ru>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"CLDR_PLURAL_FORMS_FORMAT: one{0}other{1}\n"
+
+#: ../src/nkb-app/index.html:1
+msgid "НАЛПОИНТЕР"
+msgstr ""
+
+#: ../src/nkb-app/index.html:1
+msgid "Национальное кредитное бюро"
+msgstr ""
+
+#: ../src/nkb-app/index.html:1
+msgctxt "Наименование приложения Пакетная проверка связей"
+msgid "Пакетная проверка связей"
+msgstr ""
+
+#: ../src/nkb-app/index.html:1
+msgctxt "Наименование приложения Пакетная проверка связей"
+msgid "Пакетная проверка связей — НКБ"
+msgstr ""
+
+#: ../src/nkb-app/index.html:1
+msgid "Сделано в"
+msgstr ""
