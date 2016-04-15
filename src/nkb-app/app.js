@@ -16,6 +16,8 @@ define(function(require) {'use strict';
                             require('moment');
                             require('moment-timezone');
 
+                            require('bootstrap');
+
     var angularModules = {
         'angular-moment':   require('angular-moment'),
 
@@ -23,7 +25,9 @@ define(function(require) {'use strict';
 
         'np.l10n':          require('np.l10n/np.l10n'),
         login:              require('app.login'),
-        lang:               require('app.lang')
+        lang:               require('app.lang'),
+
+        desktop:            require('app.desktop')
     };
 
     var app = angular.module('app', _.pluck(angularModules, 'name'))

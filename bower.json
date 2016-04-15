@@ -46,7 +46,8 @@
             ]
         },
         "bootstrap": {
-            "css": "css/bootstrap.css"
+            "css": "css/bootstrap.css",
+            "js": "js/bootstrap.js"
         },
         "nullpointer-i18n": {
             "": "i18n.js"

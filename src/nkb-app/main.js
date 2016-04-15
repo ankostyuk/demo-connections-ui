@@ -37,6 +37,8 @@ root._RESOURCES_CONFIG = {
         'jquery':               'external_components/jquery/jquery',
         'jquery.cookie':        'external_components/jquery.cookie/jquery.cookie',
 
+        'bootstrap':            'external_components/bootstrap/js/bootstrap',
+
         'purl':                 'external_components/purl/purl',
 
         'moment':               'external_components/moment/moment',
@@ -48,6 +50,10 @@ root._RESOURCES_CONFIG = {
         name: 'app',
         location: 'src/nkb-app',
         main: 'app'
+    }, {
+        name: 'app.desktop',
+        location: 'src/nkb-app/components/desktop',
+        main: 'desktop'
     },
     // external packages
     {
@@ -111,6 +117,9 @@ root._RESOURCES_CONFIG = {
             deps: ['angular']
         },
         'jquery.cookie': {
+            deps: ['jquery']
+        },
+        'bootstrap': {
             deps: ['jquery']
         }
     },
