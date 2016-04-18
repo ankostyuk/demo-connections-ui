@@ -28,7 +28,7 @@ define(function(require, exports, module) {'use strict';
                     tabElement.find('> li > a').click(function(e){
                         e.preventDefault();
                         $(this).tab('show');
-                    })
+                    });
                 }
             };
         }]);
