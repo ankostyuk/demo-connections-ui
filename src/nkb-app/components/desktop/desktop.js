@@ -9,8 +9,12 @@ define(function(require, exports, module) {'use strict';
     var i18n            = require('i18n'),
         angular         = require('angular');
 
+    var angularModules = [
+        require('app.lists')
+    ];
+
     //
-    return angular.module('app.desktop', [])
+    return angular.module('app.desktop', _.pluck(angularModules, 'name'))
         //
         .run([function(){
             template = i18n.translateTemplate(template);

@@ -18,17 +18,20 @@ define(function(require) {'use strict';
 
                             require('bootstrap');
 
-    var angularModules = {
-        'angular-moment':   require('angular-moment'),
+    var angularModules = [
+        require('angular-moment'),
 
-        'np.directives':    require('np.directives'),
+        require('np.directives'),
 
-        'np.l10n':          require('np.l10n/np.l10n'),
-        login:              require('app.login'),
-        lang:               require('app.lang'),
+        require('np.l10n/np.l10n'),
+        require('app.login'),
+        require('app.lang'),
 
-        desktop:            require('app.desktop')
-    };
+        require('app.desktop'),
+
+        require('test')
+    ];
+    //
 
     var app = angular.module('app', _.pluck(angularModules, 'name'))
         //
@@ -37,7 +40,7 @@ define(function(require) {'use strict';
             meta: root._APP_CONFIG.meta,
             yandexMetrikaCounterName: 'yaCounter23296318',
             resource: {
-                // 'meta.url':                 '/nkbrelation/api/meta'
+                'lists.url':                 '/connections/api/lists'
             }
         })
         //
