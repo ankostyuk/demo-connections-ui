@@ -26,13 +26,11 @@ define(function(require, exports, module) {'use strict';
         .directive('npConnectionsDesktop', [function(){
             return {
                 restrict: 'A',
-                template: template,
                 scope: false,
+                template: template,
                 link: function(scope, element, attrs) {
                     // Tab
-                    var tabElement = element.find('.desktop-tab');
-
-                    tabElement.find('> li > a').click(function(e){
+                    element.find('.desktop-tab > li > a').click(function(e){
                         e.preventDefault();
                         $(this).tab('show');
                     });

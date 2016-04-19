@@ -1,3 +1,45 @@
-<div>
-    TODO Пользовательские списки
-</div
+<!-- lists-view -->
+<script id="lists-view" type="text/template">
+    <div class="tab-content">
+        <!-- Просмотр списков -->
+        <div class="tab-pane active" id="np-connections-lists-lists">
+            <ul class="row lists-nav tools">
+                <li class="span6" ng-show="navigation.prevTarget === '#np-connections-lists-list'"><a data-target="#np-connections-lists-list" ng-click="navigation.doNav($event)">&larr; {{::_trc("вернуться к просмотру списка", "Пользовательские списки")}}</a></li>
+                <li class="align-right"><a data-target="#np-connections-lists-new-list" ng-click="navigation.doNav($event)"><i class="icon i-plus"></i> {{::_trc("Новый список", "Пользовательские списки")}}</a></li>
+            </ul>
+            <div class="row tools">
+                <div class="align-right">
+                    <button class="btn flat"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;{{::_trc("Проверить связи", "Связи между объектами")}}</button>
+                </div>
+            </div>
+            <ul class="lists">
+                <li class="row" ng-repeat="list in lists.list track by $index">
+                    <div class="span8">
+                        <a data-target="#np-connections-lists-list" ng-click="navigation.doNav($event)">{{list.name}}</a>
+                    </div>
+                    <div class="align-right">
+                        {{list.type}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Просмотр списка -->
+        <div class="tab-pane" id="np-connections-lists-list">
+            <ul class="row lists-nav tools">
+                <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; {{::_trc("вернуться к спискам", "Пользовательские списки")}}</a></li>
+            </ul>
+
+            // TODO Список
+        </div>
+
+        <!-- Новый список -->
+        <div class="tab-pane" id="np-connections-lists-new-list">
+            <ul class="row lists-nav tools">
+                <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; {{::_trc("вернуться к спискам", "Пользовательские списки")}}</a></li>
+            </ul>
+
+            // TODO Новый список
+        </div>
+    </div>
+</script>
