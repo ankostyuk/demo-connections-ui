@@ -1,7 +1,6 @@
 //
 define(function(require, exports, module) {'use strict';
     var angular         = require('angular');
-                          require('angular-mocks');
 
     var purl            = require('purl'),
         locationSearch  = purl().param(),
@@ -11,23 +10,16 @@ define(function(require, exports, module) {'use strict';
         return angular.module('test', []);
     }
 
-    var testData = {
-        'lists':    angular.fromJson(require('text!./data/lists.json')),
-        'orders':   angular.fromJson(require('text!./data/orders.json'))
-    };
+    console.info('test enabled');
+
+    var angularModules = [
+        require('./data-mocks')
+    ];
 
     //
-    return angular.module('test', ['ngMockE2E'])
+    return angular.module('test', _.pluck(angularModules, 'name'))
         //
-        .run(['$httpBackend', function($httpBackend){
-            console.info('test enabled');
-            console.info('testData:', testData);
-
-            // ignore
-            $httpBackend.whenGET(/^\/siteapp\//).passThrough();
-
-            // lists
-            $httpBackend.whenGET('/connections/api/lists').respond(testData['lists']);
-        }]);
+        .constant('testConfig', {
+        });
     //
 });
