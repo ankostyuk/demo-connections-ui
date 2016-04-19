@@ -52,13 +52,9 @@ root._RESOURCES_CONFIG = {
         location: 'src/nkb-app',
         main: 'app'
     }, {
-        name: 'app.desktop',
-        location: 'src/nkb-app/components/desktop',
-        main: 'desktop'
-    }, {
-        name: 'app.lists',
-        location: 'src/nkb-app/components/lists',
-        main: 'lists'
+        name: 'connections',
+        location: 'src/connections',
+        main: 'connections'
     },
     // test
     {

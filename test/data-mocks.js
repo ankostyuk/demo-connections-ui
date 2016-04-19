@@ -1,4 +1,8 @@
-//
+/**
+ * @module data-mocks
+ * @desc RequireJS/Angular module
+ * @author ankostyuk
+ */
 define(function(require, exports, module) {'use strict';
     var angular         = require('angular');
                           require('angular-mocks');

@@ -31,6 +31,16 @@ msgctxt "Наименование приложения Пакетная пров
 msgid "Пакетная проверка связей — НКБ"
 msgstr ""
 
+#: ../src/connections/desktop/views/desktop.html:1
+msgctxt "Заказы на проверку взаимосвязей"
+msgid "Проверки связей"
+msgstr ""
+
 #: ../src/nkb-app/index.html:1
 msgid "Сделано в"
+msgstr ""
+
+#: ../src/connections/desktop/views/desktop.html:1
+msgctxt "Пользовательские списки"
+msgid "Списки"
 msgstr ""

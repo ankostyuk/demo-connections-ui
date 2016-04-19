@@ -1,7 +1,10 @@
-//
+/**
+ * @module desktop
+ * @desc RequireJS/Angular module
+ * @author ankostyuk
+ */
 define(function(require, exports, module) {'use strict';
 
-                          require('less!./styles/desktop');
     var template        = require('text!./views/desktop.html');
 
                           require('jquery');
@@ -10,17 +13,17 @@ define(function(require, exports, module) {'use strict';
         angular         = require('angular');
 
     var angularModules = [
-        require('app.lists')
+        require('../lists/lists')
     ];
 
     //
-    return angular.module('app.desktop', _.pluck(angularModules, 'name'))
+    return angular.module('np.connections.desktop', _.pluck(angularModules, 'name'))
         //
         .run([function(){
             template = i18n.translateTemplate(template);
         }])
         //
-        .directive('appDesktop', [function(){
+        .directive('npConnectionsDesktop', [function(){
             return {
                 restrict: 'A',
                 template: template,

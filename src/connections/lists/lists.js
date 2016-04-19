@@ -1,7 +1,10 @@
-//
+/**
+ * @module lists
+ * @desc RequireJS/Angular module
+ * @author ankostyuk
+ */
 define(function(require, exports, module) {'use strict';
 
-                          require('less!./styles/lists');
     var template        = require('text!./views/lists.html');
 
                           require('jquery');
@@ -12,13 +15,13 @@ define(function(require, exports, module) {'use strict';
                           require('np.resource');
 
     //
-    return angular.module('app.lists', ['np.resource'])
+    return angular.module('np.connections.lists', ['np.resource'])
         //
         .run([function(){
             template = i18n.translateTemplate(template);
         }])
         //
-        .factory('appListsResource', ['$log', 'appConfig', 'npResource', function($log, appConfig, npResource){
+        .factory('npConnectionsListsResource', ['$log', 'appConfig', 'npResource', function($log, appConfig, npResource){
 
             var config = appConfig.resource || {};
 
@@ -34,13 +37,13 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('appLists', ['$log', 'appListsResource', function($log, appListsResource){
+        .directive('npConnectionsLists', ['$log', 'npConnectionsListsResource', function($log, npConnectionsListsResource){
             return {
                 restrict: 'A',
                 template: template,
                 scope: false,
                 link: function(scope, element, attrs) {
-                    appListsResource.lists({
+                    npConnectionsListsResource.lists({
                         success: function(data){
                             $log.info('getting lists...', data);
                         },

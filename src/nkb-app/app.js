@@ -1,4 +1,8 @@
-//
+/**
+ * @module connections nkb-app
+ * @desc RequireJS/Angular module
+ * @author ankostyuk
+ */
 define(function(require) {'use strict';
     var root = window;
 
@@ -27,7 +31,7 @@ define(function(require) {'use strict';
         require('app.login'),
         require('app.lang'),
 
-        require('app.desktop'),
+        require('connections'),
 
         require('test')
     ];
