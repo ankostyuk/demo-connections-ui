@@ -23,6 +23,32 @@ msgctxt "Заказы на проверку взаимосвязей"
 msgid "Проверки связей"
 msgstr ""
 
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "вернуться к просмотру списка"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Новый список"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Связи между объектами"
+msgid "Проверить связи"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "У вас нет списков"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "вернуться к спискам"
+msgstr ""
+
 #: ../src/nkb-app/index.html:1
 msgctxt "Наименование приложения Пакетная проверка связей"
 msgid "Пакетная проверка связей — НКБ"

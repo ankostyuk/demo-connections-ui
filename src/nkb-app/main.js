@@ -11,7 +11,8 @@ var i18nBundles = [
     'text!external_components/nullpointer-rsearch/l10n/ui_keys/bundle.json',
     'text!external_components/nullpointer-rsearch/l10n/okato_region/bundle.json',
     // internal
-    'text!src/l10n/ui/bundle.json'
+    'text!src/l10n/ui/bundle.json',
+    'text!src/l10n/ui_keys/bundle.json'
 ];
 
 //

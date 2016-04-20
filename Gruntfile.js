@@ -19,5 +19,17 @@ module.exports = function(grunt) {
     // extend copy
     _.set(gruntConfig, 'copy.dist.options.noProcess', '**/*.{ico,properties,js,gif}');
 
+    // extend i18n
+    _.set(gruntConfig, 'i18n.ui_keys.options', {
+        mode:           'simple',
+        pattern:        '**/*.txt',
+        inputDir:       path.resolve(__dirname, 'i18n/ui_keys/src'),
+        inputRootPath:  path.resolve(__dirname, ''),
+        outputDir:      path.resolve(__dirname, 'i18n/ui_keys'),
+        bundleDir:      path.resolve(__dirname, 'src/l10n/ui_keys'),
+        baseLang:       buildMeta.langs[0],
+        langs:          buildMeta.langs
+    });
+
     webapp.initGrunt(grunt, gruntConfig);
 };

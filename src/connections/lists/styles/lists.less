@@ -8,10 +8,40 @@
     display: block;
 }
 
+[np-connections-lists] .tools.order {
+    margin-bottom: 40px;
+    padding-top: 10px;
+}
+[np-connections-lists] .tools.order .order-btn {
+    margin-top: -5px;
+    border-color: @orderElementColor;
+}
+
 [np-connections-lists] .lists {
-    margin: 0;
+    margin: 10px 0 0 0;
     list-style: none;
 }
-[np-connections-lists] .lists > li {
+[np-connections-lists] .lists > .list {
     display: block;
+    padding: 10px 0;
+    border-top: 1px solid @defaultLineColor;
+}
+[np-connections-lists] .lists > .list:first-child {
+    border-top: 0 none;
+}
+[np-connections-lists] .lists > .list .list-checked-wrapper {
+    width: 16px;
+}
+[np-connections-lists] .lists > .list .list-name-wrapper {
+    margin-left: 10px;
+}
+[np-connections-lists] .lists > .list .list-checked {
+    display: inline-block;
+    width: 16px;
+    vertical-align: -2px;
+    font-size: 120%;
+}
+[np-connections-lists] .lists > .list .list-checked:hover,
+[np-connections-lists] .lists > .list .list-checked.checked {
+    color: @orderElementColor;
 }

@@ -10,7 +10,8 @@ define(function(require, exports, module) {'use strict';
 
                           require('jquery');
                           require('lodash');
-    var angular         = require('angular'),
+    var i18n            = require('i18n'),
+        angular         = require('angular'),
         templateUtils   = require('template-utils');
 
                           require('np.resource');
@@ -63,14 +64,28 @@ define(function(require, exports, module) {'use strict';
                         }
                     };
 
-                    scope.navigation = navigation;
-
                     //
                     // lists
                     //
                     var lists = {
                         request: null,
-                        list: []
+                        list: [],
+                        checked: {},
+                        isEmpty: function() {
+                            return _.isEmpty(lists.list);
+                        },
+                        check: function(list) {
+                            list.__checked = !list.__checked;
+
+                            if (list.__checked) {
+                                lists.checked[list.id] = list;
+                            } else {
+                                delete lists.checked[list.id];
+                            }
+                        },
+                        isChecked: function() {
+                            return !_.isEmpty(lists.checked);
+                        }
                     };
 
                     function showLists() {
@@ -85,9 +100,13 @@ define(function(require, exports, module) {'use strict';
                         });
                     }
 
-                    scope.lists = lists;
-
                     showLists();
+
+                    //
+                    _.extend(scope, {
+                        navigation: navigation,
+                        lists: lists
+                    }, i18n.translateFuncs);
                 }
             };
         }]);
