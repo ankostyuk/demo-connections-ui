@@ -23,16 +23,29 @@ define(function(require, exports, module) {'use strict';
             template = i18n.translateTemplate(template);
         }])
         //
-        .directive('npConnectionsDesktop', [function(){
+        .directive('npConnectionsDesktop', ['$log', 'nkbUser', function($log, nkbUser){
             return {
                 restrict: 'A',
                 scope: false,
                 template: template,
                 link: function(scope, element, attrs) {
+                    var user = nkbUser.user();
+
                     // Tab
                     element.find('.desktop-tab > li > a').click(function(e){
                         e.preventDefault();
                         $(this).tab('show');
+                    });
+
+                    //
+                    _.extend(scope, {
+                        showLoginForm: function() {
+                            $('[app-login-form] input[name="login"]').focus();
+                        },
+                        isUserAuthenticated: function() {
+                            // TODO права на "Пакетную проверку"
+                            return user.isAuthenticated();
+                        }
                     });
                 }
             };

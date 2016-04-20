@@ -68,11 +68,15 @@ define(function(require) {'use strict';
             //
             _.extend($rootScope, {
                 app: {
-                    ready: true
+                    ready: false
                 },
                 isAppReady: function() {
                     return $rootScope.app.ready;
                 }
+            });
+
+            $rootScope.$on('nkb-user-apply', function(){
+                $rootScope.app.ready = true;
             });
         }]);
     //

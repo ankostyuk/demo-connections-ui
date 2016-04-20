@@ -1,11 +1,19 @@
-<ul class="desktop-tab nav nav-tabs">
-    <li class="active"><a data-target="#np-connections-lists">${_trc("Списки", "Пользовательские списки")}</a></li>
-    <li><a data-target="#np-connections-orders">${_trc("Проверки связей", "Заказы на проверку взаимосвязей")}</a></li>
-</ul>
+<div class="muted align-center authenticate-info" ng-hide="isUserAuthenticated()">
+    ${_trc("Для работы с приложением необходимо", "Для работы с приложением необходимо войти или зарегистрироваться")}
+    <a ng-click="showLoginForm()">${_trc("войти", "Для работы с приложением необходимо войти или зарегистрироваться")}</a>
+    ${_trc("или", "Для работы с приложением необходимо войти или зарегистрироваться")}
+    <a class="underline" href="/reg/" target="_blank">${_trc("зарегистрироваться", "Для работы с приложением необходимо войти или зарегистрироваться")}</a>
+</div>
+<div ng-show="isUserAuthenticated()">
+    <ul class="desktop-tab nav nav-tabs">
+        <li class="active"><a data-target="#np-connections-lists">${_trc("Списки", "Пользовательские списки")}</a></li>
+        <li><a data-target="#np-connections-orders">${_trc("Проверки связей", "Заказы на проверку взаимосвязей")}</a></li>
+    </ul>
 
-<div class="tab-content">
-    <div class="tab-pane active" id="np-connections-lists" np-connections-lists></div>
-    <div class="tab-pane" id="np-connections-orders">
-        // TODO Заказы на проверку взаимосвязей
+    <div class="tab-content">
+        <div class="tab-pane active" id="np-connections-lists" np-connections-lists></div>
+        <div class="tab-pane" id="np-connections-orders">
+            // TODO Заказы на проверку взаимосвязей
+        </div>
     </div>
 </div>
