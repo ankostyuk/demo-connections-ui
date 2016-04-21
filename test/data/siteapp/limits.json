@@ -1,0 +1,104 @@
+{
+    "userId": "user-1",
+    "userName": "Иванов Иван Иванович",
+    "userLogin": "ivanov",
+    "balance": 0.00,
+    "limits": {
+        "quartal_report": {
+            "unlimited": true
+        },
+        "egrulFounderPersonReport": {
+            "unlimited": true
+        },
+        "balance_report": {
+            "unlimited": true
+        },
+        "egrulChiefReport": {
+            "unlimited": true
+        },
+        "market_profile_full": {
+            "unlimited": true
+        },
+        "market_profile_short": {
+            "unlimited": true
+        },
+        "top_search": {
+            "unlimited": true
+        },
+        "egrulFounderCompanyReport": {
+            "unlimited": true
+        },
+        "rep_creditreforma_fin": {
+            "unlimited": true
+        },
+        "rosstatReport": {
+            "unlimited": true
+        },
+        "ext_history_profile": {
+            "unlimited": true
+        },
+        "extended_research": {
+            "unlimited": true
+        },
+        "relations_find_related": {
+            "unlimited": true
+        },
+        "actualizeReport": {
+            "unlimited": true
+        },
+        "dependencies": {
+            "unlimited": true
+        },
+        "extended_search": {
+            "unlimited": true
+        },
+        "credit_history": {
+            "unlimited": true
+        },
+        "rep_creditreforma_rus_reg": {
+            "unlimited": true
+        },
+        "creditreforma_report": {
+            "unlimited": true
+        },
+        "egripReport": {
+            "unlimited": true
+        },
+        "top_search_preview": {
+            "unlimited": true
+        },
+        "business_profile": {
+            "unlimited": true
+        },
+        "egrulCompanyReport": {
+            "unlimited": true
+        },
+        "failures": {
+            "unlimited": true
+        },
+        "reliable_company": {
+            "unlimited": true
+        },
+        "relations_find_relations": {
+            "unlimited": true
+        },
+        "ForeignCompanyReport": {
+            "unlimited": true
+        },
+        "credit_profile": {
+            "unlimited": true
+        },
+        "relations_search": {
+            "unlimited": true
+        },
+        "rep_creditreforma_rus_fin": {
+            "unlimited": true
+        },
+        "market_list": {
+            "unlimited": true
+        },
+        "co_management": {
+            "unlimited": true
+        }
+    }
+}

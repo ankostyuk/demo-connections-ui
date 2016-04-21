@@ -4,16 +4,31 @@
  * @author ankostyuk
  */
 define(function(require, exports, module) {'use strict';
+
+                          require('lodash');
     var angular         = require('angular');
                           require('angular-mocks');
 
     var purl            = require('purl'),
         locationSearch  = purl().param(),
-        emptyLists      = locationSearch['empty-lists'] === 'true';
+        emptyLists      = _.toBoolean(locationSearch['test-empty-lists']),
+        auth            = locationSearch['test-auth'] && _.toBoolean(locationSearch['test-auth']);
+
+    console.log('emptyLists', emptyLists);
+    console.log('auth', auth);
 
     var testData = {
-        'lists':    angular.fromJson(emptyLists ? require('text!./data/empty-lists.json') : require('text!./data/lists.json')),
-        'orders':   angular.fromJson(require('text!./data/orders.json'))
+        'connections': {
+            'lists':    angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
+            'orders':   angular.fromJson(require('text!./data/connections/orders.json'))
+        },
+        'siteapp': {
+            'login':            angular.fromJson(require('text!./data/siteapp/login.json')),
+            'login-error':      angular.fromJson(require('text!./data/siteapp/login-error.json')),
+            'logout':           204,
+            'limits':           angular.fromJson(require('text!./data/siteapp/limits.json')),
+            'limits-forbidden': 403
+        }
     };
 
     //
@@ -22,12 +37,18 @@ define(function(require, exports, module) {'use strict';
         .run(['$log', '$httpBackend', function($log, $httpBackend){
             $log.info('testData:', testData);
 
-            // ignore
-            $httpBackend.whenGET(/^\/siteapp\//).passThrough();
-            $httpBackend.whenPOST(/^\/siteapp\//).passThrough();
+            // user
+            if (_.isUndefined(auth)) {
+                $httpBackend.whenGET(/^\/siteapp\//).passThrough();
+                $httpBackend.whenPOST(/^\/siteapp\//).passThrough();
+            } else {
+                $httpBackend.whenPOST('/siteapp/login').respond(auth ? testData['siteapp']['login'] : testData['siteapp']['login-error']);
+                $httpBackend.whenGET('/siteapp/logout').respond(testData['siteapp']['logout']);
+                $httpBackend.whenGET('/siteapp/api/users/me/limits').respond(auth ? testData['siteapp']['limits'] : testData['siteapp']['limits-forbidden']);
+            }
 
             // lists
-            $httpBackend.whenGET('/connections/api/lists').respond(testData['lists']);
+            $httpBackend.whenGET('/connections/api/lists').respond(testData['connections']['lists']);
         }]);
     //
 });
