@@ -41,8 +41,31 @@
             <ul class="row lists-nav tools">
                 <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
             </ul>
-
-            // TODO Новый список
+            <div class="new-list">
+                <div class="row list-info">
+                    <div class="span5">
+                        <input class="input-block-level" type="text" placeholder='${_trc("Введите наименование нового списка", "Пользовательские списки")}'>
+                    </div>
+                    <div class="align-right">
+                        <select class="span4">
+                            <option disabled="disabled" selected="selected">${_trc("Укажите тип объектов в списке...", "Пользовательские списки")}</option>
+                            <option>{{_tr('NP.CONNECTIONS.LIST_TYPE.COMPANY')}}</option>
+                            <option>{{_tr('NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <form add-list-entries>
+                    <div class="tools">
+                        <a class="inline active">${_trc("Ввести", "Ввести компании или добавить из файла]")} ${_trc("компании", "Ввести компании или добавить из файла]")}</a>
+                        <span class="inline">${_trc("или", "Ввести компании или добавить из файла]")}</span>
+                        <span class="inline link attach-file-wrapper">${_trc("добавить из файла", "Ввести компании или добавить из файла]")}<input type="file" name="file"></span>
+                    </div>
+                    <textarea rows="10"></textarea>
+                </form>
+                <div class="align-right">
+                    <button class="btn flat" ng-disabled="false"><i class="icon i-save-3"></i>&nbsp;&nbsp;${_trc("Добавить новый список", "Пользовательские списки")}</button>
+                </div>
+            </div>
         </div>
     </div>
 </script>

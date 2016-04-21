@@ -53,16 +53,18 @@ define(function(require, exports, module) {'use strict';
                         currentTarget: null,
                         prevTarget: null,
                         doNav: function(e) {
-                            var el = $(e.currentTarget);
-
-                            el.tab('show').parent('li').removeClass('active');
-
-                            scope.navigation.prevTarget = scope.navigation.currentTarget;
-                            scope.navigation.currentTarget = el.attr('data-target');
-
                             e.preventDefault();
+                            showNav($(e.currentTarget).attr('data-target'));
                         }
                     };
+
+                    function showNav(target) {
+                        element.find('[data-target="' + target + '"]').eq(0)
+                            .tab('show').parent('li').removeClass('active');
+
+                        scope.navigation.prevTarget = scope.navigation.currentTarget;
+                        scope.navigation.currentTarget = target;
+                    }
 
                     //
                     // lists
@@ -107,6 +109,9 @@ define(function(require, exports, module) {'use strict';
                         navigation: navigation,
                         lists: lists
                     }, i18n.translateFuncs);
+
+                    // test
+                    showNav('#np-connections-lists-new-list');
                 }
             };
         }]);

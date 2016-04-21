@@ -1,5 +1,10 @@
 @import './config.less';
 
+[np-connections-lists] a.active {
+    color: @linkActiveColor;
+    cursor: default;;
+}
+
 [np-connections-lists] .tools {
     margin: 0 0 20px -20px;
     list-style: none;
@@ -17,6 +22,7 @@
     border-color: @orderElementColor;
 }
 
+/* lists */
 [np-connections-lists] .lists {
     margin: 10px 0 0 0;
     list-style: none;
@@ -44,4 +50,29 @@
 [np-connections-lists] .lists > .list .list-checked:hover,
 [np-connections-lists] .lists > .list .list-checked.checked {
     color: @orderElementColor;
+}
+
+/* add-list-entries */
+[np-connections-lists] [add-list-entries] {
+    margin: 20px 0;
+    padding: 10px 0 15px 0;
+    border-top: 1px solid @defaultLineColor;
+    border-bottom: 1px solid @defaultLineColor;
+}
+[np-connections-lists] [add-list-entries] .tools {
+    margin: 0 0 5px 0;
+}
+[np-connections-lists] [add-list-entries] .inline {
+    vertical-align: top;
+}
+[np-connections-lists] [add-list-entries] textarea {
+    width: 366px;
+    max-width: 366px;
+    margin: 0;
+    border: 1px solid @linkActiveColor;
+}
+
+/* new-list */
+[np-connections-lists] .new-list {
+    padding-top: 10px;
 }
