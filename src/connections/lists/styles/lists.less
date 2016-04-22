@@ -1,6 +1,7 @@
 @import './config.less';
 
-[np-connections-lists] a.active {
+[np-connections-lists] a.active,
+[np-connections-lists] .link.active {
     color: @linkActiveColor;
     cursor: default;;
 }
@@ -53,26 +54,33 @@
 }
 
 /* add-list-entries */
-[np-connections-lists] [add-list-entries] {
-    margin: 20px 0;
-    padding: 10px 0 15px 0;
+[np-connections-lists] [np-connections-lists-add-list-entries] {
+    margin-bottom: 20px;
+    padding: 15px 0;
     border-top: 1px solid @defaultLineColor;
     border-bottom: 1px solid @defaultLineColor;
 }
-[np-connections-lists] [add-list-entries] .tools {
-    margin: 0 0 5px 0;
+[np-connections-lists-add-list-entries] .tools {
+    margin-bottom: 0;
 }
-[np-connections-lists] [add-list-entries] .inline {
+[np-connections-lists-add-list-entries] .inline {
     vertical-align: top;
 }
-[np-connections-lists] [add-list-entries] textarea {
+[np-connections-lists-add-list-entries] .file-name {
+    width: 250px;
+    font-style: italic;
+}
+[np-connections-lists-add-list-entries] textarea {
     width: 366px;
     max-width: 366px;
-    margin: 0;
-    border: 1px solid @linkActiveColor;
+    margin: 5px 0;
+    /*border: 1px solid @linkActiveColor;*/
 }
 
 /* new-list */
 [np-connections-lists] .new-list {
     padding-top: 10px;
+}
+[np-connections-lists] .new-list .list-info {
+    margin-bottom: 20px;
 }

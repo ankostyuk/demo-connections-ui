@@ -44,28 +44,49 @@
             <div class="new-list">
                 <div class="row list-info">
                     <div class="span5">
-                        <input class="input-block-level" type="text" placeholder='${_trc("Введите наименование нового списка", "Пользовательские списки")}'>
+                        <input class="input-block-level" type="text" placeholder='${_trc("Введите наименование нового списка", "Пользовательские списки")}' ng-model="newList.list.name">
                     </div>
                     <div class="align-right">
-                        <select class="span4">
-                            <option disabled="disabled" selected="selected">${_trc("Укажите тип объектов в списке...", "Пользовательские списки")}</option>
-                            <option>{{_tr('NP.CONNECTIONS.LIST_TYPE.COMPANY')}}</option>
-                            <option>{{_tr('NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL')}}</option>
+                        <select class="span4" ng-model="newList.list.type">
+                            <option value="" selected="!newList.list.type" disabled>${_trc("Укажите тип объектов в списке...", "Пользовательские списки")}</option>
+                            <option value="COMPANY" selected="newList.list.type === 'COMPANY'">{{_tr('NP.CONNECTIONS.LIST_TYPE.COMPANY')}}</option>
+                            <option value="INDIVIDUAL" selected="newList.list.type === 'INDIVIDUAL'">{{_tr('NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL')}}</option>
                         </select>
                     </div>
                 </div>
-                <form add-list-entries>
-                    <div class="tools">
-                        <a class="inline active">${_trc("Ввести", "Ввести компании или добавить из файла]")} ${_trc("компании", "Ввести компании или добавить из файла]")}</a>
-                        <span class="inline">${_trc("или", "Ввести компании или добавить из файла]")}</span>
-                        <span class="inline link attach-file-wrapper">${_trc("добавить из файла", "Ввести компании или добавить из файла]")}<input type="file" name="file"></span>
-                    </div>
-                    <textarea rows="10"></textarea>
-                </form>
+                <div ng-show="newList.list.type" np-connections-lists-add-list-entries="newList.addListEntriesProxy"></div>
                 <div class="align-right">
-                    <button class="btn flat" ng-disabled="false"><i class="icon i-save-3"></i>&nbsp;&nbsp;${_trc("Добавить новый список", "Пользовательские списки")}</button>
+                    <button class="btn flat" ng-disabled="!newList.isReady()"><i class="icon i-save-3"></i>&nbsp;&nbsp;${_trc("Добавить новый список", "Пользовательские списки")}</button>
                 </div>
             </div>
         </div>
     </div>
+</script>
+
+<!-- lists-view -->
+<script id="add-list-entries-view" type="text/template">
+    <form>
+        <div class="row tools">
+            <div class="span8">
+                <a class="inline" ng-class="{'active': target === 'text'}" ng-click="doTarget('text')">
+                    <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Введите компании", "Введите ... или добавьте из файла")}</span>
+                    <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Введите физических лиц", "Введите ... или добавьте из файла")}</span>
+                </a>
+                <span class="inline">${_trc("или", "Введите ... или добавьте из файла")}</span>
+                <span class="inline link add-file attach-file-wrapper" ng-class="{'active': target === 'file'}">${_trc("добавьте из файла", "Введите ... или добавьте из файла")}<input type="file" name="file" accept="text/*,text/anytext,text/comma-separated-values,application/csv"></span>
+                <span class="inline file-name text-ellipsis">{{file.name}}</span>
+            </div>
+            <div class="align-right">
+                <a class="inline underline" href="./examples/files/company-list.txt" target="_blank" ng-show="proxy.getListType() === 'COMPANY'">${_trc("Пример файла с данными компаний", "Пользовательские списки")}</a>
+                <a class="inline underline" href="./examples/files/individual-list.txt" target="_blank" ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Пример файла с данными физических лиц", "Пользовательские списки")}</a>
+            </div>
+        </div>
+        <div ng-show="target === 'text'">
+            <textarea rows="10"></textarea>
+            <div class="muted">
+                <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Одна строка — одна компания", "Введите ... или добавьте из файла")}</span>
+                <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Одна строка — одно физическое лицо", "Введите ... или добавьте из файла")}</span>
+            </div>
+        </div>
+    </form>
 </script>
