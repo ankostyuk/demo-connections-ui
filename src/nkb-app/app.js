@@ -26,6 +26,7 @@ define(function(require) {'use strict';
         require('angular-moment'),
 
         require('np.directives'),
+        require('np.utils'),
 
         require('np.l10n/np.l10n'),
         require('app.login'),
@@ -64,7 +65,7 @@ define(function(require) {'use strict';
             $logProvider.debugEnabled(root.APP_BUILD_TYPE !== 'production');
         }])
         //
-        .run(['$log', '$rootScope', 'npL10n', function($log, $rootScope, npL10n){
+        .run(['$log', '$rootScope', 'npL10n', 'npUtils', function($log, $rootScope, npL10n, npUtils){
             //
             _.extend($rootScope, {
                 app: {
@@ -72,6 +73,18 @@ define(function(require) {'use strict';
                 },
                 isAppReady: function() {
                     return $rootScope.app.ready;
+                },
+                loader: {}, // см. directive npLoader
+                loading: function(operation) {
+                    npUtils.loading(
+                        operation,
+                        function(){
+                            $rootScope.loader.show();
+                        },
+                        function(){
+                            $rootScope.loader.hide();
+                        },
+                    500);
                 }
             });
 

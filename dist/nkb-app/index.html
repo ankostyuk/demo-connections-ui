@@ -30,11 +30,12 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.min.js"></script>
 
         <!-- nkb-app -->
-        <script src="./main.js?a1c1c4936582907fca18457c9ec844ec36678010"></script>
+        <script src="./main.js?66116b668ad0d2e9a3d867cb759a6bbb1bb04454"></script>
     </head>
 
     <body>
         <div class="app-state-indicator" np-fadeout="isAppReady()" np-fadeout-duration="500"></div>
+        <div np-loader="loader" np-loader-type="'line-balls'"></div>
         <div class="container">
             <div class="header">
                 <div class="row">
@@ -48,7 +49,7 @@
                 <div app-lang></div>
             </div>
             <div class="content">
-                <div np-connections-desktop></div>
+                <div class="np-connections" np-connections-desktop></div>
             </div>
             <div class="footer">
                 <hr>

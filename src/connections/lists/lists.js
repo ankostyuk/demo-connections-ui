@@ -14,10 +14,12 @@ define(function(require, exports, module) {'use strict';
         angular         = require('angular'),
         templateUtils   = require('template-utils');
 
-                          require('np.resource');
+    var angularModules = [
+        require('np.resource')
+    ];
 
     //
-    return angular.module('np.connections.lists', ['np.resource'])
+    return angular.module('np.connections.lists', _.pluck(angularModules, 'name'))
         //
         .run([function(){
             templateData    = templateUtils.processTemplate(template);
@@ -40,7 +42,7 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('npConnectionsLists', ['$log', 'npConnectionsListsResource', function($log, npConnectionsListsResource){
+        .directive('npConnectionsLists', ['$log', '$timeout', '$rootScope', 'npConnectionsListsResource', function($log, $timeout, $rootScope, npConnectionsListsResource){
             return {
                 restrict: 'A',
                 scope: {},
@@ -131,6 +133,16 @@ define(function(require, exports, module) {'use strict';
 
                     // test
                     showNav('#np-connections-lists-new-list');
+
+                    // $log.warn('loading...');
+                    // $timeout(function(){
+                    //     $rootScope.loading(function(done){
+                    //         $log.info('operation...');
+                    //         $timeout(function(){
+                    //             done();
+                    //         }, 5000);
+                    //     });
+                    // }, 1000);
                 }
             };
         }])
@@ -155,7 +167,7 @@ define(function(require, exports, module) {'use strict';
                         doTarget: function(target) {
                             if (target === 'text') {
                                 resetFile();
-                                
+
                                 $timeout(function(){
                                     textElement.focus();
                                 });

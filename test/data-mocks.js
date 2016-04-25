@@ -14,9 +14,6 @@ define(function(require, exports, module) {'use strict';
         emptyLists      = _.toBoolean(locationSearch['test-empty-lists']),
         auth            = locationSearch['test-auth'] && _.toBoolean(locationSearch['test-auth']);
 
-    console.log('emptyLists', emptyLists);
-    console.log('auth', auth);
-
     var testData = {
         'connections': {
             'lists':    angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
