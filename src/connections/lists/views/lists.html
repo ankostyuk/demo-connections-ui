@@ -32,8 +32,18 @@
             <ul class="row lists-nav tools">
                 <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
             </ul>
-
-            // TODO Список
+            <div class="row list-info">
+                <div class="span5 list-name">{{list.list.name}}</div>
+                <div class="muted align-right list-type">
+                    <span ng-show="list.isEmpty()">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.list.type)}}</span>
+                    <span ng-hide="list.isEmpty()">1 234 физических лиц</span>
+                </div>
+            </div>
+            <div np-connections-lists-add-list-entries="list.addListEntriesProxy"></div>
+            <div class="muted align-center" ng-show="list.isEmpty()">
+                <span ng-show="list.list.type === 'COMPANY'">${_trc("Нет компаний в списке", "Пользовательские списки")}</span>
+                <span ng-show="list.list.type === 'INDIVIDUAL'">${_trc("Нет физических лиц в списке", "Пользовательские списки")}</span>
+            </div>
         </div>
 
         <!-- Новый список -->
@@ -41,23 +51,21 @@
             <ul class="row lists-nav tools">
                 <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
             </ul>
-            <div class="new-list">
-                <div class="row list-info">
-                    <div class="span5">
-                        <input class="input-block-level" type="text" placeholder='${_trc("Введите наименование нового списка", "Пользовательские списки")}' ng-model="newList.list.name">
-                    </div>
-                    <div class="align-right">
-                        <select class="span4" ng-model="newList.list.type">
-                            <option value="" selected="!newList.list.type" disabled>${_trc("Укажите тип объектов в списке...", "Пользовательские списки")}</option>
-                            <option value="COMPANY" selected="newList.list.type === 'COMPANY'">{{_tr('NP.CONNECTIONS.LIST_TYPE.COMPANY')}}</option>
-                            <option value="INDIVIDUAL" selected="newList.list.type === 'INDIVIDUAL'">{{_tr('NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL')}}</option>
-                        </select>
-                    </div>
+            <div class="row list-info">
+                <div class="span5">
+                    <input class="input-block-level" type="text" placeholder='${_trc("Введите наименование нового списка", "Пользовательские списки")}' ng-model="newList.list.name">
                 </div>
-                <div ng-show="newList.list.type" np-connections-lists-add-list-entries="newList.addListEntriesProxy"></div>
                 <div class="align-right">
-                    <button class="btn flat" ng-disabled="!newList.isReady()"><i class="icon i-save-3"></i>&nbsp;&nbsp;${_trc("Добавить новый список", "Пользовательские списки")}</button>
+                    <select class="span4" ng-model="newList.list.type">
+                        <option value="" selected="!newList.list.type" disabled>${_trc("Укажите тип объектов в списке...", "Пользовательские списки")}</option>
+                        <option value="COMPANY" selected="newList.list.type === 'COMPANY'">{{_tr('NP.CONNECTIONS.LIST_TYPE.COMPANY')}}</option>
+                        <option value="INDIVIDUAL" selected="newList.list.type === 'INDIVIDUAL'">{{_tr('NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL')}}</option>
+                    </select>
                 </div>
+            </div>
+            <div ng-show="newList.list.type" np-connections-lists-add-list-entries="newList.addListEntriesProxy"></div>
+            <div class="align-right">
+                <button class="btn flat" ng-disabled="!newList.isReady()"><i class="icon i-save-3"></i>&nbsp;&nbsp;${_trc("Добавить новый список", "Пользовательские списки")}</button>
             </div>
         </div>
     </div>
@@ -65,28 +73,34 @@
 
 <!-- lists-view -->
 <script id="add-list-entries-view" type="text/template">
-    <form>
-        <div class="row tools">
-            <div class="span8">
-                <a class="inline" ng-class="{'active': target === 'text'}" ng-click="doTarget('text')">
-                    <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Введите компании", "Введите ... или добавьте из файла")}</span>
-                    <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Введите физических лиц", "Введите ... или добавьте из файла")}</span>
-                </a>
-                <span class="inline">${_trc("или", "Введите ... или добавьте из файла")}</span>
-                <span class="inline link add-file attach-file-wrapper" ng-class="{'active': target === 'file'}">${_trc("добавьте из файла", "Введите ... или добавьте из файла")}<input type="file" name="file" accept="text/*,text/anytext,text/comma-separated-values,application/csv"></span>
-                <span class="inline file-name text-ellipsis">{{file.name}}</span>
-            </div>
-            <div class="align-right">
-                <a class="inline underline" href="./examples/files/company-list.txt" target="_blank" ng-show="proxy.getListType() === 'COMPANY'">${_trc("Пример файла с данными компаний", "Пользовательские списки")}</a>
-                <a class="inline underline" href="./examples/files/individual-list.txt" target="_blank" ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Пример файла с данными физических лиц", "Пользовательские списки")}</a>
-            </div>
+    <div class="row tools">
+        <form class="span8">
+            <a class="inline" ng-class="{'active': target === 'text'}" ng-click="doTarget('text')">
+                <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Введите компании", "Введите ... или добавьте из файла")}</span>
+                <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Введите физических лиц", "Введите ... или добавьте из файла")}</span>
+            </a>
+            <span class="inline">${_trc("или", "Введите ... или добавьте из файла")}</span>
+            <span class="inline link add-file attach-file-wrapper" ng-class="{'active': target === 'file'}">${_trc("добавьте из файла", "Введите ... или добавьте из файла")}<input type="file" name="file" accept="text/*,text/anytext,text/comma-separated-values,application/csv"></span>
+            <span class="inline file-name text-ellipsis">{{file.name}}</span>
+        </form>
+        <div class="align-right">
+            <a class="inline underline" href="./examples/files/company-list.txt" target="_blank" ng-show="proxy.getListType() === 'COMPANY'">${_trc("Пример файла с данными компаний", "Пользовательские списки")}</a>
+            <a class="inline underline" href="./examples/files/individual-list.txt" target="_blank" ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Пример файла с данными физических лиц", "Пользовательские списки")}</a>
         </div>
-        <div ng-show="target === 'text'">
-            <textarea rows="10"></textarea>
-            <div class="muted">
-                <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Одна строка — одна компания", "Введите ... или добавьте из файла")}</span>
-                <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Одна строка — одно физическое лицо", "Введите ... или добавьте из файла")}</span>
-            </div>
+    </div>
+    <div ng-show="target === 'text'">
+        <textarea rows="5" placeholder='${_trc("Одна строка — одна компания", "Введите ... или добавьте из файла")}' ng-model="text" ng-show="proxy.getListType() === 'COMPANY'"></textarea>
+        <textarea rows="5" placeholder='${_trc("Одна строка — одно физическое лицо", "Введите ... или добавьте из файла")}' ng-model="text" ng-show="proxy.getListType() === 'INDIVIDUAL'"></textarea>
+    </div>
+    <div class="row actions" ng-show="target">
+        <div class="span5">
+            <a ng-click="cancel()">${_trc("Отменить", "Отменить действие")}</a>
         </div>
-    </form>
+        <div class="align-right">
+            <button class="btn flat" ng-show="proxy.addActionEnabled" ng-disabled="!isAddActionReady()">
+                <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Добавить компании", "Пользовательские списки")}</span>
+                <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Добавить физических лиц", "Пользовательские списки")}</span>
+            </button>
+        </div>
+    </div>
 </script>

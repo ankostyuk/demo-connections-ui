@@ -118,8 +118,31 @@ define(function(require, exports, module) {'use strict';
                             return newList.list.name && newList.list.type;
                         },
                         addListEntriesProxy: {
+                            addActionEnabled: false,
                             getListType: function() {
                                 return newList.list.type;
+                            }
+                        }
+                    };
+
+                    //
+                    // list
+                    //
+                    var list = {
+                        // TODO
+                        list: {
+                            name: 'Тендерная комиссия тендера на поставку оборудования',
+                            type: 'INDIVIDUAL'
+                        },
+                        // TODO
+                        entries: [],
+                        isEmpty: function() {
+                            return _.isEmpty(list.entries);
+                        },
+                        addListEntriesProxy: {
+                            addActionEnabled: true,
+                            getListType: function() {
+                                return list.list.type;
                             }
                         }
                     };
@@ -128,11 +151,12 @@ define(function(require, exports, module) {'use strict';
                     _.extend(scope, {
                         navigation: navigation,
                         lists: lists,
-                        newList: newList
+                        newList: newList,
+                        list: list
                     }, i18n.translateFuncs);
 
                     // test
-                    showNav('#np-connections-lists-new-list');
+                    showNav('#np-connections-lists-list');
 
                     // $log.warn('loading...');
                     // $timeout(function(){
@@ -163,7 +187,16 @@ define(function(require, exports, module) {'use strict';
                     //
                     _.extend(scope, {
                         target: null,
+                        text: null,
                         file: null,
+                        isAddActionReady: function() {
+                            return _.get(scope, 'proxy.addActionEnabled') &&
+                                ((scope.target === 'text' && scope.text) || scope.target === 'file');
+                        },
+                        cancel: function() {
+                            resetFile();
+                            resetTarget();
+                        },
                         doTarget: function(target) {
                             if (target === 'text') {
                                 resetFile();
@@ -178,26 +211,31 @@ define(function(require, exports, module) {'use strict';
 
                     //
                     fileElement.change(function(e){
-                        $timeout(function(){
-                            doFile();
-                        });
+                        scope.$apply(doFile());
                     });
 
                     function doFile() {
-                        scope.file = _.get(fileElement.get(0), 'files[0]');
+                        var file = _.get(fileElement.get(0), 'files[0]');
 
-                        $log.info('* file:', scope.file);
+                        $log.info('* file:', file);
 
-                        if (scope.file) {
-                            // fileReader.readAsDataURL(file);
-
-                            scope.doTarget('file');
+                        if (!file) {
+                            return;
                         }
+
+                        // fileReader.readAsDataURL(scope.file);
+
+                        scope.file = file;
+                        scope.doTarget('file');
                     }
 
                     function resetFile() {
                         scope.file = null;
                         formElement.get(0).reset();
+                    }
+
+                    function resetTarget() {
+                        scope.doTarget(null);
                     }
                 }
             };

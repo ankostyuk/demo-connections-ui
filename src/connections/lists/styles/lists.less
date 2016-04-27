@@ -53,34 +53,49 @@
     color: @orderElementColor;
 }
 
+[np-connections-lists] .list-info {
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+[np-connections-lists] .list-info .list-name {
+    font-size: 24.5px;
+    line-height: 30px;
+    color: @defaultLightColor;
+}
+[np-connections-lists] .list-info .list-type {
+    padding-top: 6px;
+}
+
 /* add-list-entries */
 [np-connections-lists] [np-connections-lists-add-list-entries] {
     margin-bottom: 20px;
-    padding: 20px 0;
+    padding: 20px 0 0 0;
     border-top: 1px solid @defaultLineColor;
     border-bottom: 1px solid @defaultLineColor;
 }
 [np-connections-lists-add-list-entries] .tools {
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 [np-connections-lists-add-list-entries] .inline {
     vertical-align: top;
 }
 [np-connections-lists-add-list-entries] .file-name {
-    width: 250px;
+    max-width: 250px;
     font-style: italic;
 }
 [np-connections-lists-add-list-entries] textarea {
     width: 366px;
     max-width: 366px;
-    margin: 5px 0;
-    /*border: 1px solid @linkActiveColor;*/
+    min-width: 366px;
+    margin: 0 0 10px 0;
+}
+[np-connections-lists-add-list-entries] .actions {
+    margin-bottom: 20px;
+}
+[np-connections-lists-add-list-entries] .actions a {
+    vertical-align: -5px;
 }
 
 /* new-list */
-[np-connections-lists] .new-list {
-    padding-top: 10px;
-}
-[np-connections-lists] .new-list .list-info {
-    margin-bottom: 20px;
-}
+
+/* list */
