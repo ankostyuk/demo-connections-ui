@@ -58,9 +58,14 @@
     padding-top: 10px;
 }
 [np-connections-lists] .list-info .list-name {
+    position: relative;
+    max-width: 400px;
     font-size: 24.5px;
     line-height: 30px;
     color: @defaultLightColor;
+}
+[np-connections-lists] .list-info .list-name [np-inline-edit] .inline-edit-input {
+    min-width: 400px;
 }
 [np-connections-lists] .list-info .list-type {
     padding-top: 6px;

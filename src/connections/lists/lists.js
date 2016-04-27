@@ -144,6 +144,11 @@ define(function(require, exports, module) {'use strict';
                             getListType: function() {
                                 return list.list.type;
                             }
+                        },
+                        inlineEditProxy: {
+                            onEdit: function(newText, oldText, data) {
+                                list.list.name = newText;
+                            }
                         }
                     };
 

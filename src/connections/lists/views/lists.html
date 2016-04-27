@@ -33,7 +33,7 @@
                 <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
             </ul>
             <div class="row list-info">
-                <div class="span5 list-name">{{list.list.name}}</div>
+                <div class="span list-name">{{list.list.name}}<span np-inline-edit="list.list.name" proxy="list.inlineEditProxy"></span></div>
                 <div class="muted align-right list-type">
                     <span ng-show="list.isEmpty()">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.list.type)}}</span>
                     <span ng-hide="list.isEmpty()">1 234 физических лиц</span>
