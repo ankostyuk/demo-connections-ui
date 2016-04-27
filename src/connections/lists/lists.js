@@ -139,6 +139,9 @@ define(function(require, exports, module) {'use strict';
                         isEmpty: function() {
                             return _.isEmpty(list.entries);
                         },
+                        remove: function() {
+                            $log.warn('* remove list');
+                        },
                         addListEntriesProxy: {
                             addActionEnabled: true,
                             getListType: function() {

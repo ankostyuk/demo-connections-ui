@@ -38,8 +38,6 @@ define(function(require, exports, module) {'use strict';
                 },
                 template: viewTemplates['inline-edit'].html,
                 link: function(scope, element, attrs) {
-                    $log.info('* npInlineEdit... scope:', scope);
-
                     var inputElement  = element.find('.inline-edit-input input');
 
                     //
@@ -99,6 +97,42 @@ define(function(require, exports, module) {'use strict';
                         scope.oldText = text;
                         scope.newText = text;
                     }
+                }
+            };
+        }])
+        //
+        .directive('npInlineConfirm', ['$log', function($log){
+            return {
+                restrict: 'A',
+                scope: false, // TODO true?
+                link: function(scope, element, attrs) {
+                    $log.info('* npInlineConfirm... scope:', scope, element, attrs);
+
+                    var confirmText = attrs['confirmText'];
+
+                    var confirmElement = $('<span>', {
+                        html: viewTemplates['inline-confirm'].html
+                    });
+
+                    confirmElement.find('.inline-confirm-text').text(confirmText);
+
+                    var confirmExp      = attrs['npInlineConfirm'],
+                        confirmHTML     = confirmElement.html(),
+                        originalHTML    = element.html(),
+                        confirm         = true;
+
+                    element.click(function(){
+                        $log.info('* npInlineConfirm click');
+
+                        if (confirm) {
+                            element.html(confirmHTML);
+                        } else {
+                            element.html(originalHTML);
+                            scope.$eval(confirmExp);
+                        }
+
+                        confirm = !confirm;
+                    });
                 }
             };
         }]);

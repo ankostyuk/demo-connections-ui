@@ -39,6 +39,9 @@
                     <span ng-hide="list.isEmpty()">1 234 физических лиц</span>
                 </div>
             </div>
+            <div class="align-right tools">
+                <button class="btn flat" np-inline-confirm="list.remove()" confirm-text="XXX"><i class="icon i-trash"></i>${_trc("Удалить список", "Пользовательские списки")}</button>
+            </div>
             <div np-connections-lists-add-list-entries="list.addListEntriesProxy"></div>
             <div class="muted align-center" ng-show="list.isEmpty()">
                 <span ng-show="list.list.type === 'COMPANY'">${_trc("Нет компаний в списке", "Пользовательские списки")}</span>
@@ -71,7 +74,7 @@
     </div>
 </script>
 
-<!-- lists-view -->
+<!-- add-list-entries-view -->
 <script id="add-list-entries-view" type="text/template">
     <div class="row tools">
         <form class="span8">
@@ -98,6 +101,7 @@
         </div>
         <div class="align-right">
             <button class="btn flat" ng-show="proxy.addActionEnabled" ng-disabled="!isAddActionReady()">
+                <i class="icon i-save-3"></i>&nbsp;
                 <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Добавить компании", "Пользовательские списки")}</span>
                 <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Добавить физических лиц", "Пользовательские списки")}</span>
             </button>
