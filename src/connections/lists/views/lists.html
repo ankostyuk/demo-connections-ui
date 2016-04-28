@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="align-right tools">
-                <button class="btn flat" np-inline-confirm="list.remove()" confirm-text="XXX"><i class="icon i-trash"></i>${_trc("Удалить список", "Пользовательские списки")}</button>
+                <button class="btn flat" np-inline-confirm="list.remove()" confirm-text='${_trc("Точно удалить список?", "Пользовательские списки")}'><i class="icon i-trash"></i>${_trc("Удалить список", "Пользовательские списки")}</button>
             </div>
             <div np-connections-lists-add-list-entries="list.addListEntriesProxy"></div>
             <div class="muted align-center" ng-show="list.isEmpty()">

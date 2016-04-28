@@ -104,10 +104,8 @@ define(function(require, exports, module) {'use strict';
         .directive('npInlineConfirm', ['$log', function($log){
             return {
                 restrict: 'A',
-                scope: false, // TODO true?
+                scope: false,
                 link: function(scope, element, attrs) {
-                    $log.info('* npInlineConfirm... scope:', scope, element, attrs);
-
                     var confirmText = attrs['confirmText'];
 
                     var confirmElement = $('<span>', {
@@ -121,18 +119,41 @@ define(function(require, exports, module) {'use strict';
                         originalHTML    = element.html(),
                         confirm         = true;
 
-                    element.click(function(){
-                        $log.info('* npInlineConfirm click');
+                    element
+                        .click(function(){
+                            doConfirm();
+                        })
+                        .blur(function(){
+                            reset();
+                        });
 
+                    function setConfirmHTML() {
+                        element.html(confirmHTML);
+                    }
+
+                    function setOriginalHTML() {
+                        element.html(originalHTML);
+                    }
+
+                    function doConfirm() {
                         if (confirm) {
-                            element.html(confirmHTML);
+                            setConfirmHTML();
                         } else {
-                            element.html(originalHTML);
+                            setOriginalHTML();
                             scope.$eval(confirmExp);
                         }
 
                         confirm = !confirm;
-                    });
+                    }
+
+                    function reset() {
+                        if (confirm) {
+                            return;
+                        }
+
+                        setOriginalHTML();
+                        confirm = true;
+                    }
                 }
             };
         }]);
