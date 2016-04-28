@@ -27,6 +27,7 @@
 [np-connections-lists] .lists {
     margin: 10px 0 0 0;
     list-style: none;
+    overflow: hidden;
 }
 [np-connections-lists] .lists > .list {
     display: block;
@@ -104,3 +105,18 @@
 /* new-list */
 
 /* list */
+[np-connections-lists] .list-entries {
+    padding-top: 20px;
+}
+[np-connections-lists] .list-entries .list-entry {
+    position: relative;
+    margin-bottom: 20px;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    border: 1px solid @defaultShadowBorderColor;
+    background-color: @defaultBackgroundColor;
+}
+[np-connections-lists] .list-entries .list-entry.shadow-lift-lb-corner:after {
+    background-color: @defaultBackgroundColor;
+}

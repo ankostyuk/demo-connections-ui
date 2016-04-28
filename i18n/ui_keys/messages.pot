@@ -20,3 +20,11 @@ msgstr ""
 #: ../i18n/ui_keys/src/keys.txt:1
 msgid "NP.CONNECTIONS.LIST_TYPE.COMPANY"
 msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL"
+msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY"
+msgstr ""

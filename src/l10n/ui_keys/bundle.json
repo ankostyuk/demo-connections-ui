@@ -7,6 +7,14 @@
         "cldrFormat": "one{0}few{1}many{2}other{2}"
       }
     },
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY": [
+      null,
+      "{'one': '{} компания', 'few': '{} компании', 'many': '{} компаний', 'other': '{} компании'}"
+    ],
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL": [
+      null,
+      "{'one': '{} физическое лицо', 'few': '{} физических лица', 'many': '{} физических лиц', 'other': '{} физического лица'}"
+    ],
     "NP.CONNECTIONS.LIST_TYPE.COMPANY": [
       null,
       "Компании"
@@ -24,6 +32,14 @@
         "cldrFormat": "one{0}other{1}"
       }
     },
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY": [
+      null,
+      "{'one': '1 company', 'other': '{} companies'}"
+    ],
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL": [
+      null,
+      "{'one': '1 individual', 'other': '{} individuals'}"
+    ],
     "NP.CONNECTIONS.LIST_TYPE.COMPANY": [
       null,
       "Companies"

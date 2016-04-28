@@ -1,0 +1,131 @@
+{
+    "listId": "list-x",
+
+    "total": 5,
+
+    "list": [{
+        "id": "list-x-entry-1",
+        "userData": "АО НКБ ВС 1026102571373",
+
+        "node": {
+            "individual_placeholders": [{
+                "_since": 1437685200000,
+                "sharePercent": 47.0,
+                "shareAmount": 2350000.0,
+                "name": "Граждане России"
+            }],
+            "_id": "1393300",
+            "nameshortsort": "АО НКБ ВС",
+            "okvedcode_main": "7310",
+            "disclosure_type": "interfax",
+            "okved_main_short_text": "Научные исследования и разработки",
+            "_type": "COMPANY",
+            "balance": [2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001],
+            "egrul_state": {
+                "_actual": 1423667580122,
+                "_since": 1027368000000,
+                "code": "5",
+                "type": "Действующее"
+            },
+            "okopfcode": 12247,
+            "ogrn": "1026102571373",
+            "namesort": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"НАУЧНО-КОНСТРУКТОРСКОЕ БЮРО ВЫЧИСЛИТЕЛЬНЫХ СИСТЕМ\"",
+            "addressindex": 347936,
+            "addresssort": "Ростовская Область, г Таганрог, ул 1 линия, 144-а",
+            "okved_bal_text": "Научные исследования и разработки в области естественных и технических наук",
+            "kpp": "615401001",
+            "chief_gender": "MALE",
+            "inn": "6154079450",
+            "founded_dt": 1003176000000,
+            "okfs_text": "Смешанная российская собственность с долей федеральной собственности",
+            "okved_main_text": "Научные исследования и разработки в области естественных и технических наук",
+            "p20103_2014": 806602000,
+            "okved_bal_short_text": "Научные исследования и разработки",
+            "okvedcode_bal": "7310",
+            "balance_forms_2008": [1, 2, 3, 4, 5],
+            "balance_forms_2007": [1, 2, 3, 4, 5],
+            "balance_forms_2009": [1, 2, 3, 4, 5],
+            "balance_forms_2002": [1, 2, 3, 4, 5],
+            "balance_forms_2001": [1, 2],
+            "balance_forms_2004": [1, 2, 3, 4, 5],
+            "balance_forms_2003": [1, 2, 3, 4, 5],
+            "balance_forms_2006": [1, 2, 3, 4, 5],
+            "balance_forms_2005": [1, 2, 3, 4, 5],
+            "balance_forms_2013": [1, 2, 3, 4, 6],
+            "balance_forms_2012": [1, 2, 3, 4],
+            "balance_forms_2011": [1, 2, 3, 4, 5],
+            "balance_forms_2010": [1, 2, 3, 4, 5],
+            "balance_forms_2014": [1, 2, 3, 4],
+            "egrul_reg": {
+                "_actual": 1423667580122,
+                "_since": 1003867200000,
+                "code": "100024",
+                "type": "Регистрация юридического лица до 01.07.2002 при создании"
+            },
+            "okpo": "57504223",
+            "chief_name": "Итенберг Игорь Ильич",
+            "_info": {
+                "updates": {
+                    "egrul": 1423667580122,
+                    "rosstat": 1456693200000,
+                    "xegrul": 1454443200000
+                },
+                "in": {
+                    "PHONE": 2,
+                    "FOUNDER_COMPANY": 2,
+                    "EXECUTIVE_INDIVIDUAL": 1,
+                    "REGISTER_HOLDER": 1,
+                    "ADDRESS": 1
+                },
+                "out": {
+                    "PARTICIPANT_COMPANY": 3
+                },
+                "matches": ["name", "namehistory"]
+            },
+            "okfscode": 41,
+            "bsn_id": 1393300,
+            "disclosure_id": "8671",
+            "name_diff": true,
+            "okatocode": 60437000000
+        },
+
+        "listId": "list-x"
+    }, {
+        "id": "list-x-entry-2",
+        "userData": "ООО \"РОМАШКА\"",
+
+        "validation": {
+            "status": "MULTIPLE",
+            "info": 1657
+        },
+
+        "listId": "list-x"
+    }, {
+        "id": "list-x-entry-3",
+        "userData": "0101010101",
+
+        "validation": {
+            "status": "NOT_FOUND"
+        },
+
+        "listId": "list-x"
+    }, {
+        "id": "list-x-entry-4",
+        "userData": "0101010101",
+
+        "validation": {
+            "status": "NOT_FOUND"
+        },
+
+        "listId": "list-x"
+    }, {
+        "id": "list-x-entry-5",
+        "userData": "0101010101",
+
+        "validation": {
+            "status": "NOT_FOUND"
+        },
+
+        "listId": "list-x"
+    }]
+}

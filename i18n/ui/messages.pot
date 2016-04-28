@@ -14,6 +14,26 @@ msgstr ""
 "CLDR_PLURAL_FORMS_FORMAT: one{0}few{1}many{2}other{2}\n"
 
 #: ../src/connections/desktop/views/desktop.html:1
+msgctxt "Для работы с приложением необходимо войти или зарегистрироваться"
+msgid "Для работы с приложением необходимо"
+msgstr ""
+
+#: ../src/connections/desktop/views/desktop.html:1
+msgctxt "Для работы с приложением необходимо войти или зарегистрироваться"
+msgid "войти"
+msgstr ""
+
+#: ../src/connections/desktop/views/desktop.html:1
+msgctxt "Для работы с приложением необходимо войти или зарегистрироваться"
+msgid "или"
+msgstr ""
+
+#: ../src/connections/desktop/views/desktop.html:1
+msgctxt "Для работы с приложением необходимо войти или зарегистрироваться"
+msgid "зарегистрироваться"
+msgstr ""
+
+#: ../src/connections/desktop/views/desktop.html:1
 msgctxt "Пользовательские списки"
 msgid "Списки"
 msgstr ""
@@ -21,6 +41,26 @@ msgstr ""
 #: ../src/connections/desktop/views/desktop.html:1
 msgctxt "Заказы на проверку взаимосвязей"
 msgid "Проверки связей"
+msgstr ""
+
+#: ../src/connections/desktop/views/desktop.html:1
+msgctxt "Уведомления пользователю"
+msgid "Уведомления"
+msgstr ""
+
+#: ../src/connections/directives/views/directives.html:1
+msgctxt "inline-edit"
+msgid "Сохранить"
+msgstr ""
+
+#: ../src/connections/directives/views/directives.html:1
+msgctxt "inline-edit"
+msgid "Отменить"
+msgstr ""
+
+#: ../src/connections/directives/views/directives.html:1
+msgctxt "inline-edit"
+msgid "Изменить"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -31,6 +71,10 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Новый список"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgid "Отметьте список или несколько списков для проверки связей"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -47,6 +91,96 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "вернуться к спискам"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Точно удалить список?"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Удалить список"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Нет компаний в списке"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Нет физических лиц в списке"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Введите наименование нового списка"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Укажите тип объектов в списке..."
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Добавить новый список"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Введите ... или добавьте из файла"
+msgid "Введите компании"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Введите ... или добавьте из файла"
+msgid "Введите физических лиц"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Введите ... или добавьте из файла"
+msgid "или"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Введите ... или добавьте из файла"
+msgid "добавьте из файла"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Пример файла с данными компаний"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Пример файла с данными физических лиц"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Введите ... или добавьте из файла"
+msgid "Одна строка — одна компания"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Введите ... или добавьте из файла"
+msgid "Одна строка — одно физическое лицо"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Отменить действие"
+msgid "Отменить"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Добавить компании"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Добавить физических лиц"
 msgstr ""
 
 #: ../src/nkb-app/index.html:1

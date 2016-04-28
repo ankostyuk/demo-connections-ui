@@ -12,7 +12,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "CLDR_PLURAL_FORMS_FORMAT: one{0}other{1}\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.6\n"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY"
+msgstr "{'one': '1 company', 'other': '{} companies'}"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL"
+msgstr "{'one': '1 individual', 'other': '{} individuals'}"
 
 #: ../i18n/ui_keys/src/keys.txt:1
 msgid "NP.CONNECTIONS.LIST_TYPE.COMPANY"

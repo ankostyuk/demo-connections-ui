@@ -16,8 +16,9 @@ define(function(require, exports, module) {'use strict';
 
     var testData = {
         'connections': {
-            'lists':    angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
-            'orders':   angular.fromJson(require('text!./data/connections/orders.json'))
+            'lists':            angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
+            'list-x-entries':   angular.fromJson(require('text!./data/connections/list-x-entries.json')),
+            'orders':           angular.fromJson(require('text!./data/connections/orders.json'))
         },
         'siteapp': {
             'login':            angular.fromJson(require('text!./data/siteapp/login.json')),
@@ -46,6 +47,7 @@ define(function(require, exports, module) {'use strict';
 
             // lists
             $httpBackend.whenGET('/connections/api/lists').respond(testData['connections']['lists']);
+            $httpBackend.whenGET('/connections/api/list/list-x/entries').respond(testData['connections']['list-x-entries']);
         }]);
     //
 });

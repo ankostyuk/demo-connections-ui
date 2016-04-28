@@ -38,6 +38,13 @@ define(function(require, exports, module) {'use strict';
                         method: 'GET',
                         url: config['lists.url']
                     }, null, options);
+                },
+
+                listEntries: function(options) {
+                    return npResource.request({
+                        method: 'GET',
+                        url: '/connections/api/list/list-x/entries' // TODO config['list-entries.url'] + listId
+                    }, null, options);
                 }
             };
         }])
@@ -110,17 +117,17 @@ define(function(require, exports, module) {'use strict';
                     // new-list
                     //
                     var newList = {
-                        list: {
+                        info: {
                             name: null,
-                            type: 'COMPANY' // TODO null
+                            type: null
                         },
                         isReady: function() {
-                            return newList.list.name && newList.list.type;
+                            return newList.info.name && newList.info.type;
                         },
                         addListEntriesProxy: {
                             addActionEnabled: false,
                             getListType: function() {
-                                return newList.list.type;
+                                return newList.info.type;
                             }
                         }
                     };
@@ -130,14 +137,14 @@ define(function(require, exports, module) {'use strict';
                     //
                     var list = {
                         // TODO
-                        list: {
-                            name: 'Тендерная комиссия тендера на поставку оборудования',
-                            type: 'INDIVIDUAL'
+                        info: {
+                            name: 'Компании-участники тендера на поставку оборудования для цеха №1',
+                            type: 'COMPANY'
                         },
                         // TODO
-                        entries: [],
+                        entries: null,
                         isEmpty: function() {
-                            return _.isEmpty(list.entries);
+                            return _.isEmpty(_.get(list.entries, 'list'));
                         },
                         remove: function() {
                             $log.warn('* remove list');
@@ -145,15 +152,30 @@ define(function(require, exports, module) {'use strict';
                         addListEntriesProxy: {
                             addActionEnabled: true,
                             getListType: function() {
-                                return list.list.type;
+                                return list.info.type;
                             }
                         },
                         inlineEditProxy: {
                             onEdit: function(newText, oldText, data) {
-                                list.list.name = newText;
+                                list.info.name = newText;
                             }
                         }
                     };
+
+                    function showListEntries() {
+                        list.request = npConnectionsListsResource.listEntries({
+                            success: function(data){
+                                list.entries = data;
+                                $log.info('getting list entries...', list.entries);
+                            },
+                            error: function(){
+                                $log.warn('getting list entries... error');
+                            },
+                            previousRequest: list.request
+                        });
+                    }
+
+                    showListEntries();
 
                     //
                     _.extend(scope, {
