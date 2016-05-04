@@ -12,15 +12,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "CLDR_PLURAL_FORMS_FORMAT: one{0}other{1}\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #: ../i18n/ui_keys/src/keys.txt:1
 msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY"
 msgstr "{'one': '1 company', 'other': '{} companies'}"
 
 #: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_MULTIPLE"
+msgstr "{'one': '1 company found', 'other': '{} companies found'}"
+
+#: ../i18n/ui_keys/src/keys.txt:1
 msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL"
 msgstr "{'one': '1 individual', 'other': '{} individuals'}"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_MULTIPLE"
+msgstr "{'one': '1 individual found', 'other': '{} individuals found'}"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_NOT_FOUND"
+msgstr "Компания не найдена"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_NOT_FOUND"
+msgstr "Физическое лицо не найдено"
 
 #: ../i18n/ui_keys/src/keys.txt:1
 msgid "NP.CONNECTIONS.LIST_TYPE.COMPANY"

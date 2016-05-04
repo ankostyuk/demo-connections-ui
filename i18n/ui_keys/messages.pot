@@ -28,3 +28,19 @@ msgstr ""
 #: ../i18n/ui_keys/src/keys.txt:1
 msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY"
 msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_NOT_FOUND"
+msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_NOT_FOUND"
+msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_MULTIPLE"
+msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_MULTIPLE"
+msgstr ""

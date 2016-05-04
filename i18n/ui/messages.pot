@@ -115,6 +115,21 @@ msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
+msgid "Ваши данные"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Уточните данные по компании"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Уточните данные по физическим лицам"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
 msgid "Введите наименование нового списка"
 msgstr ""
 

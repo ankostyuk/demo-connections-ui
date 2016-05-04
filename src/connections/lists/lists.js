@@ -143,11 +143,30 @@ define(function(require, exports, module) {'use strict';
                         },
                         // TODO
                         entries: null,
+                        checked: {},
                         isEmpty: function() {
                             return _.isEmpty(_.get(list.entries, 'list'));
                         },
                         remove: function() {
                             $log.warn('* remove list');
+                        },
+                        clean: function() {
+                            $log.warn('* clean list');
+                        },
+                        removeCheckedEntries: function() {
+                            $log.warn('* removeCheckedEntries...', list.checked);
+                        },
+                        check: function(entry) {
+                            entry.__checked = !entry.__checked;
+
+                            if (entry.__checked) {
+                                list.checked[entry.id] = entry;
+                            } else {
+                                delete list.checked[entry.id];
+                            }
+                        },
+                        isChecked: function() {
+                            return !_.isEmpty(list.checked);
                         },
                         addListEntriesProxy: {
                             addActionEnabled: true,
@@ -166,6 +185,16 @@ define(function(require, exports, module) {'use strict';
                         list.request = npConnectionsListsResource.listEntries({
                             success: function(data){
                                 list.entries = data;
+                                _.each(list.entries.list, function(entry){
+                                    entry.__inlineEditProxy = {
+                                        onEdit: function(newText, oldText, data) {
+                                            $log.info('* list entry onEdit...', newText, oldText, entry);
+                                            entry.userData = newText;
+                                            // TODO
+                                        }
+                                    };
+
+                                });
                                 $log.info('getting list entries...', list.entries);
                             },
                             error: function(){

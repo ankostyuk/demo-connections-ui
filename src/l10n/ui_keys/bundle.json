@@ -11,9 +11,25 @@
       null,
       "{'one': '{} компания', 'few': '{} компании', 'many': '{} компаний', 'other': '{} компании'}"
     ],
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_MULTIPLE": [
+      null,
+      "{'one': 'Найдена {} компания', 'few': 'Найдено {} компании', 'many': 'Найдено {} компаний', 'other': 'Найдено {} компании'}"
+    ],
     "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL": [
       null,
       "{'one': '{} физическое лицо', 'few': '{} физических лица', 'many': '{} физических лиц', 'other': '{} физического лица'}"
+    ],
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_MULTIPLE": [
+      null,
+      "{'one': 'Найдено {} физическое лицо', 'few': 'Найдено {} физических лица', 'many': 'Найдено {} физических лиц', 'other': 'Найдено {} физического лица'}"
+    ],
+    "NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_NOT_FOUND": [
+      null,
+      "Компания не найдена"
+    ],
+    "NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_NOT_FOUND": [
+      null,
+      "Физическое лицо не найдено"
     ],
     "NP.CONNECTIONS.LIST_TYPE.COMPANY": [
       null,
@@ -36,9 +52,25 @@
       null,
       "{'one': '1 company', 'other': '{} companies'}"
     ],
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_MULTIPLE": [
+      null,
+      "{'one': '1 company found', 'other': '{} companies found'}"
+    ],
     "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL": [
       null,
       "{'one': '1 individual', 'other': '{} individuals'}"
+    ],
+    "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_MULTIPLE": [
+      null,
+      "{'one': '1 individual found', 'other': '{} individuals found'}"
+    ],
+    "NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_NOT_FOUND": [
+      null,
+      "Компания не найдена"
+    ],
+    "NP.CONNECTIONS.LIST_ENTRIES.INDIVIDUAL.OBJECT_NOT_FOUND": [
+      null,
+      "Физическое лицо не найдено"
     ],
     "NP.CONNECTIONS.LIST_TYPE.COMPANY": [
       null,

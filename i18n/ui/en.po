@@ -14,6 +14,11 @@ msgstr ""
 "CLDR_PLURAL_FORMS_FORMAT: one{0}other{1}\n"
 
 #: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Ваши данные"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
 msgctxt "Введите ... или добавьте из файла"
 msgid "Введите компании"
 msgstr ""
@@ -167,6 +172,16 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Укажите тип объектов в списке..."
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Уточните данные по компании"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Уточните данные по физическим лицам"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1

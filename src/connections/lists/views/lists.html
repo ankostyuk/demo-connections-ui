@@ -48,20 +48,38 @@
                 <span ng-show="list.info.type === 'INDIVIDUAL'">${_trc("Нет физических лиц в списке", "Пользовательские списки")}</span>
             </div>
             <div class="list-entries" ng-hide="list.isEmpty()">
+                <div class="align-right tools">
+                    <button class="btn flat"ng-show="list.info.type === 'COMPANY'" ng-disabled="!list.isChecked()" np-inline-confirm="list.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранные компании из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранные компании из списка", "Пользовательские списки")}</button>
+                    <button class="btn flat"ng-show="list.info.type === 'INDIVIDUAL'" ng-disabled="!list.isChecked()" np-inline-confirm="list.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранных физических лиц из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранных физических лиц из списка", "Пользовательские списки")}</button>
+
+                    <button class="btn flat" np-inline-confirm="list.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
+                </div>
                 <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in list.entries.list track by $index">
                     <div class="row info">
                         <div class="span1 entry-checked-wrapper">
                             <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="list.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
                         </div>
-                        <div class="span8 user-data-wrapper">
-                            {{entry.userData}}
+                        <div class="span11 user-data-wrapper">
+                            <div class="row">
+                                <div class="user-data-label">${_trc("Ваши данные", "Пользовательские списки")}:</div>
+                                <div class="user-data">
+                                    <div class="text text-ellipsis">{{entry.userData}}</div>
+                                    <span class="mini" np-inline-edit="entry.userData" proxy="entry.__inlineEditProxy" data="entry"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="node-info" ng-show="entry.node">
                         {{entry.node._type + '.' + entry.node._id}}
                     </div>
                     <div class="validation-info" ng-show="entry.validation">
-                        {{entry.validation.status}}
+                        <span ng-show="entry.validation.status === 'NOT_FOUND'">{{_tr('NP.CONNECTIONS.LIST_ENTRIES.' + list.info.type + '.OBJECT_NOT_FOUND')}}</span>
+                        <span ng-show="entry.validation.status === 'MULTIPLE'"><np-pluralize plural="{count: entry.validation.info, when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + list.info.type + '.OBJECT_MULTIPLE')}"></np-pluralize></span>
+                        &mdash;
+                        <a ng-click="entry.__inlineEditProxy.on()">
+                            <span ng-show="list.info.type === 'COMPANY'">${_trc("уточните данные по компании", "Пользовательские списки")}</span>
+                            <span ng-show="list.info.type === 'INDIVIDUAL'">${_trc("уточните данные по физическому лицу", "Пользовательские списки")}</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -110,8 +128,8 @@
         </div>
     </div>
     <div ng-show="target === 'text'">
-        <textarea rows="5" placeholder='${_trc("Одна строка — одна компания", "Введите ... или добавьте из файла")}' ng-model="text" ng-show="proxy.getListType() === 'COMPANY'"></textarea>
-        <textarea rows="5" placeholder='${_trc("Одна строка — одно физическое лицо", "Введите ... или добавьте из файла")}' ng-model="text" ng-show="proxy.getListType() === 'INDIVIDUAL'"></textarea>
+        <textarea rows="5" wrap="off" placeholder='${_trc("Одна строка — одна компания", "Введите ... или добавьте из файла")}' ng-model="text" ng-show="proxy.getListType() === 'COMPANY'"></textarea>
+        <textarea rows="5" wrap="off" placeholder='${_trc("Одна строка — одно физическое лицо", "Введите ... или добавьте из файла")}' ng-model="text" ng-show="proxy.getListType() === 'INDIVIDUAL'"></textarea>
     </div>
     <div class="row actions" ng-show="target">
         <div class="span5">

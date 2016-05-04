@@ -60,16 +60,22 @@ define(function(require, exports, module) {'use strict';
                     _.extend(scope, {
                         active: false,
                         on: function() {
-                            initText();
+                            if (!scope.active) {
+                                initText();
 
-                            scope.active = true;
-                            element.addClass('active');
+                                scope.active = true;
+                                element.addClass('active');
+                            }
 
                             $timeout(function(){
                                 inputElement.focus();
                             });
                         },
                         off: function() {
+                            if (!scope.active) {
+                                return;
+                            }
+
                             scope.active = false;
                             element.removeClass('active');
                         },
@@ -87,6 +93,9 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     _.extend(scope.proxy, {
+                        on: function() {
+                            scope.on();
+                        },
                         off: function() {
                             scope.off();
                         }
