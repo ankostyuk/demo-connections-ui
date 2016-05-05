@@ -115,17 +115,47 @@ msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
+msgid "Точно удалить выбранные компании из списка?"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Удалить выбранные компании из списка"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Точно удалить выбранных физических лиц из списка?"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Удалить выбранных физических лиц из списка"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Точно очистить весь список?"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
+msgid "Очистить весь список"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "Пользовательские списки"
 msgid "Ваши данные"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
-msgid "Уточните данные по компании"
+msgid "уточните данные по компании"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
-msgid "Уточните данные по физическим лицам"
+msgid "уточните данные по физическому лицу"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1

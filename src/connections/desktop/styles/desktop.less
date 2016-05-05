@@ -1,5 +1,7 @@
 @import './config.less';
+@import '../../../../external_components/nullpointer-rsearch/nkb-app/styles/rsearch.less';
 
+/* np-connections-desktop */
 [np-connections-desktop] .authenticate-info {
     padding-top: 40px;
 }
@@ -11,4 +13,17 @@
 
 [np-connections-desktop] .desktop-tab .badge {
     vertical-align: 1px;
+}
+
+/* np-connections-node-info np-rsearch-node-info */
+[np-connections-node-info].np-rsearch-node-info .node-info,
+[np-connections-node-info].np-rsearch-node-info .balance-forms {
+    display: none;
+}
+[np-connections-node-info].np-rsearch-node-info .node-header {
+    font-size: 125%;
+}
+[np-connections-node-info].np-rsearch-node-info a.action {
+    color: @defaultColor !important;
+    cursor: text !important;
 }

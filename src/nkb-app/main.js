@@ -115,6 +115,15 @@ root._RESOURCES_CONFIG = {
         name: 'i18n',
         location: 'external_components/nullpointer-i18n',
         main: 'i18n'
+    },
+    // TODO https://github.com/newpointer/connections-ui/issues/6
+    {
+        name: 'autokad',
+        location: 'external_components/nullpointer-autokad/autokad',
+        main: 'autokad'
+    }, {
+        name: 'nkb.extraneous',
+        location: 'external_components/nullpointer-rsearch/extraneous'
     }, {
         name: 'nullpointer-rsearch',
         location: 'external_components/nullpointer-rsearch'

@@ -63,11 +63,12 @@
             "utils": "src/utils"
         },
         "nullpointer-rsearch": {
-          "utils": "src/utils",
-          "l10n": "src/l10n",
-          "rsearch": "src/rsearch",
-          "nkb-app/components": "src/nkb-app/components",
-          "nkb-app/styles": "src/nkb-app/styles"
+            "extraneous": "src/extraneous",
+            "utils": "src/utils",
+            "l10n": "src/l10n",
+            "rsearch": "src/rsearch",
+            "nkb-app/components": "src/nkb-app/components",
+            "nkb-app/styles": "src/nkb-app/styles"
         },
         "nkbcomment": {},
         "backbone": {},
