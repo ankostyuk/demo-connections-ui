@@ -2,25 +2,25 @@
 <script id="lists-view" type="text/template">
     <div class="tab-content">
         <!-- Просмотр списков -->
-        <div class="tab-pane active" id="np-connections-lists-lists">
+        <div class="tab-pane active lists-set" id="np-connections-lists-lists-set">
             <ul class="row lists-nav tools">
-                <li class="span6" ng-show="navigation.prevTarget === '#np-connections-lists-list'"><a data-target="#np-connections-lists-list" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру списка", "Пользовательские списки")}</a></li>
+                <li class="span6" ng-show="navigation.prevTarget === '#np-connections-lists-current-list'"><a data-target="#np-connections-lists-current-list" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру списка", "Пользовательские списки")}</a></li>
                 <li class="align-right"><a data-target="#np-connections-lists-new-list" ng-click="navigation.doNav($event)"><i class="icon i-plus"></i> ${_trc("Новый список", "Пользовательские списки")}</a></li>
             </ul>
-            <div class="row tools order" ng-hide="lists.isEmpty()">
+            <div class="row tools order" ng-hide="listsSet.isEmpty()">
                 <div class="span8 muted">${_tr("Отметьте список или несколько списков для проверки связей")}</div>
                 <div class="align-right">
-                    <button class="btn flat order-btn" ng-disabled="!lists.isChecked()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>
+                    <button class="btn flat order-btn" ng-disabled="!listsSet.isChecked()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>
                 </div>
             </div>
-            <div class="muted align-center" ng-show="lists.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
-            <ul class="lists" ng-hide="lists.isEmpty()">
-                <li class="row list" ng-repeat="list in lists.list track by $index">
+            <div class="muted align-center" ng-show="listsSet.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
+            <ul class="lists" ng-hide="listsSet.isEmpty()">
+                <li class="row list" ng-repeat="list in listsSet.result track by $index">
                     <div class="span1 list-checked-wrapper">
-                        <a class="list-checked" ng-class="{'checked': list.__checked}" ng-click="lists.check(list)"><i class="icon" ng-class="{'i-check-checked': list.__checked, 'i-check-unchecked': !list.__checked}"></i></a>
+                        <a class="list-checked" ng-class="{'checked': list.__checked}" ng-click="listsSet.check(list)"><i class="icon" ng-class="{'i-check-checked': list.__checked, 'i-check-unchecked': !list.__checked}"></i></a>
                     </div>
                     <div class="span8 list-name-wrapper">
-                        <a data-target="#np-connections-lists-list" ng-click="navigation.doNav($event)">{{list.name}}</a>
+                        <a data-target="#np-connections-lists-current-list" ng-click="navigation.doNav($event)">{{list.name}}</a>
                     </div>
                     <div class="muted align-right">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.type)}}</div>
                 </li>
@@ -28,36 +28,36 @@
         </div>
 
         <!-- Просмотр списка -->
-        <div class="tab-pane" id="np-connections-lists-list">
+        <div class="tab-pane current-list" id="np-connections-lists-current-list">
             <ul class="row lists-nav tools">
-                <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
+                <li class="span6"><a data-target="#np-connections-lists-lists-set" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
             </ul>
             <div class="row list-info">
-                <div class="span list-name">{{list.info.name}}<span np-inline-edit="list.info.name" proxy="list.inlineEditProxy"></span></div>
+                <div class="span list-name">{{currentList.info.name}}<span np-inline-edit="currentList.info.name" proxy="currentList.inlineEditProxy"></span></div>
                 <div class="muted align-right list-type">
-                    <span ng-show="list.isEmpty()">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.info.type)}}</span>
-                    <span ng-hide="list.isEmpty()"><np-pluralize plural="{count: list.entries.total, when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + list.info.type)}"></np-pluralize></span>
+                    <span ng-show="currentList.isEmpty()">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + currentList.info.type)}}</span>
+                    <span ng-hide="currentList.isEmpty()"><np-pluralize plural="{count: currentList.getEntriesCount(), when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type)}"></np-pluralize></span>
                 </div>
             </div>
             <div class="align-right tools">
-                <button class="btn flat" np-inline-confirm="list.remove()" confirm-text='${_trc("Точно удалить список?", "Пользовательские списки")}'><i class="icon i-trash"></i>${_trc("Удалить список", "Пользовательские списки")}</button>
+                <button class="btn flat" np-inline-confirm="currentList.remove()" confirm-text='${_trc("Точно удалить список?", "Пользовательские списки")}'><i class="icon i-trash"></i>${_trc("Удалить список", "Пользовательские списки")}</button>
             </div>
-            <div np-connections-lists-add-list-entries="list.addListEntriesProxy"></div>
-            <div class="muted align-center" ng-show="list.isEmpty()">
-                <span ng-show="list.info.type === 'COMPANY'">${_trc("Нет компаний в списке", "Пользовательские списки")}</span>
-                <span ng-show="list.info.type === 'INDIVIDUAL'">${_trc("Нет физических лиц в списке", "Пользовательские списки")}</span>
+            <div np-connections-lists-add-list-entries="currentList.addListEntriesProxy"></div>
+            <div class="muted align-center" ng-show="currentList.isEmpty()">
+                <span ng-show="currentList.info.type === 'COMPANY'">${_trc("Нет компаний в списке", "Пользовательские списки")}</span>
+                <span ng-show="currentList.info.type === 'INDIVIDUAL'">${_trc("Нет физических лиц в списке", "Пользовательские списки")}</span>
             </div>
-            <div class="list-entries" ng-hide="list.isEmpty()">
+            <div class="list-entries" ng-hide="currentList.isEmpty()">
                 <div class="align-right tools">
-                    <button class="btn flat"ng-show="list.info.type === 'COMPANY'" ng-disabled="!list.isChecked()" np-inline-confirm="list.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранные компании из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранные компании из списка", "Пользовательские списки")}</button>
-                    <button class="btn flat"ng-show="list.info.type === 'INDIVIDUAL'" ng-disabled="!list.isChecked()" np-inline-confirm="list.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранных физических лиц из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранных физических лиц из списка", "Пользовательские списки")}</button>
+                    <button class="btn flat"ng-show="currentList.info.type === 'COMPANY'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранные компании из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранные компании из списка", "Пользовательские списки")}</button>
+                    <button class="btn flat"ng-show="currentList.info.type === 'INDIVIDUAL'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранных физических лиц из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранных физических лиц из списка", "Пользовательские списки")}</button>
 
-                    <button class="btn flat" np-inline-confirm="list.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
+                    <button class="btn flat" np-inline-confirm="currentList.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
                 </div>
-                <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in list.entries.list track by $index">
+                <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.result.list track by $index">
                     <div class="row info">
                         <div class="span1 entry-checked-wrapper">
-                            <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="list.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
+                            <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="currentList.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
                         </div>
                         <div class="span11 user-data-wrapper">
                             <div class="row">
@@ -71,12 +71,12 @@
                     </div>
                     <div class="np-rsearch-node-info" ng-show="entry.node" np-connections-node-info="entry.node"></div>
                     <div class="validation-info" ng-show="entry.validation">
-                        <span ng-show="entry.validation.status === 'NOT_FOUND'">{{_tr('NP.CONNECTIONS.LIST_ENTRIES.' + list.info.type + '.OBJECT_NOT_FOUND')}}</span>
-                        <span ng-show="entry.validation.status === 'MULTIPLE'"><np-pluralize plural="{count: entry.validation.info, when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + list.info.type + '.OBJECT_MULTIPLE')}"></np-pluralize></span>
+                        <span ng-show="entry.validation.status === 'NOT_FOUND'">{{_tr('NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_NOT_FOUND')}}</span>
+                        <span ng-show="entry.validation.status === 'MULTIPLE'"><np-pluralize plural="{count: entry.validation.info, when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_MULTIPLE')}"></np-pluralize></span>
                         &mdash;
                         <a ng-click="entry.__inlineEditProxy.on()">
-                            <span ng-show="list.info.type === 'COMPANY'">${_trc("уточните данные по компании", "Пользовательские списки")}</span>
-                            <span ng-show="list.info.type === 'INDIVIDUAL'">${_trc("уточните данные по физическому лицу", "Пользовательские списки")}</span>
+                            <span ng-show="currentList.info.type === 'COMPANY'">${_trc("уточните данные по компании", "Пользовательские списки")}</span>
+                            <span ng-show="currentList.info.type === 'INDIVIDUAL'">${_trc("уточните данные по физическому лицу", "Пользовательские списки")}</span>
                         </a>
                     </div>
                 </div>
@@ -84,9 +84,9 @@
         </div>
 
         <!-- Новый список -->
-        <div class="tab-pane" id="np-connections-lists-new-list">
+        <div class="tab-pane new-list" id="np-connections-lists-new-list">
             <ul class="row lists-nav tools">
-                <li class="span6"><a data-target="#np-connections-lists-lists" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
+                <li class="span6"><a data-target="#np-connections-lists-lists-set" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
             </ul>
             <div class="row list-info">
                 <div class="span5">

@@ -23,37 +23,38 @@
     border-color: @orderElementColor;
 }
 
-/* lists */
-[np-connections-lists] .lists {
+/* lists-set */
+[np-connections-lists] .lists-set .lists {
     margin: 10px 0 0 0;
     list-style: none;
     overflow: hidden;
 }
-[np-connections-lists] .lists > .list {
+[np-connections-lists] .lists-set .lists > .list {
     display: block;
     padding: 10px 0;
     border-top: 1px solid @defaultLineColor;
 }
-[np-connections-lists] .lists > .list:first-child {
+[np-connections-lists] .lists-set .lists > .list:first-child {
     border-top: 0 none;
 }
-[np-connections-lists] .lists > .list .list-checked-wrapper {
+[np-connections-lists] .lists-set .lists > .list .list-checked-wrapper {
     width: 16px;
 }
-[np-connections-lists] .lists > .list .list-checked {
+[np-connections-lists] .lists-set .lists > .list .list-checked {
     display: inline-block;
     width: 16px;
     vertical-align: -2px;
     font-size: 120%;
 }
-[np-connections-lists] .lists > .list .list-checked:hover,
-[np-connections-lists] .lists > .list .list-checked.checked {
+[np-connections-lists] .lists-set .lists > .list .list-checked:hover,
+[np-connections-lists] .lists-set .lists > .list .list-checked.checked {
     color: @orderElementColor;
 }
-[np-connections-lists] .lists > .list .list-name-wrapper {
+[np-connections-lists] .lists-set .lists > .list .list-name-wrapper {
     margin-left: 10px;
 }
 
+/* list-info */
 [np-connections-lists] .list-info {
     margin-bottom: 20px;
     padding-top: 10px;
@@ -70,6 +71,68 @@
 }
 [np-connections-lists] .list-info .list-type {
     padding-top: 6px;
+}
+
+/* new-list */
+
+/* current-list */
+[np-connections-lists] .current-list .list-entries .list-entry {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 7px;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    border: 1px solid @defaultShadowBorderColor;
+    background-color: @defaultBackgroundColor;
+}
+[np-connections-lists] .current-list .list-entries .list-entry.shadow-lift-lb-corner:after {
+    background-color: @defaultBackgroundColor;
+}
+[np-connections-lists] .current-list .list-entries .entry-checked-wrapper {
+    width: 16px;
+}
+[np-connections-lists] .current-list .list-entries .entry-checked {
+    display: inline-block;
+    width: 16px;
+    vertical-align: -2px;
+    font-size: 120%;
+}
+[np-connections-lists] .current-list .list-entries .user-data-wrapper {
+    margin-left: 10px;
+}
+[np-connections-lists] .current-list .list-entries .user-data-wrapper .row {
+    margin-left: 0;
+}
+[np-connections-lists] .current-list .list-entries .list-entry .user-data-label {
+    float: left;
+    padding-right: 5px;
+    color: @userDataColor;
+}
+[np-connections-lists] .current-list .list-entries .list-entry .user-data {
+    float: left;
+    position: relative;
+    max-width: 400px;
+}
+[np-connections-lists] .current-list .list-entries .list-entry .user-data .text {
+    color: @userDataColor;
+}
+[np-connections-lists] .current-list .list-entries .list-entry .user-data [np-inline-edit] .inline-edit-input {
+    min-width: 400px;
+}
+[np-connections-lists] .current-list .list-entries .list-entry .user-data [np-inline-edit] .inline-edit-on {
+    visibility: hidden;
+}
+[np-connections-lists] .current-list .list-entries .list-entry:hover .user-data [np-inline-edit] .inline-edit-on {
+    visibility: visible;
+}
+[np-connections-lists] .current-list .list-entries .list-entry .validation-info {
+    padding: 5px 0 0 2px;
+    color: @userDataColor;
+}
+[np-connections-lists] .current-list .list-entries .list-entry [np-connections-node-info] {
+    margin-bottom: -5px;
+    padding: 10px 0 0 2px;
 }
 
 /* add-list-entries */
@@ -101,66 +164,4 @@
 }
 [np-connections-lists-add-list-entries] .actions a {
     vertical-align: -5px;
-}
-
-/* new-list */
-
-/* list */
-[np-connections-lists] .list-entries .list-entry {
-    position: relative;
-    margin-bottom: 20px;
-    padding: 7px;
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
-    border: 1px solid @defaultShadowBorderColor;
-    background-color: @defaultBackgroundColor;
-}
-[np-connections-lists] .list-entries .list-entry.shadow-lift-lb-corner:after {
-    background-color: @defaultBackgroundColor;
-}
-[np-connections-lists] .list-entries .entry-checked-wrapper {
-    width: 16px;
-}
-[np-connections-lists] .list-entries .entry-checked {
-    display: inline-block;
-    width: 16px;
-    vertical-align: -2px;
-    font-size: 120%;
-}
-[np-connections-lists] .list-entries .user-data-wrapper {
-    margin-left: 10px;
-}
-[np-connections-lists] .list-entries .user-data-wrapper .row {
-    margin-left: 0;
-}
-[np-connections-lists] .list-entries .list-entry .user-data-label {
-    float: left;
-    padding-right: 5px;
-    color: @userDataColor;
-}
-[np-connections-lists] .list-entries .list-entry .user-data {
-    float: left;
-    position: relative;
-    max-width: 400px;
-}
-[np-connections-lists] .list-entries .list-entry .user-data .text {
-    color: @userDataColor;
-}
-[np-connections-lists] .list-entries .list-entry .user-data [np-inline-edit] .inline-edit-input {
-    min-width: 400px;
-}
-[np-connections-lists] .list-entries .list-entry .user-data [np-inline-edit] .inline-edit-on {
-    visibility: hidden;
-}
-[np-connections-lists] .list-entries .list-entry:hover .user-data [np-inline-edit] .inline-edit-on {
-    visibility: visible;
-}
-[np-connections-lists] .list-entries .list-entry .validation-info {
-    padding: 5px 0 0 2px;
-    color: @userDataColor;
-}
-[np-connections-lists] .list-entries .list-entry [np-connections-node-info] {
-    margin-bottom: -5px;
-    padding: 10px 0 0 2px;
 }

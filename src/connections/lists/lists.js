@@ -49,143 +49,135 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('npConnectionsLists', ['$log', '$timeout', '$rootScope', 'npConnectionsListsResource', function($log, $timeout, $rootScope, npConnectionsListsResource){
+        .factory('npConnectionsListsFactory', ['$log', 'npConnectionsListsResource', function($log, npConnectionsListsResource){
+            // Classes
             return {
-                restrict: 'A',
-                scope: {},
-                template: viewTemplates['lists-view'].html,
-                link: function(scope, element, attrs) {
-                    //
-                    // navigation
-                    //
-                    var navigation = {
-                        currentTarget: null,
-                        prevTarget: null,
-                        doNav: function(e) {
-                            e.preventDefault();
-                            showNav($(e.currentTarget).attr('data-target'));
+                // Lists Set
+                ListsSet: function() {
+                    var me          = this,
+                        _request    = null,
+                        _checked    = {};
+
+                    me.result = [];
+
+                    me.isEmpty = function() {
+                        return _.isEmpty(me.result);
+                    };
+
+                    me.check = function(list) {
+                        list.__checked = !list.__checked;
+
+                        if (list.__checked) {
+                            _checked[list.id] = list;
+                        } else {
+                            delete _checked[list.id];
                         }
                     };
 
-                    function showNav(target) {
-                        element.find('[data-target="' + target + '"]').eq(0)
-                            .tab('show').parent('li').removeClass('active');
-
-                        scope.navigation.prevTarget = scope.navigation.currentTarget;
-                        scope.navigation.currentTarget = target;
-                    }
-
-                    //
-                    // lists
-                    //
-                    var lists = {
-                        request: null,
-                        list: [],
-                        checked: {},
-                        isEmpty: function() {
-                            return _.isEmpty(lists.list);
-                        },
-                        check: function(list) {
-                            list.__checked = !list.__checked;
-
-                            if (list.__checked) {
-                                lists.checked[list.id] = list;
-                            } else {
-                                delete lists.checked[list.id];
-                            }
-                        },
-                        isChecked: function() {
-                            return !_.isEmpty(lists.checked);
-                        }
+                    me.isChecked = function() {
+                        return !_.isEmpty(_checked);
                     };
 
-                    function showLists() {
-                        lists.request = npConnectionsListsResource.lists({
+                    me.fetch = function() {
+                        _request = npConnectionsListsResource.lists({
                             success: function(data){
-                                lists.list = data;
+                                me.result = data;
                             },
                             error: function(){
                                 $log.warn('getting lists... error');
                             },
-                            previousRequest: lists.request
+                            previousRequest: _request
                         });
-                    }
+                    };
+                },
 
-                    showLists();
+                // New List
+                NewList: function() {
+                    var me = this;
 
-                    //
-                    // new-list
-                    //
-                    var newList = {
-                        info: {
-                            name: null,
-                            type: null
-                        },
-                        isReady: function() {
-                            return newList.info.name && newList.info.type;
-                        },
-                        addListEntriesProxy: {
-                            addActionEnabled: false,
-                            getListType: function() {
-                                return newList.info.type;
-                            }
+                    me.info = {
+                        name: null,
+                        type: null
+                    };
+
+                    me.isReady = function() {
+                        return me.info.name && me.info.type;
+                    };
+
+                    me.addListEntriesProxy = {
+                        addActionEnabled: false,
+                        getListType: function() {
+                            return me.info.type;
+                        }
+                    };
+                },
+
+                // Current List
+                CurrentList: function() {
+                    var me          = this,
+                        _request    = null,
+                        _checked    = {};
+
+                    // TODO
+                    me.info = {
+                        name: 'Компании-участники тендера на поставку оборудования для цеха №1',
+                        type: 'COMPANY'
+                    };
+
+                    // TODO
+                    me.result = null;
+
+                    me.getEntriesCount = function() {
+                        return _.get(me.result, 'total');
+                    };
+
+                    me.isEmpty = function() {
+                        return !me.getEntriesCount();
+                    };
+
+                    me.remove = function() {
+                        $log.warn('* remove list');
+                    };
+
+                    me.clean = function() {
+                        $log.warn('* clean list');
+                    };
+
+                    me.removeCheckedEntries = function() {
+                        $log.warn('* removeCheckedEntries...', _checked);
+                    };
+
+                    me.check = function(entry) {
+                        entry.__checked = !entry.__checked;
+
+                        if (entry.__checked) {
+                            _checked[entry.id] = entry;
+                        } else {
+                            delete _checked[entry.id];
                         }
                     };
 
-                    //
-                    // list
-                    //
-                    var list = {
-                        // TODO
-                        info: {
-                            name: 'Компании-участники тендера на поставку оборудования для цеха №1',
-                            type: 'COMPANY'
-                        },
-                        // TODO
-                        entries: null,
-                        checked: {},
-                        isEmpty: function() {
-                            return _.isEmpty(_.get(list.entries, 'list'));
-                        },
-                        remove: function() {
-                            $log.warn('* remove list');
-                        },
-                        clean: function() {
-                            $log.warn('* clean list');
-                        },
-                        removeCheckedEntries: function() {
-                            $log.warn('* removeCheckedEntries...', list.checked);
-                        },
-                        check: function(entry) {
-                            entry.__checked = !entry.__checked;
+                    me.isChecked = function() {
+                        return !_.isEmpty(_checked);
+                    };
 
-                            if (entry.__checked) {
-                                list.checked[entry.id] = entry;
-                            } else {
-                                delete list.checked[entry.id];
-                            }
-                        },
-                        isChecked: function() {
-                            return !_.isEmpty(list.checked);
-                        },
-                        addListEntriesProxy: {
-                            addActionEnabled: true,
-                            getListType: function() {
-                                return list.info.type;
-                            }
-                        },
-                        inlineEditProxy: {
-                            onEdit: function(newText, oldText, data) {
-                                list.info.name = newText;
-                            }
+                    me.addListEntriesProxy = {
+                        addActionEnabled: true,
+                        getListType: function() {
+                            return me.info.type;
                         }
                     };
 
-                    function showListEntries() {
-                        list.request = npConnectionsListsResource.listEntries({
+                    me.inlineEditProxy = {
+                        onEdit: function(newText, oldText, data) {
+                            me.info.name = newText;
+                        }
+                    };
+
+                    me.fetch = function() {
+                        _request = npConnectionsListsResource.listEntries({
                             success: function(data){
-                                list.entries = data;
-                                _.each(list.entries.list, function(entry){
+                                _.each(data.list, function(entry){
                                     entry.__inlineEditProxy = {
                                         onEdit: function(newText, oldText, data) {
                                             $log.info('* list entry onEdit...', newText, oldText, entry);
@@ -195,27 +187,62 @@ define(function(require, exports, module) {'use strict';
                                     };
 
                                 });
-                                $log.info('getting list entries...', list.entries);
+
+                                me.result = data;
+
+                                $log.info('getting list entries...', me.result);
                             },
                             error: function(){
                                 $log.warn('getting list entries... error');
                             },
-                            previousRequest: list.request
+                            previousRequest: _request
                         });
-                    }
+                    };
+                }
+            };
+        }])
+        //
+        .directive('npConnectionsLists', ['$log', '$timeout', '$rootScope', 'npConnectionsListsFactory', function($log, $timeout, $rootScope, npConnectionsListsFactory){
+            return {
+                restrict: 'A',
+                scope: {},
+                template: viewTemplates['lists-view'].html,
+                link: function(scope, element, attrs) {
+                    // Navigation
+                    function Navigation() {
+                        var me = this;
 
-                    showListEntries();
+                        me.currentTarget = null;
+                        me.prevTarget = null;
+
+                        me.showNav = function(target) {
+                            element
+                                .find('[data-target="' + target + '"]')
+                                .eq(0).tab('show')
+                                .parent('li').removeClass('active');
+
+                            me.prevTarget = me.currentTarget;
+                            me.currentTarget = target;
+                        };
+
+                        me.doNav = function(e) {
+                            e.preventDefault();
+                            me.showNav($(e.currentTarget).attr('data-target'));
+                        };
+                    }
 
                     //
                     _.extend(scope, {
-                        navigation: navigation,
-                        lists: lists,
-                        newList: newList,
-                        list: list
+                        navigation:     new Navigation(),
+                        listsSet:       new npConnectionsListsFactory.ListsSet(),
+                        newList:        new npConnectionsListsFactory.NewList(),
+                        currentList:    new npConnectionsListsFactory.CurrentList()
                     }, i18n.translateFuncs);
 
                     // test
-                    showNav('#np-connections-lists-list');
+                    scope.listsSet.fetch();
+                    scope.currentList.fetch();
+                    scope.navigation.showNav('#np-connections-lists-current-list');
 
                     // $log.warn('loading...');
                     // $timeout(function(){
