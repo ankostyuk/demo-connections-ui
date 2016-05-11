@@ -1,11 +1,36 @@
-[{
-    "id": "list-1",
-    "name": "Тендерная комиссия",
-    "type": "INDIVIDUAL",
-    "userId": "user-1"
-}, {
-    "id": "list-2",
-    "name": "Компании-участники тендера на поставку оборудования",
-    "type": "COMPANY",
-    "userId": "user-1"
-}]
+{
+    "_embedded": {
+        "list": [{
+            "id": "list-1",
+            "name": "Тендерная комиссия",
+            "type": "INDIVIDUAL",
+            "userId": "user-1",
+            "_links": {
+                "self": {
+                    "href": "xxx/api/list/list-1"
+                }
+            }
+        }, {
+            "id": "list-2",
+            "name": "Компании-участники тендера на поставку оборудования",
+            "type": "COMPANY",
+            "userId": "user-1",
+            "_links": {
+                "self": {
+                    "href": "xxx/api/list/list-2"
+                }
+            }
+        }]
+    },
+    "_links": {
+        "self": {
+            "href": "xxx/api/list"
+        }
+    },
+    "page": {
+        "size": 10,
+        "totalElements": 1,
+        "totalPages": 1,
+        "number": 0
+    }
+}

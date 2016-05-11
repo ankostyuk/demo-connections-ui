@@ -2,7 +2,7 @@
 <script id="lists-view" type="text/template">
     <div class="tab-content">
         <!-- Просмотр списков -->
-        <div class="tab-pane active lists-set" id="np-connections-lists-lists-set">
+        <div class="tab-pane lists-set" id="np-connections-lists-lists-set" ng-class="{'request-pending': !listsSet.isRequestDone}">
             <ul class="row lists-nav tools">
                 <li class="span6" ng-show="navigation.prevTarget === '#np-connections-lists-current-list'"><a data-target="#np-connections-lists-current-list" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру списка", "Пользовательские списки")}</a></li>
                 <li class="align-right"><a data-target="#np-connections-lists-new-list" ng-click="navigation.doNav($event)"><i class="icon i-plus"></i> ${_trc("Новый список", "Пользовательские списки")}</a></li>
@@ -13,7 +13,7 @@
                     <button class="btn flat order-btn" ng-disabled="!listsSet.isChecked()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>
                 </div>
             </div>
-            <div class="muted align-center" ng-show="listsSet.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
+            <div class="muted align-center hide-if-request-pending" ng-show="listsSet.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
             <ul class="lists" ng-hide="listsSet.isEmpty()">
                 <li class="row list" ng-repeat="list in listsSet.result track by $index">
                     <div class="span1 list-checked-wrapper">

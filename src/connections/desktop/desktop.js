@@ -43,7 +43,7 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('npConnectionsDesktop', ['$log', 'nkbUser', function($log, nkbUser){
+        .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', 'nkbUser', function($log, $rootScope, $timeout, nkbUser){
             return {
                 restrict: 'A',
                 scope: false,
@@ -67,6 +67,11 @@ define(function(require, exports, module) {'use strict';
                             return user.isAuthenticated();
                         }
                     });
+
+                    //
+                    // $timeout(function(){
+                        $rootScope.$emit('np-connections-do-show-lists');
+                    // }, 1000);
                 }
             };
         }]);

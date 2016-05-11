@@ -59,6 +59,7 @@ define(function(require, exports, module) {'use strict';
                         _checked    = {};
 
                     me.result = [];
+                    me.isRequestDone = false;
 
                     me.isEmpty = function() {
                         return _.isEmpty(me.result);
@@ -78,16 +79,26 @@ define(function(require, exports, module) {'use strict';
                         return !_.isEmpty(_checked);
                     };
 
-                    me.fetch = function() {
+                    me.fetch = function(callback) {
+                        me.isRequestDone = false;
+
                         _request = npConnectionsListsResource.lists({
                             success: function(data){
-                                me.result = data;
+                                me.result = _.get(data, '_embedded.list');
+                                // TODO paging: page data
+                                done();
                             },
                             error: function(){
                                 $log.warn('getting lists... error');
+                                done();
                             },
                             previousRequest: _request
                         });
+
+                        function done() {
+                            me.isRequestDone = true;
+                            callback && callback();
+                        }
                     };
                 },
 
@@ -239,10 +250,23 @@ define(function(require, exports, module) {'use strict';
                         currentList:    new npConnectionsListsFactory.CurrentList()
                     }, i18n.translateFuncs);
 
+                    function showLists() {
+                        $rootScope.loading(function(done){
+                            scope.navigation.showNav('#np-connections-lists-lists-set');
+                            scope.listsSet.fetch(function(){
+                                done();
+                            });
+                        });
+                    }
+
+                    $rootScope.$on('np-connections-do-show-lists', function(){
+                        showLists();
+                    });
+
                     // test
-                    scope.listsSet.fetch();
-                    scope.currentList.fetch();
-                    scope.navigation.showNav('#np-connections-lists-current-list');
+                    // scope.listsSet.fetch();
+                    // scope.currentList.fetch();
+                    // scope.navigation.showNav('#np-connections-lists-lists-set');
 
                     // $log.warn('loading...');
                     // $timeout(function(){
