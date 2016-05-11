@@ -1,10 +1,10 @@
 {
-    "listId": "list-x",
+    "listId": "list-2",
 
     "total": 5,
 
     "list": [{
-        "id": "list-x-entry-1",
+        "id": "list-2-entry-1",
         "userData": "АО НКБ ВС 1026102571373",
 
         "node": {
@@ -89,9 +89,9 @@
             "okatocode": 60437000000
         },
 
-        "listId": "list-x"
+        "listId": "list-2"
     }, {
-        "id": "list-x-entry-2",
+        "id": "list-2-entry-2",
         "userData": "ООО \"РОМАШКА\"",
 
         "validation": {
@@ -99,33 +99,33 @@
             "info": 1657
         },
 
-        "listId": "list-x"
+        "listId": "list-2"
     }, {
-        "id": "list-x-entry-3",
+        "id": "list-2-entry-3",
         "userData": "0101010101",
 
         "validation": {
             "status": "NOT_FOUND"
         },
 
-        "listId": "list-x"
+        "listId": "list-2"
     }, {
-        "id": "list-x-entry-4",
+        "id": "list-2-entry-4",
         "userData": "0101010101",
 
         "validation": {
             "status": "NOT_FOUND"
         },
 
-        "listId": "list-x"
+        "listId": "list-2"
     }, {
-        "id": "list-x-entry-5",
+        "id": "list-2-entry-5",
         "userData": "0101010101",
 
         "validation": {
             "status": "NOT_FOUND"
         },
 
-        "listId": "list-x"
+        "listId": "list-2"
     }]
 }

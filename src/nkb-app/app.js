@@ -45,7 +45,8 @@ define(function(require) {'use strict';
             meta: root._APP_CONFIG.meta,
             yandexMetrikaCounterName: 'yaCounter23296318',
             resource: {
-                'lists.url':                 '/connections/api/lists'
+                'lists.url':        '/connections/api/lists',
+                'list.entries.url': '/connections/api/list/{{id}}/entries'
             }
         })
         //

@@ -19,7 +19,9 @@ define(function(require, exports, module) {'use strict';
     var testData = {
         'connections': {
             'lists':            angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
-            'list-x-entries':   angular.fromJson(require('text!./data/connections/list-x-entries.json')),
+            'list': {
+                'list-2-entries':   angular.fromJson(require('text!./data/connections/list/list-2-entries.json')),
+            },
             'orders':           angular.fromJson(require('text!./data/connections/orders.json'))
         },
         'siteapp': {
@@ -81,7 +83,7 @@ define(function(require, exports, module) {'use strict';
 
             // lists
             $httpBackend.whenGET('/connections/api/lists').respond(testData['connections']['lists']);
-            $httpBackend.whenGET('/connections/api/list/list-x/entries').respond(testData['connections']['list-x-entries']);
+            $httpBackend.whenGET('/connections/api/list/list-2/entries').respond(testData['connections']['list']['list-2-entries']);
         }]);
     //
 });

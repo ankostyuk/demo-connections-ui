@@ -1,7 +1,4 @@
 {
-    "_embedded": {
-        "list": []
-    },
     "_links": {
         "self": {
             "href": "xxx/api/list"

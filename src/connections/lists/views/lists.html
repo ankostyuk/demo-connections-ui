@@ -20,7 +20,7 @@
                         <a class="list-checked" ng-class="{'checked': list.__checked}" ng-click="listsSet.check(list)"><i class="icon" ng-class="{'i-check-checked': list.__checked, 'i-check-unchecked': !list.__checked}"></i></a>
                     </div>
                     <div class="span8 list-name-wrapper">
-                        <a data-target="#np-connections-lists-current-list" ng-click="navigation.doNav($event)">{{list.name}}</a>
+                        <a data-target="#np-connections-lists-current-list" ng-click="listsSet.showList(list)">{{list.name}}</a>
                     </div>
                     <div class="muted align-right">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.type)}}</div>
                 </li>
@@ -32,52 +32,54 @@
             <ul class="row lists-nav tools">
                 <li class="span6"><a data-target="#np-connections-lists-lists-set" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к спискам", "Пользовательские списки")}</a></li>
             </ul>
-            <div class="row list-info">
-                <div class="span list-name">{{currentList.info.name}}<span np-inline-edit="currentList.info.name" proxy="currentList.inlineEditProxy"></span></div>
-                <div class="muted align-right list-type">
-                    <span ng-show="currentList.isEmpty()">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + currentList.info.type)}}</span>
-                    <span ng-hide="currentList.isEmpty()"><np-pluralize plural="{count: currentList.getEntriesCount(), when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type)}"></np-pluralize></span>
+            <div ng-if="currentList.info">
+                <div class="row list-info">
+                    <div class="span list-name">{{currentList.info.name}}<span np-inline-edit="currentList.info.name" proxy="currentList.inlineEditProxy"></span></div>
+                    <div class="muted align-right list-type">
+                        <span ng-show="currentList.isEmpty()">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + currentList.info.type)}}</span>
+                        <span ng-hide="currentList.isEmpty()"><np-pluralize plural="{count: currentList.getEntriesCount(), when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type)}"></np-pluralize></span>
+                    </div>
                 </div>
-            </div>
-            <div class="align-right tools">
-                <button class="btn flat" np-inline-confirm="currentList.remove()" confirm-text='${_trc("Точно удалить список?", "Пользовательские списки")}'><i class="icon i-trash"></i>${_trc("Удалить список", "Пользовательские списки")}</button>
-            </div>
-            <div np-connections-lists-add-list-entries="currentList.addListEntriesProxy"></div>
-            <div class="muted align-center" ng-show="currentList.isEmpty()">
-                <span ng-show="currentList.info.type === 'COMPANY'">${_trc("Нет компаний в списке", "Пользовательские списки")}</span>
-                <span ng-show="currentList.info.type === 'INDIVIDUAL'">${_trc("Нет физических лиц в списке", "Пользовательские списки")}</span>
-            </div>
-            <div class="list-entries" ng-hide="currentList.isEmpty()">
                 <div class="align-right tools">
-                    <button class="btn flat"ng-show="currentList.info.type === 'COMPANY'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранные компании из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранные компании из списка", "Пользовательские списки")}</button>
-                    <button class="btn flat"ng-show="currentList.info.type === 'INDIVIDUAL'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранных физических лиц из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранных физических лиц из списка", "Пользовательские списки")}</button>
-
-                    <button class="btn flat" np-inline-confirm="currentList.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
+                    <button class="btn flat" np-inline-confirm="currentList.remove()" confirm-text='${_trc("Точно удалить список?", "Пользовательские списки")}'><i class="icon i-trash"></i>${_trc("Удалить список", "Пользовательские списки")}</button>
                 </div>
-                <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.result.list track by $index">
-                    <div class="row info">
-                        <div class="span1 entry-checked-wrapper">
-                            <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="currentList.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
-                        </div>
-                        <div class="span11 user-data-wrapper">
-                            <div class="row">
-                                <div class="user-data-label">${_trc("Ваши данные", "Пользовательские списки")}:</div>
-                                <div class="user-data">
-                                    <div class="text text-ellipsis">{{entry.userData}}</div>
-                                    <span class="mini" np-inline-edit="entry.userData" proxy="entry.__inlineEditProxy" data="entry"></span>
+                <div np-connections-lists-add-list-entries="currentList.addListEntriesProxy"></div>
+                <div class="muted align-center" ng-show="currentList.isEmpty()">
+                    <span ng-show="currentList.info.type === 'COMPANY'">${_trc("Нет компаний в списке", "Пользовательские списки")}</span>
+                    <span ng-show="currentList.info.type === 'INDIVIDUAL'">${_trc("Нет физических лиц в списке", "Пользовательские списки")}</span>
+                </div>
+                <div class="list-entries" ng-hide="currentList.isEmpty()">
+                    <div class="align-right tools">
+                        <button class="btn flat"ng-show="currentList.info.type === 'COMPANY'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранные компании из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранные компании из списка", "Пользовательские списки")}</button>
+                        <button class="btn flat"ng-show="currentList.info.type === 'INDIVIDUAL'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранных физических лиц из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранных физических лиц из списка", "Пользовательские списки")}</button>
+
+                        <button class="btn flat" np-inline-confirm="currentList.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
+                    </div>
+                    <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.entries.list track by $index">
+                        <div class="row info">
+                            <div class="span1 entry-checked-wrapper">
+                                <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="currentList.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
+                            </div>
+                            <div class="span11 user-data-wrapper">
+                                <div class="row">
+                                    <div class="user-data-label">${_trc("Ваши данные", "Пользовательские списки")}:</div>
+                                    <div class="user-data">
+                                        <div class="text text-ellipsis">{{entry.userData}}</div>
+                                        <span class="mini" np-inline-edit="entry.userData" proxy="entry.__inlineEditProxy" data="entry"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="np-rsearch-node-info" ng-show="entry.node" np-connections-node-info="entry.node"></div>
-                    <div class="validation-info" ng-show="entry.validation">
-                        <span ng-show="entry.validation.status === 'NOT_FOUND'">{{_tr('NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_NOT_FOUND')}}</span>
-                        <span ng-show="entry.validation.status === 'MULTIPLE'"><np-pluralize plural="{count: entry.validation.info, when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_MULTIPLE')}"></np-pluralize></span>
-                        &mdash;
-                        <a ng-click="entry.__inlineEditProxy.on()">
-                            <span ng-show="currentList.info.type === 'COMPANY'">${_trc("уточните данные по компании", "Пользовательские списки")}</span>
-                            <span ng-show="currentList.info.type === 'INDIVIDUAL'">${_trc("уточните данные по физическому лицу", "Пользовательские списки")}</span>
-                        </a>
+                        <div class="np-rsearch-node-info" ng-show="entry.node" np-connections-node-info="entry.node"></div>
+                        <div class="validation-info" ng-show="entry.validation">
+                            <span ng-show="entry.validation.status === 'NOT_FOUND'">{{_tr('NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_NOT_FOUND')}}</span>
+                            <span ng-show="entry.validation.status === 'MULTIPLE'"><np-pluralize plural="{count: entry.validation.info, when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_MULTIPLE')}"></np-pluralize></span>
+                            &mdash;
+                            <a ng-click="entry.__inlineEditProxy.on()">
+                                <span ng-show="currentList.info.type === 'COMPANY'">${_trc("уточните данные по компании", "Пользовательские списки")}</span>
+                                <span ng-show="currentList.info.type === 'INDIVIDUAL'">${_trc("уточните данные по физическому лицу", "Пользовательские списки")}</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
