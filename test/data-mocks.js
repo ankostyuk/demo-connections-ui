@@ -9,10 +9,12 @@ define(function(require, exports, module) {'use strict';
     var angular         = require('angular');
                           require('angular-mocks');
 
-    var purl            = require('purl'),
-        locationSearch  = purl().param(),
-        emptyLists      = _.toBoolean(locationSearch['test-empty-lists']),
-        auth            = locationSearch['test-auth'] && _.toBoolean(locationSearch['test-auth']);
+    var purl                = require('purl'),
+        locationSearch      = purl().param(),
+        emptyLists          = _.toBoolean(locationSearch['test-empty-lists']),
+        auth                = locationSearch['test-auth'] && _.toBoolean(locationSearch['test-auth']),
+        siteappDelay        = parseInt(locationSearch['test-siteapp-delay']) || 0,
+        connectionsDelay    = parseInt(locationSearch['test-connections-delay']) || 0;
 
     var testData = {
         'connections': {
@@ -30,9 +32,41 @@ define(function(require, exports, module) {'use strict';
     };
 
     //
+    function getRequestDelay(url) {
+        var delay = /^\/siteapp\//.test(url) ? siteappDelay : connectionsDelay;
+        return delay;
+    }
+
+    //
     return angular.module('data-mocks', ['ngMockE2E'])
         //
-        .run(['$log', '$httpBackend', function($log, $httpBackend){
+        .config(function($provide) {
+            // delay mock backend responses
+            // https://github.com/bahmutov/infinite-fake-data#slowing-down-mock-respones
+            $provide.decorator('$httpBackend', function($delegate) {
+                var proxy = function(method, url, data, callback, headers) {
+                    var interceptor = function() {
+                        var _this       = this,
+                            _arguments  = arguments;
+
+                        setTimeout(function() {
+                            // return result to the client AFTER delay
+                            callback.apply(_this, _arguments);
+                        }, getRequestDelay(url));
+                    };
+
+                    return $delegate.call(this, method, url, data, interceptor, headers);
+                };
+
+                for (var key in $delegate) {
+                    proxy[key] = $delegate[key];
+                }
+
+                return proxy;
+            });
+        })
+        //
+        .run(['$log', '$httpBackend', '$timeout', function($log, $httpBackend, $timeout){
             $log.info('testData:', testData);
 
             // user
