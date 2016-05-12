@@ -7,8 +7,7 @@ define(function(require) {'use strict';
     var angular = require('angular');
 
     var angularModules = [
-        require('./desktop/desktop'),
-        require('./directives/directives')
+        require('./desktop/desktop')
     ];
 
     return angular.module('np.connections', _.pluck(angularModules, 'name'));
