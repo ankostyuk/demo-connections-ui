@@ -157,15 +157,24 @@ button {
     color: @defaultDisabledColor !important;
 }
 
-/* np-loader */
-[np-loader].loader {
-    position: fixed;
-    opacity: 0.8;
-}
-[np-loader].loader .line-balls {
-    color: @nkbRed;
-    opacity: 0.5;
-}
-
 /* connections */
 @import './connections.less';
+
+/* np-connections-desktop */
+.content [np-connections-desktop] {
+    position: static;
+}
+
+/* np-connections-desktop np-loader */
+.content [np-connections-desktop] [np-loader].loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+.content [np-connections-desktop] [np-loader].loader .line-balls {
+    top: 50%;
+}

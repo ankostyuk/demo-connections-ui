@@ -17,6 +17,8 @@ define(function(require, exports, module) {'use strict';
 
     var angularModules = [
         require('../lists/lists'),
+        require('np.directives'),
+        require('np.utils'),
         require('nullpointer-rsearch/rsearch/rsearch')
     ];
 
@@ -37,28 +39,36 @@ define(function(require, exports, module) {'use strict';
                 scope: {
                     node: '=npConnectionsNodeInfo'
                 },
-                template: externalTemplates['np-rsearch-node-info'],
-                link: function(scope, element, attrs) {
-                }
+                template: externalTemplates['np-rsearch-node-info']
             };
         }])
         //
-        .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', 'nkbUser', function($log, $rootScope, $timeout, nkbUser){
+        .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', 'nkbUser', 'npUtils', function($log, $rootScope, $timeout, nkbUser, npUtils){
             return {
                 restrict: 'A',
-                scope: false,
+                scope: {},
                 template: template,
-                link: function(scope, element, attrs) {
+                //
+                controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+                    var scope   = $scope,
+                        element = $element,
+                        attrs   = $attrs;
+
                     var user = nkbUser.user();
 
-                    // Tab
-                    element.find('.desktop-tab > li > a').click(function(e){
-                        e.preventDefault();
-                        $(this).tab('show');
-                    });
-
-                    //
                     _.extend(scope, {
+                        loader: {}, // см. directive npLoader
+                        loading: function(operation) {
+                            npUtils.loading(
+                                operation,
+                                function(){
+                                    scope.loader.show();
+                                },
+                                function(){
+                                    scope.loader.hide();
+                                },
+                            500);
+                        },
                         showLoginForm: function() {
                             $('[app-login-form] input[name="login"]').focus();
                         },
@@ -68,10 +78,22 @@ define(function(require, exports, module) {'use strict';
                         }
                     });
 
+                    $rootScope.$on('np-connections-loading', function(e, operation){
+                        scope.loading(operation);
+                    });
+                }],
+                //
+                link: function(scope, element, attrs) {
+                    // Tab
+                    element.find('.desktop-tab > li > a').click(function(e){
+                        e.preventDefault();
+                        $(this).tab('show');
+                    });
+
                     //
-                    // $timeout(function(){
+                    $timeout(function(){
                         $rootScope.$emit('np-connections-do-show-lists');
-                    // }, 1000);
+                    }, 500);
                 }
             };
         }]);

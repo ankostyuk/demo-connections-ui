@@ -67,7 +67,7 @@ define(function(require, exports, module) {'use strict';
                     }, i18n.translateFuncs);
 
                     function showLists() {
-                        $rootScope.loading(function(done){
+                        $rootScope.$emit('np-connections-loading', function(done){
                             scope.listsSet.fetch(function(){
                                 scope.navigation.showNav('#np-connections-lists-lists-set');
                                 done();
@@ -76,7 +76,7 @@ define(function(require, exports, module) {'use strict';
                     }
 
                     function showList(list) {
-                        $rootScope.loading(function(done){
+                        $rootScope.$emit('np-connections-loading', function(done){
                             scope.currentList.fetch(list, function(){
                                 scope.navigation.showNav('#np-connections-lists-current-list');
                                 done();

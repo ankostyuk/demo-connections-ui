@@ -1,9 +1,12 @@
+<div np-loader="loader" np-loader-type="'line-balls'" np-loader-fade="true" np-loader-fade-opacity="0.75" np-loader-fade-duration="250"></div>
+
 <div class="muted align-center authenticate-info" ng-hide="isUserAuthenticated()">
     ${_trc("Для работы с приложением необходимо", "Для работы с приложением необходимо войти или зарегистрироваться")}
     <a ng-click="showLoginForm()">${_trc("войти", "Для работы с приложением необходимо войти или зарегистрироваться")}</a>
     ${_trc("или", "Для работы с приложением необходимо войти или зарегистрироваться")}
     <a class="underline" href="/reg/" target="_blank">${_trc("зарегистрироваться", "Для работы с приложением необходимо войти или зарегистрироваться")}</a>
 </div>
+
 <div ng-show="isUserAuthenticated()">
     <ul class="desktop-tab nav nav-tabs">
         <li class="active"><a data-target="#np-connections-lists">${_trc("Списки", "Пользовательские списки")}</a></li>
