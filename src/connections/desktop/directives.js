@@ -69,6 +69,7 @@ define(function(require, exports, module) {'use strict';
                                 },
                             500);
                         },
+                        message: {}, // см. directive npMessage
                         showLoginForm: function() {
                             $('[app-login-form] input[name="login"]').focus();
                         },
@@ -80,6 +81,10 @@ define(function(require, exports, module) {'use strict';
 
                     $rootScope.$on('np-connections-loading', function(e, operation){
                         scope.loading(operation);
+                    });
+
+                    $rootScope.$on('np-connections-error', function(){
+                        scope.message.show();
                     });
                 }],
                 //

@@ -15,7 +15,7 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.current-list', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsCurrentList', ['$log', 'npConnectionsListsResource', function($log, npConnectionsListsResource){
+        .factory('npConnectionsCurrentList', ['$log', '$rootScope', 'npConnectionsListsResource', function($log, $rootScope, npConnectionsListsResource){
             return function() {
                 var me              = this,
                     _entriesRequest = null,
@@ -96,6 +96,7 @@ define(function(require, exports, module) {'use strict';
                             done();
                         },
                         error: function() {
+                            $rootScope.$emit('np-connections-error');
                             resetEntries();
                             done();
                         },
