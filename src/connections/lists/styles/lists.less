@@ -6,8 +6,13 @@
     cursor: default;;
 }
 
+[np-connections-lists] li[class*="span"],
+[np-connections-lists] form[class*="span"] {
+    margin-left: 0;
+}
+
 [np-connections-lists] .tools {
-    margin: 0 0 20px -20px;
+    margin: 0 0 20px 0;
     list-style: none;
 }
 [np-connections-lists] .tools > li {
@@ -15,8 +20,12 @@
 }
 
 [np-connections-lists] .tools.order {
-    margin-bottom: 40px;
+    height: 45px;
     padding-top: 30px;
+}
+[np-connections-lists] .tools.order label.inside-list {
+    display: inline-block;
+    margin-left: 3px;
 }
 [np-connections-lists] .tools.order .order-btn {
     margin-top: -5px;

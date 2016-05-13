@@ -24,6 +24,10 @@ define(function(require, exports, module) {'use strict';
                 me.result = null;
                 me.isRequestDone = false;
 
+                me.checkOptions = {
+                    insideList: false
+                };
+
                 me.isEmpty = function() {
                     return _.isEmpty(me.result);
                 };
@@ -36,10 +40,16 @@ define(function(require, exports, module) {'use strict';
                     } else {
                         delete _checked[list.id];
                     }
+
+                    resetOrder();
                 };
 
                 me.isChecked = function() {
                     return !_.isEmpty(_checked);
+                };
+
+                me.getCheckedCount = function() {
+                    return _.size(_checked);
                 };
 
                 me.fetch = function(callback) {
@@ -66,12 +76,21 @@ define(function(require, exports, module) {'use strict';
                     }
                 };
 
+                me.doOrder = function() {
+                    // TODO
+                    me.successfulOrder = true;
+                };
+
                 me.showList = function(list) {
                     $rootScope.$emit('np-connections-do-show-list', list);
                 };
 
                 function resetResult() {
                     me.result = null;
+                }
+
+                function resetOrder() {
+                    me.successfulOrder = null;
                 }
             };
         }]);

@@ -7,10 +7,27 @@
                 <li class="span6" ng-show="navigation.prevTarget === '#np-connections-lists-current-list'"><a data-target="#np-connections-lists-current-list" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру списка", "Пользовательские списки")}</a></li>
                 <li class="align-right"><a data-target="#np-connections-lists-new-list" ng-click="navigation.doNav($event)"><i class="icon i-plus"></i> ${_trc("Новый список", "Пользовательские списки")}</a></li>
             </ul>
-            <div class="row tools order" ng-hide="listsSet.isEmpty()">
-                <div class="span8 muted">${_tr("Выберете список или несколько списков для проверки связей")}</div>
-                <div class="align-right">
-                    <button class="btn flat order-btn" ng-disabled="!listsSet.isChecked()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>
+            <div class="tools order" ng-hide="listsSet.isEmpty()">
+                <div class="row">
+                    <div class="span9 muted" ng-hide="listsSet.successfulOrder || listsSet.getCheckedCount() > 1">
+                        <span ng-hide="listsSet.getCheckedCount() === 1">${_tr("Выберете список или несколько списков для проверки связей")}</span>
+                        <span ng-show="listsSet.getCheckedCount() === 1">${_tr("Вы можете выбрать несколько списков для проверки связей")}</span>
+                    </div>
+                    <div class="span9" ng-show="!listsSet.successfulOrder && listsSet.getCheckedCount() > 1">
+                        <label class="checkbox inside-list">
+                            <input type="checkbox" ng-model="listsSet.checkOptions.insideList">
+                            ${_tr("проверять связи внутри каждого списка")}
+                        </label>
+                    </div>
+                    <div class="span9" ng-show="listsSet.successfulOrder">
+                        ${_trc("О готовности", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}
+                        <a>${_trc("Проверки связей", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}</a>
+                        ${_trc("вы будете извещены по электронной почте и в", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}
+                        <a>${_trc("Уведомлениях", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}</a>
+                    </div>
+                    <div class="align-right">
+                        <button class="btn flat order-btn" ng-disabled="listsSet.successfulOrder || !listsSet.isChecked()" ng-click="listsSet.doOrder()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>
+                    </div>
                 </div>
             </div>
             <div class="muted align-center hide-if-request-pending" ng-show="listsSet.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
