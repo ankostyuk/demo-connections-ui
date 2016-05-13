@@ -72,7 +72,6 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 me.fetch = function(list, callback) {
-                    $log.info('CurrentList::fetch...', list);
                     me.info = list;
                     me.fetchEntries(list.id, callback);
                 };

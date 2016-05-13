@@ -5,8 +5,7 @@
  */
 define(function(require, exports, module) {'use strict';
 
-    var template        = require('text!./views/lists.html'),
-        templateData, viewTemplates;
+    var templates       = require('text!./views/lists.html');
 
                           require('jquery');
                           require('lodash');
@@ -25,15 +24,14 @@ define(function(require, exports, module) {'use strict';
     return angular.module('np.connections.lists.directives', _.pluck(angularModules, 'name'))
         //
         .run([function(){
-            templateData    = templateUtils.processTemplate(template);
-            viewTemplates   = templateData.templates;
+            templates = templateUtils.processTemplate(templates).templates;
         }])
         //
         .directive('npConnectionsLists', ['$log', '$timeout', '$rootScope', 'npConnectionsListsSet', 'npConnectionsNewList', 'npConnectionsCurrentList', function($log, $timeout, $rootScope, npConnectionsListsSet, npConnectionsNewList, npConnectionsCurrentList){
             return {
                 restrict: 'A',
                 scope: {},
-                template: viewTemplates['lists-view'].html,
+                template: templates['lists-view'].html,
                 link: function(scope, element, attrs) {
                     // Navigation
                     function Navigation() {
@@ -101,7 +99,7 @@ define(function(require, exports, module) {'use strict';
                 scope: {
                     proxy: '=npConnectionsListsAddListEntries'
                 },
-                template: viewTemplates['add-list-entries-view'].html,
+                template: templates['add-list-entries-view'].html,
                 link: function(scope, element, attrs) {
                     //
                     var formElement = element.find('form'),
