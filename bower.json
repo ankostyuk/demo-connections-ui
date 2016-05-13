@@ -15,6 +15,7 @@
         "angular-i18n": "1.3.*",
         "ngInfiniteScroll": "1.2.1",
         "purl": "2.3.*",
+        "session.js": "0.4.*",
         "moment": "2.8.*",
         "moment-timezone": "0.3.*",
         "angular-moment": "0.9.*",
@@ -45,6 +46,9 @@
                 "angular-locale_ru.js",
                 "angular-locale_en.js"
             ]
+        },
+        "session.js": {
+            "": "session.js"
         },
         "bootstrap": {
             "css": "css/bootstrap.css",

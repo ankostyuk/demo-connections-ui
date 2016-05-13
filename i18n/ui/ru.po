@@ -33,6 +33,10 @@ msgctxt "Введите ... или добавьте из файла"
 msgid "Введите физических лиц"
 msgstr ""
 
+#: ../src/connections/lists/views/lists.html:1
+msgid "Выберете список или несколько списков для проверки связей"
+msgstr ""
+
 #: ../src/connections/desktop/views/desktop.html:1
 msgctxt "Для работы с приложением необходимо войти или зарегистрироваться"
 msgid "Для работы с приложением необходимо"
@@ -51,11 +55,6 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Добавить физических лиц"
-msgstr ""
-
-#: ../src/connections/directives/views/directives.html:1
-msgctxt "inline-edit"
-msgid "Изменить"
 msgstr ""
 
 #: ../src/nkb-app/index.html:1
@@ -91,18 +90,9 @@ msgctxt "Введите ... или добавьте из файла"
 msgid "Одна строка — одно физическое лицо"
 msgstr ""
 
-#: ../src/connections/directives/views/directives.html:1
-msgctxt "inline-edit"
-msgid "Отменить"
-msgstr ""
-
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Отменить действие"
 msgid "Отменить"
-msgstr ""
-
-#: ../src/connections/lists/views/lists.html:1
-msgid "Отметьте список или несколько списков для проверки связей"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -144,14 +134,13 @@ msgstr ""
 msgid "Сделано в"
 msgstr ""
 
-#: ../src/connections/directives/views/directives.html:1
-msgctxt "inline-edit"
-msgid "Сохранить"
-msgstr ""
-
 #: ../src/connections/desktop/views/desktop.html:1
 msgctxt "Пользовательские списки"
 msgid "Списки"
+msgstr ""
+
+#: ../src/nkb-app/app.js:1
+msgid "Текущий сеанс работы с приложением будет завершён"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1

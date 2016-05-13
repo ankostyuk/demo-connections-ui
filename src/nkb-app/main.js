@@ -42,6 +42,7 @@ root._RESOURCES_CONFIG = {
         'bootstrap':            'external_components/bootstrap/js/bootstrap',
 
         'purl':                 'external_components/purl/purl',
+        'session':              'external_components/session.js/session',
 
         'moment':               'external_components/moment/moment',
         'moment-timezone':      'external_components/moment-timezone/moment-timezone-with-data',
@@ -75,6 +76,10 @@ root._RESOURCES_CONFIG = {
     }, {
         name: 'lodash',
         location: 'external_components/nullpointer-commons/lodash'
+    }, {
+        name: 'commons-utils',
+        location: 'external_components/nullpointer-commons/utils',
+        main: 'utils'
     }, {
         name: 'nkb.user',
         location: 'external_components/nullpointer-commons/nkb/user',

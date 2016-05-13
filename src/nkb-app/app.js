@@ -11,7 +11,8 @@ define(function(require) {'use strict';
                             require('lodash');
 
     var angular           = require('angular'),
-        l10n              = require('np.l10n');
+        l10n              = require('np.l10n'),
+        Commons           = require('commons-utils');
 
                             require('nkb.icons');
                             require('css!../external_components/bootstrap/css/bootstrap');
@@ -63,7 +64,7 @@ define(function(require) {'use strict';
             $logProvider.debugEnabled(root.APP_BUILD_TYPE !== 'production');
         }])
         //
-        .run(['$log', '$rootScope', 'npL10n', function($log, $rootScope, npL10n){
+        .run(['$log', '$rootScope', '$window', 'npL10n', function($log, $rootScope, $window, npL10n){
             //
             _.extend($rootScope, {
                 app: {
@@ -76,6 +77,13 @@ define(function(require) {'use strict';
 
             $rootScope.$on('nkb-user-apply', function(){
                 $rootScope.app.ready = true;
+            });
+
+            //
+            Commons.DOMUtils.window().bind('beforeunload', function() {
+                if ($window.APP_BUILD_TYPE === 'production') {
+                    return _tr("Текущий сеанс работы с приложением будет завершён");
+                }
             });
         }]);
     //

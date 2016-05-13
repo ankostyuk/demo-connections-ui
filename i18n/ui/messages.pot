@@ -48,21 +48,6 @@ msgctxt "Уведомления пользователю"
 msgid "Уведомления"
 msgstr ""
 
-#: ../src/connections/directives/views/directives.html:1
-msgctxt "inline-edit"
-msgid "Сохранить"
-msgstr ""
-
-#: ../src/connections/directives/views/directives.html:1
-msgctxt "inline-edit"
-msgid "Отменить"
-msgstr ""
-
-#: ../src/connections/directives/views/directives.html:1
-msgctxt "inline-edit"
-msgid "Изменить"
-msgstr ""
-
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "вернуться к просмотру списка"
@@ -74,7 +59,7 @@ msgid "Новый список"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
-msgid "Отметьте список или несколько списков для проверки связей"
+msgid "Выберете список или несколько списков для проверки связей"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -226,6 +211,10 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Добавить физических лиц"
+msgstr ""
+
+#: ../src/nkb-app/app.js:1
+msgid "Текущий сеанс работы с приложением будет завершён"
 msgstr ""
 
 #: ../src/nkb-app/index.html:1
