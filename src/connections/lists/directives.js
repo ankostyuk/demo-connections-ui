@@ -54,6 +54,10 @@ define(function(require, exports, module) {'use strict';
                             e.preventDefault();
                             me.showNav($(e.currentTarget).attr('data-target'));
                         };
+
+                        me.showDesktopTab = function(target) {
+                            $rootScope.$emit('np-connections-show-desktop-tab', target);
+                        };
                     }
 
                     //

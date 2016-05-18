@@ -104,6 +104,17 @@ define(function(require, exports, module) {'use strict';
                         $(this).tab('show');
                     });
 
+                    function showTab(target) {
+                        element
+                            .find('[data-target="' + target + '"]')
+                            .eq(0).tab('show');
+                    }
+
+                    //
+                    $rootScope.$on('np-connections-show-desktop-tab', function(e, target){
+                        showTab(target);
+                    });
+
                     //
                     $timeout(function(){
                         $rootScope.$emit('np-connections-do-show-lists');
