@@ -60,6 +60,16 @@ define(function(require, exports, module) {'use strict';
                             id: options.id
                         })
                     }, null, options);
+                },
+
+                deleteListEntries: function(options) {
+                    return npResource.request({
+                        method: 'DELETE',
+                        url: $interpolate(config['list.entries.url'])({
+                            id: options.id
+                        }),
+                        data: options.data
+                    }, null, options);
                 }
             };
         }]);

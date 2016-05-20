@@ -75,7 +75,7 @@ define(function(require, exports, module) {'use strict';
                                 done();
 
                                 // test
-                                // showList(scope.listsSet.result[1]);
+                                showList(scope.listsSet.result[1]);
                                 // scope.navigation.showNav('#np-connections-lists-new-list');
                             });
                         });

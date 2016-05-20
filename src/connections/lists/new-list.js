@@ -49,11 +49,10 @@ define(function(require, exports, module) {'use strict';
                     _createRequest = npConnectionsListsResource.createList({
                         data: me.info,
                         success: function(data) {
-                            done(false, data);
+                            requestDone(false, data, callback);
                         },
                         error: function() {
-                            $rootScope.$emit('np-connections-error');
-                            done(true);
+                            requestDone(true, null, callback);
                         },
                         previousRequest: _createRequest
                     });
@@ -71,6 +70,16 @@ define(function(require, exports, module) {'use strict';
                         type: null
                     });
                 };
+
+                function requestDone(hasError, data, callback) {
+                    if (hasError) {
+                        $rootScope.$emit('np-connections-error');
+                    }
+
+                    if (_.isFunction(callback)) {
+                        callback(hasError, data);
+                    }
+                }
 
                 me.reset();
             };

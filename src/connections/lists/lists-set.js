@@ -62,21 +62,14 @@ define(function(require, exports, module) {'use strict';
                         success: function(data) {
                             me.result = _.get(data, '_embedded.list');
                             // TODO paging: page data
-                            done();
+                            requestDone(false, data, callback);
                         },
                         error: function() {
                             resetResult();
-                            done();
+                            requestDone(true, null, callback);
                         },
                         previousRequest: _request
                     });
-
-                    function done() {
-                        me.isRequestDone = true;
-                        if (_.isFunction(callback)) {
-                            callback();
-                        }
-                    }
                 };
 
                 me.doOrder = function() {
@@ -88,8 +81,21 @@ define(function(require, exports, module) {'use strict';
                     $rootScope.$emit('np-connections-do-show-list', list);
                 };
 
+                function requestDone(hasError, data, callback) {
+                    me.isRequestDone = true;
+
+                    if (hasError) {
+                        $rootScope.$emit('np-connections-error');
+                    }
+
+                    if (_.isFunction(callback)) {
+                        callback(hasError, data);
+                    }
+                }
+
                 function resetChecked() {
                     _checked = {};
+                    resetOrder();
                 }
 
                 function resetResult() {

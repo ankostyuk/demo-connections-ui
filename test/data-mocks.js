@@ -143,7 +143,7 @@ define(function(require, exports, module) {'use strict';
             });
 
             // /connections/api/list/<id>
-            $httpBackend.whenDELETE(/^\/connections\/api\/list\/[^\/]+/).respond(function(method, url){
+            $httpBackend.whenDELETE(/^\/connections\/api\/list\/[^\/]+$/).respond(function(method, url){
                 var listId  = getUrlParam(url, 'list'),
                     e       = testData['connections']['lists']['_embedded'];
 
@@ -164,6 +164,27 @@ define(function(require, exports, module) {'use strict';
                     entries = l ? l['entries'] : testData['connections']['list']['empty-entries'];
 
                 return [200, entries];
+            });
+
+            // /connections/api/list/<id>/entries
+            $httpBackend.whenDELETE(/^\/connections\/api\/list\/[^\/]+\/entries/).respond(function(method, url, data){
+                var listId      = getUrlParam(url, 'list'),
+                    entries     = testData['connections']['list'][listId]['entries'],
+                    entryIds    = angular.fromJson(data);
+
+                if (entryIds) {
+                    entries.list = _.reject(entries.list, function(entry){
+                        return _.includes(entryIds, entry.id);
+                    });
+                    entries.total -= _.size(entryIds);
+                } else {
+                    _.extend(entries, {
+                        list: [],
+                        total: 0
+                    });
+                }
+
+                return [204];
             });
         }]);
     //
