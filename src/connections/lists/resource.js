@@ -22,6 +22,30 @@ define(function(require, exports, module) {'use strict';
             // API
             return {
 
+                createList: function(options) {
+                    return npResource.request({
+                        method: 'POST',
+                        url: config['list.url'],
+                        data: options.data
+                    }, null, options);
+                },
+
+                updateList: function(options) {
+                    return npResource.request({
+                        method: 'PUT',
+                        url: config['list.url'] + '/' + options.id,
+                        data: options.data
+                    }, null, options);
+                },
+
+                deleteList: function(options) {
+                    return npResource.request({
+                        method: 'DELETE',
+                        url: config['list.url'] + '/' + options.id,
+                        data: options.data
+                    }, null, options);
+                },
+
                 lists: function(options) {
                     return npResource.request({
                         method: 'GET',

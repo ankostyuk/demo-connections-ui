@@ -19,9 +19,18 @@ define(function(require, exports, module) {'use strict';
     var testData = {
         'connections': {
             'lists':            angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
+
             'list': {
-                'list-2-entries':   angular.fromJson(require('text!./data/connections/list/list-2-entries.json')),
+                'list-1': {
+                    'entries':      angular.fromJson(require('text!./data/connections/list/empty-entries.json'))
+                },
+                'list-2': {
+                    'entries':      angular.fromJson(require('text!./data/connections/list/list-2/entries.json'))
+                },
+
+                'empty-entries':    angular.fromJson(require('text!./data/connections/list/empty-entries.json'))
             },
+
             'orders':           angular.fromJson(require('text!./data/connections/orders.json'))
         },
         'siteapp': {
@@ -34,9 +43,32 @@ define(function(require, exports, module) {'use strict';
     };
 
     //
+    var userId = testData['siteapp']['limits']['userId'];
+
+    function getList(listId) {
+        return _.find(testData['connections']['lists']['_embedded']['list'], function(list){
+            return list.id === listId;
+        });
+    }
+
+    //
     function getRequestDelay(url) {
         var delay = /^\/siteapp\//.test(url) ? siteappDelay : connectionsDelay;
         return delay;
+    }
+
+    function getUrlParam(url, after) {
+        var params  = url.split('/'),
+            param   = null;
+
+        _.each(url.split('/'), function(p, i){
+            if (p === after) {
+                param = params[i + 1];
+                return false;
+            }
+        });
+
+        return param;
     }
 
     //
@@ -81,9 +113,58 @@ define(function(require, exports, module) {'use strict';
                 $httpBackend.whenGET('/siteapp/api/users/me/limits').respond(auth ? testData['siteapp']['limits'] : testData['siteapp']['limits-forbidden']);
             }
 
+            // list
+            $httpBackend.whenPOST('/connections/api/list').respond(function(method, url, data, headers, params){
+                var listData = angular.fromJson(data);
+
+                if (listData.name === 'error') {
+                    return [500];
+                }
+
+                var list = _.extend(listData, {
+                    id: _.uniqueId('list-x-'),
+                    userId: userId
+                });
+
+                testData['connections']['lists']['_embedded']['list'].push(list);
+
+                return [200, list];
+            });
+
+            // /connections/api/list/<id>
+            $httpBackend.whenPUT(/^\/connections\/api\/list\/[^\/]+/).respond(function(method, url, data){
+                var listId      = getUrlParam(url, 'list'),
+                    listData    = angular.fromJson(data),
+                    list        = getList(listId);
+
+                _.extend(list, listData);
+
+                return [200, list];
+            });
+
+            // /connections/api/list/<id>
+            $httpBackend.whenDELETE(/^\/connections\/api\/list\/[^\/]+/).respond(function(method, url){
+                var listId  = getUrlParam(url, 'list'),
+                    e       = testData['connections']['lists']['_embedded'];
+
+                e.list = _.reject(e.list, {
+                    id: listId
+                });
+
+                return [204];
+            });
+
             // lists
             $httpBackend.whenGET('/connections/api/lists').respond(testData['connections']['lists']);
-            $httpBackend.whenGET('/connections/api/list/list-2/entries').respond(testData['connections']['list']['list-2-entries']);
+
+            // /connections/api/list/<id>/entries
+            $httpBackend.whenGET(/^\/connections\/api\/list\/[^\/]+\/entries/).respond(function(method, url){
+                var listId  = getUrlParam(url, 'list'),
+                    l       = testData['connections']['list'][listId],
+                    entries = l ? l['entries'] : testData['connections']['list']['empty-entries'];
+
+                return [200, entries];
+            });
         }]);
     //
 });

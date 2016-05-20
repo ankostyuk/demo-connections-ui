@@ -23,6 +23,7 @@ define(function(require, exports, module) {'use strict';
 
                 me.result = null;
                 me.isRequestDone = false;
+                me.successfulOrder = null;
 
                 me.checkOptions = {
                     insideList: false
@@ -55,6 +56,8 @@ define(function(require, exports, module) {'use strict';
                 me.fetch = function(callback) {
                     me.isRequestDone = false;
 
+                    resetChecked();
+
                     _request = npConnectionsListsResource.lists({
                         success: function(data) {
                             me.result = _.get(data, '_embedded.list');
@@ -84,6 +87,10 @@ define(function(require, exports, module) {'use strict';
                 me.showList = function(list) {
                     $rootScope.$emit('np-connections-do-show-list', list);
                 };
+
+                function resetChecked() {
+                    _checked = {};
+                }
 
                 function resetResult() {
                     me.result = null;

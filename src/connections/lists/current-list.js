@@ -18,6 +18,8 @@ define(function(require, exports, module) {'use strict';
         .factory('npConnectionsCurrentList', ['$log', '$rootScope', 'npConnectionsListsResource', function($log, $rootScope, npConnectionsListsResource){
             return function() {
                 var me              = this,
+                    _updateRequest  = null,
+                    _deleteRequest  = null,
                     _entriesRequest = null,
                     _checked        = {};
 
@@ -33,7 +35,15 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 me.remove = function() {
-                    $log.warn('* remove list');
+                    $rootScope.$emit('np-connections-loading', function(done){
+                        me.delete(function(hasError){
+                            if (hasError) {
+                                done();
+                            } else {
+                                $rootScope.$emit('np-connections-delete-list', me.info, done);
+                            }
+                        });
+                    });
                 };
 
                 me.clean = function() {
@@ -68,17 +78,76 @@ define(function(require, exports, module) {'use strict';
                 me.inlineEditProxy = {
                     onEdit: function(newText, oldText, data) {
                         me.info.name = newText;
+
+                        var updatedData = {
+                            name: newText
+                        };
+
+                        $rootScope.$emit('np-connections-loading', function(done){
+                            me.update(updatedData, function(hasError){
+                                if (hasError) {
+                                    me.info.name = oldText;
+                                }
+                                done();
+                            });
+                        });
                     }
+                };
+
+                me.setList = function(list) {
+                    me.info = list;
+                    resetEntries();
                 };
 
                 me.fetch = function(list, callback) {
                     me.info = list;
-                    me.fetchEntries(list.id, callback);
+                    me.fetchEntries(callback);
                 };
 
-                me.fetchEntries = function(listId, callback) {
+                me.update = function(updatedData, callback) {
+                    _updateRequest = npConnectionsListsResource.updateList({
+                        id: me.info.id,
+                        data: updatedData,
+                        success: function(data) {
+                            done();
+                        },
+                        error: function() {
+                            $rootScope.$emit('np-connections-error');
+                            done(true);
+                        },
+                        previousRequest: _updateRequest
+                    });
+
+                    function done(hasError) {
+                        if (_.isFunction(callback)) {
+                            callback(hasError);
+                        }
+                    }
+                };
+
+                me.delete = function(callback) {
+                    _deleteRequest = npConnectionsListsResource.deleteList({
+                        id: me.info.id,
+                        success: function(data) {
+                            done();
+                        },
+                        error: function() {
+                            $rootScope.$emit('np-connections-error');
+                            done(true);
+                        },
+                        previousRequest: _deleteRequest
+                    });
+
+                    function done(hasError) {
+                        if (_.isFunction(callback)) {
+                            callback(hasError);
+                        }
+                    }
+                };
+
+                me.fetchEntries = function(callback) {
                     _entriesRequest = npConnectionsListsResource.listEntries({
-                        id: listId,
+                        id: me.info.id,
                         success: function(data) {
                             _.each(data.list, function(entry){
                                 entry.__inlineEditProxy = {

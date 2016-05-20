@@ -40,13 +40,13 @@ define(function(require, exports, module) {'use strict';
                         me.currentTarget = null;
                         me.prevTarget = null;
 
-                        me.showNav = function(target) {
+                        me.showNav = function(target, noStore) {
                             element
                                 .find('[data-target="' + target + '"]')
                                 .eq(0).tab('show')
                                 .parent('li').removeClass('active');
 
-                            me.prevTarget = me.currentTarget;
+                            me.prevTarget = noStore ? null : me.currentTarget;
                             me.currentTarget = target;
                         };
 
@@ -73,6 +73,10 @@ define(function(require, exports, module) {'use strict';
                             scope.listsSet.fetch(function(){
                                 scope.navigation.showNav('#np-connections-lists-lists-set');
                                 done();
+
+                                // test
+                                // showList(scope.listsSet.result[1]);
+                                // scope.navigation.showNav('#np-connections-lists-new-list');
                             });
                         });
                     }
@@ -86,12 +90,34 @@ define(function(require, exports, module) {'use strict';
                         });
                     }
 
+                    $rootScope.$on('np-connections-new-list', function(e, list, callback){
+                        scope.listsSet.fetch(function(){
+                            scope.newList.reset();
+                            scope.currentList.setList(list);
+                            scope.navigation.showNav('#np-connections-lists-current-list');
+
+                            if (_.isFunction(callback)) {
+                                callback();
+                            }
+                        });
+                    });
+
+                    $rootScope.$on('np-connections-delete-list', function(e, list, callback){
+                        scope.listsSet.fetch(function(){
+                            scope.navigation.showNav('#np-connections-lists-lists-set', true);
+
+                            if (_.isFunction(callback)) {
+                                callback();
+                            }
+                        });
+                    });
+
                     $rootScope.$on('np-connections-do-show-lists', function(){
                         showLists();
                     });
 
-                    $rootScope.$on('np-connections-do-show-list', function(e, listId){
-                        showList(listId);
+                    $rootScope.$on('np-connections-do-show-list', function(e, list){
+                        showList(list);
                     });
                 }
             };
