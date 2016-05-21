@@ -126,7 +126,10 @@ define(function(require, exports, module) {'use strict';
                     userId: userId
                 });
 
-                testData['connections']['lists']['_embedded']['list'].push(list);
+                var d = testData['connections']['lists'];
+
+                d._embedded.list.push(list);
+                d.page.totalElements++;
 
                 return [200, list];
             });
@@ -145,11 +148,13 @@ define(function(require, exports, module) {'use strict';
             // /connections/api/list/<id>
             $httpBackend.whenDELETE(/^\/connections\/api\/list\/[^\/]+$/).respond(function(method, url){
                 var listId  = getUrlParam(url, 'list'),
-                    e       = testData['connections']['lists']['_embedded'];
+                    d       = testData['connections']['lists'];
 
-                e.list = _.reject(e.list, {
+                d._embedded.list = _.reject(d._embedded.list, {
                     id: listId
                 });
+
+                d.page.totalElements--;
 
                 return [204];
             });
@@ -173,15 +178,13 @@ define(function(require, exports, module) {'use strict';
                     entryIds    = angular.fromJson(data);
 
                 if (entryIds) {
-                    entries.list = _.reject(entries.list, function(entry){
+                    entries._embedded.list = _.reject(entries._embedded.list, function(entry){
                         return _.includes(entryIds, entry.id);
                     });
-                    entries.total -= _.size(entryIds);
+                    entries.page.totalElements -= _.size(entryIds);
                 } else {
-                    _.extend(entries, {
-                        list: [],
-                        total: 0
-                    });
+                    delete entries._embedded;
+                    entries.page.totalElements = 0;
                 }
 
                 return [204];

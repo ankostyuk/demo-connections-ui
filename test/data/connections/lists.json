@@ -29,8 +29,8 @@
     },
     "page": {
         "size": 10,
-        "totalElements": 1,
+        "totalElements": 2,
         "totalPages": 1,
-        "number": 0
+        "number": 1
     }
 }

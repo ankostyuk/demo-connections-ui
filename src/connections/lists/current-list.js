@@ -26,9 +26,10 @@ define(function(require, exports, module) {'use strict';
 
                 me.info = null;
                 me.entries = null;
+                me.entriesPage = null;
 
                 me.getEntriesCount = function() {
-                    return _.get(me.entries, 'total');
+                    return _.get(me.entriesPage, 'totalElements');
                 };
 
                 me.isEmpty = function() {
@@ -152,7 +153,10 @@ define(function(require, exports, module) {'use strict';
                     _entriesRequest = npConnectionsListsResource.listEntries({
                         id: me.info.id,
                         success: function(data) {
-                            _.each(data.list, function(entry){
+                            me.entries = _.get(data, '_embedded.list');
+                            me.entriesPage = _.get(data, 'page');
+
+                            _.each(me.entries, function(entry){
                                 entry.__inlineEditProxy = {
                                     onEdit: function(newText, oldText, data) {
                                         $log.info('* list entry onEdit...', newText, oldText, entry);
@@ -161,8 +165,6 @@ define(function(require, exports, module) {'use strict';
                                     }
                                 };
                             });
-
-                            me.entries = data;
 
                             requestDone(false, data, callback);
                         },
@@ -204,6 +206,7 @@ define(function(require, exports, module) {'use strict';
 
                 function resetEntries() {
                     me.entries = null;
+                    me.entriesPage = null;
                     resetChecked();
                 }
             };

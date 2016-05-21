@@ -1,5 +1,13 @@
 {
-    "listId": "list-1",
-    "total": 0,
-    "list": []
+    "_links": {
+        "self": {
+            "href": "xxx"
+        }
+    },
+    "page": {
+        "size": 10,
+        "totalElements": 0,
+        "totalPages": 0,
+        "number": 0
+    }
 }

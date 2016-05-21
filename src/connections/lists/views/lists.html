@@ -72,7 +72,7 @@
 
                         <button class="btn flat" np-inline-confirm="currentList.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
                     </div>
-                    <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.entries.list track by $index">
+                    <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.entries track by $index">
                         <div class="row info">
                             <div class="span1 entry-checked-wrapper">
                                 <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="currentList.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
