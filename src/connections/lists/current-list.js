@@ -25,7 +25,7 @@ define(function(require, exports, module) {'use strict';
                     _checked                = {};
 
                 me.info = null;
-                me.entries = null;
+                me.entriesResult = null;
                 me.entriesPage = null;
 
                 me.getEntriesCount = function() {
@@ -153,10 +153,10 @@ define(function(require, exports, module) {'use strict';
                     _entriesRequest = npConnectionsListsResource.listEntries({
                         id: me.info.id,
                         success: function(data) {
-                            me.entries = _.get(data, '_embedded.list');
+                            me.entriesResult = _.get(data, '_embedded');
                             me.entriesPage = _.get(data, 'page');
 
-                            _.each(me.entries, function(entry){
+                            _.each(_.get(me.entriesResult, 'list'), function(entry){
                                 entry.__inlineEditProxy = {
                                     onEdit: function(newText, oldText, data) {
                                         $log.info('* list entry onEdit...', newText, oldText, entry);
@@ -205,7 +205,7 @@ define(function(require, exports, module) {'use strict';
                 }
 
                 function resetEntries() {
-                    me.entries = null;
+                    me.entriesResult = null;
                     me.entriesPage = null;
                     resetChecked();
                 }

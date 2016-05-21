@@ -22,6 +22,7 @@ define(function(require, exports, module) {'use strict';
                     _checked    = {};
 
                 me.result = null;
+                me.page = null;
                 me.isRequestDone = false;
                 me.successfulOrder = null;
 
@@ -30,7 +31,7 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 me.isEmpty = function() {
-                    return _.isEmpty(me.result);
+                    return !_.get(me.page, 'totalElements');
                 };
 
                 me.check = function(list) {
@@ -60,8 +61,8 @@ define(function(require, exports, module) {'use strict';
 
                     _request = npConnectionsListsResource.lists({
                         success: function(data) {
-                            me.result = _.get(data, '_embedded.list');
-                            // TODO paging: page data
+                            me.result = _.get(data, '_embedded');
+                            me.page = _.get(data, 'page');
                             requestDone(false, data, callback);
                         },
                         error: function() {
@@ -100,6 +101,7 @@ define(function(require, exports, module) {'use strict';
 
                 function resetResult() {
                     me.result = null;
+                    me.page = null;
                 }
 
                 function resetOrder() {
