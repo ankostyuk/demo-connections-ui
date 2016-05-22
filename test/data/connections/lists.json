@@ -24,7 +24,7 @@
     },
     "_links": {
         "self": {
-            "href": "xxx/api/list"
+            "href": "xxx/api/lists"
         }
     },
     "page": {
