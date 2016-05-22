@@ -4,7 +4,7 @@
         <!-- Просмотр заказов -->
         <div class="tab-pane orders-set" id="np-connections-orders-orders-set" ng-class="{'request-pending': !ordersSet.isRequestDone}">
             <ul class="row orders-nav tools">
-                <li class="span6" ng-show="navigation.prevTarget === '#np-connections-orders-current-order'"><a data-target="#np-connections-orders-current-order" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру проверки", "Проверки связей")}</a></li>
+                <li class="span6" ng-show="true || navigation.prevTarget === '#np-connections-orders-current-order'"><a data-target="#np-connections-orders-current-order" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру проверки", "Проверки связей")}</a></li>
             </ul>
             // TODO Просмотр заказов
         </div>

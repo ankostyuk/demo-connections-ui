@@ -26,43 +26,15 @@ define(function(require, exports, module) {'use strict';
             templates = templateUtils.processTemplate(templates).templates;
         }])
         //
-        .directive('npConnectionsOrders', ['$log', '$timeout', '$rootScope', 'npConnectionsOrdersSet', 'npConnectionsCurrentOrder', function($log, $timeout, $rootScope, npConnectionsOrdersSet, npConnectionsCurrentOrder){
+        .directive('npConnectionsOrders', ['$log', '$timeout', '$rootScope', 'npConnectionsOrdersSet', 'npConnectionsCurrentOrder', 'npConnectionsNavigation', function($log, $timeout, $rootScope, npConnectionsOrdersSet, npConnectionsCurrentOrder, npConnectionsNavigation){
             return {
                 restrict: 'A',
                 scope: {},
                 template: templates['orders-view'].html,
                 link: function(scope, element, attrs) {
-                    // Navigation
-                    // TODO обобщить с src/connections/lists/directives.js Navigation
-                    function Navigation() {
-                        var me = this;
-
-                        me.currentTarget = null;
-                        me.prevTarget = null;
-
-                        me.showNav = function(target, noStore) {
-                            element
-                                .find('[data-target="' + target + '"]')
-                                .eq(0).tab('show')
-                                .parent('li').removeClass('active');
-
-                            me.prevTarget = noStore ? null : me.currentTarget;
-                            me.currentTarget = target;
-                        };
-
-                        me.doNav = function(e) {
-                            e.preventDefault();
-                            me.showNav($(e.currentTarget).attr('data-target'));
-                        };
-
-                        me.showDesktopTab = function(target) {
-                            $rootScope.$emit('np-connections-show-desktop-tab', target);
-                        };
-                    }
-
                     //
                     _.extend(scope, {
-                        navigation:     new Navigation(),
+                        navigation:     new npConnectionsNavigation(element),
                         ordersSet:      new npConnectionsOrdersSet(),
                         currentOrder:   new npConnectionsCurrentOrder()
                     }, i18n.translateFuncs);
