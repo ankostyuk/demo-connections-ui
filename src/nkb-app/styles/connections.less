@@ -2,9 +2,29 @@
 
 @import '../../connections/desktop/styles/desktop.less';
 @import '../../connections/lists/styles/lists.less';
+@import '../../connections/orders/styles/orders.less';
 
 .np-connections .tab-content {
     overflow-x: visible;
     overflow-y: visible;
     overflow: visible;
+}
+
+.np-connections a.active,
+.np-connections .link.active {
+    color: @linkActiveColor;
+    cursor: default;;
+}
+
+.np-connections li[class*="span"],
+.np-connections form[class*="span"] {
+    margin-left: 0;
+}
+
+.np-connections .tools {
+    margin: 0 0 20px 0;
+    order-style: none;
+}
+.np-connections .tools > li {
+    display: block;
 }
