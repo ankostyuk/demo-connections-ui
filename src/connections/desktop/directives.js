@@ -13,6 +13,7 @@ define(function(require, exports, module) {'use strict';
     var externalTemplates = {
         'np-rsearch-node-info': require('text!../../../external_components/nullpointer-rsearch/rsearch/views/rsearch-node-info.html')
     };
+
                           require('jquery');
                           require('lodash');
     var i18n            = require('i18n'),

@@ -5,6 +5,7 @@
  */
 define(function(require, exports, module) {'use strict';
 
+                          require('jquery');
                           require('lodash');
     var angular         = require('angular');
 
