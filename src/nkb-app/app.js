@@ -45,7 +45,8 @@ define(function(require) {'use strict';
             resource: {
                 'list.url':         '/connections/api/list',
                 'lists.url':        '/connections/api/lists',
-                'list.entries.url': '/connections/api/list/{{id}}/entries'
+                'list.entries.url': '/connections/api/list/{{id}}/entries',
+                'orders.url':       '/connections/api/orders'
             }
         })
         //

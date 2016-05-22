@@ -77,6 +77,7 @@ define(function(require, exports, module) {'use strict';
                                 // test
                                 // showList(scope.listsSet.result[1]);
                                 // scope.navigation.showNav('#np-connections-lists-new-list');
+                                scope.navigation.showDesktopTab('#np-connections-orders');
                             });
                         });
                     }

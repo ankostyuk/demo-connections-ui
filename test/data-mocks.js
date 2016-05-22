@@ -12,6 +12,7 @@ define(function(require, exports, module) {'use strict';
     var purl                = require('purl'),
         locationSearch      = purl().param(),
         emptyLists          = _.toBoolean(locationSearch['test-empty-lists']),
+        emptyOrders         = _.toBoolean(locationSearch['test-empty-orders']),
         auth                = locationSearch['test-auth'] && _.toBoolean(locationSearch['test-auth']),
         siteappDelay        = parseInt(locationSearch['test-siteapp-delay']) || 0,
         connectionsDelay    = parseInt(locationSearch['test-connections-delay']) || 0;
@@ -31,7 +32,7 @@ define(function(require, exports, module) {'use strict';
                 'empty-entries':    angular.fromJson(require('text!./data/connections/list/empty-entries.json'))
             },
 
-            'orders':           angular.fromJson(require('text!./data/connections/orders.json'))
+            'orders':           angular.fromJson(emptyOrders ? require('text!./data/connections/empty-orders.json') : require('text!./data/connections/orders.json'))
         },
         'siteapp': {
             'login':            angular.fromJson(require('text!./data/siteapp/login.json')),

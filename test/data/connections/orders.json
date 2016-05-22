@@ -1,2 +1,98 @@
 {
+    "_embedded": {
+        "list": [{
+            "id": "order-1",
+            "created": 1460387732392,
+            "edited": 1463748952608,
+            "status": "READY",
+
+            "userLists": [{
+                "id": "list-1",
+                "name": "Тендерная комиссия",
+                "type": "INDIVIDUAL",
+                "userId": "user-1"
+            }, {
+                "id": "list-2",
+                "name": "Компании-участники тендера на поставку оборудования",
+                "type": "COMPANY",
+                "userId": "user-1"
+            }],
+
+            "checkOptions": {
+                "insideList": false
+            },
+
+            "userId": "user-1"
+        }, {
+            "id": "order-2",
+            "created": 1460387732392,
+            "edited": 1463748952608,
+            "status": "PROGRESS",
+
+            "userLists": [{
+                "id": "list-2",
+                "name": "Компании-участники тендера на поставку оборудования",
+                "type": "COMPANY",
+                "userId": "user-1"
+            }],
+
+            "checkOptions": {
+                "insideList": true
+            },
+
+            "userId": "user-1"
+        }, {
+            "id": "order-3",
+            "created": 1460387732392,
+            "edited": 1463748952608,
+            "status": "CANCELED",
+
+            "userLists": [{
+                "id": "list-1",
+                "name": "Тендерная комиссия",
+                "type": "INDIVIDUAL",
+                "userId": "user-1"
+            }],
+
+            "checkOptions": {
+                "insideList": true
+            },
+
+            "userId": "user-1"
+        }, {
+            "id": "order-4",
+            "created": 1460387732392,
+            "edited": 1463748952608,
+            "status": "FAILED",
+
+            "userLists": [{
+                "id": "list-1",
+                "name": "Тендерная комиссия",
+                "type": "INDIVIDUAL",
+                "userId": "user-1"
+            }, {
+                "id": "list-2",
+                "name": "Компании-участники тендера на поставку оборудования",
+                "type": "COMPANY",
+                "userId": "user-1"
+            }],
+
+            "checkOptions": {
+                "insideList": true
+            },
+
+            "userId": "user-1"
+        }]
+    },
+    "_links": {
+        "self": {
+            "href": "xxx/api/orders"
+        }
+    },
+    "page": {
+        "size": 10,
+        "totalElements": 0,
+        "totalPages": 0,
+        "number": 0
+    }
 }
