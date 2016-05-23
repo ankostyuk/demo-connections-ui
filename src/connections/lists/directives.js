@@ -69,7 +69,7 @@ define(function(require, exports, module) {'use strict';
                         });
                     });
 
-                    $rootScope.$on('np-connections-do-show-list', function(e, list){
+                    $rootScope.$on('np-connections-show-list', function(e, list){
                         $rootScope.$emit('np-connections-loading', function(done){
                             scope.currentList.fetch(list, function(){
                                 scope.navigation.showNav('#np-connections-lists-current-list');

@@ -44,7 +44,7 @@ define(function(require, exports, module) {'use strict';
                     //
                     $rootScope.$on('np-connections-show-orders', function(e, callback){
                         $rootScope.$emit('np-connections-loading', function(done){
-                            // scope.ordersSet.fetch(function(){
+                            scope.ordersSet.fetch(function(){
                                 scope.navigation.showNav('#np-connections-orders-orders-set');
 
                                 if (_.isFunction(callback)) {
@@ -52,7 +52,7 @@ define(function(require, exports, module) {'use strict';
                                 }
 
                                 done();
-                            // });
+                            });
                         });
                     });
                 }

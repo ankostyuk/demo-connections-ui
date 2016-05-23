@@ -24,21 +24,12 @@ define(function(require, exports, module) {'use strict';
                     _deleteEntriesRequest   = null;
 
                 me.info = null;
-                me.entriesResult = null;
-                me.entriesPage = null;
+                me.entriesResult = new npConnectionsUtils.PaginationResult();
 
                 me.checked = new npConnectionsUtils.Checked({
                     checkedProperty: '__checked',
                     idProperty: 'id'
                 });
-
-                me.getEntriesCount = function() {
-                    return _.get(me.entriesPage, 'totalElements');
-                };
-
-                me.isEmpty = function() {
-                    return !me.getEntriesCount();
-                };
 
                 me.addListEntriesProxy = {
                     addActionEnabled: true,
@@ -145,10 +136,9 @@ define(function(require, exports, module) {'use strict';
                     _entriesRequest = npConnectionsListsResource.listEntries({
                         id: me.info.id,
                         success: function(data) {
-                            me.entriesResult = _.get(data, '_embedded');
-                            me.entriesPage = _.get(data, 'page');
+                            me.entriesResult.setResult(data);
 
-                            _.each(_.get(me.entriesResult, 'list'), function(entry){
+                            _.each(me.entriesResult.getList(), function(entry){
                                 entry.__inlineEditProxy = {
                                     onEdit: function(newText, oldText, data) {
                                         $log.info('* list entry onEdit...', newText, oldText, entry);
@@ -187,8 +177,7 @@ define(function(require, exports, module) {'use strict';
                 }
 
                 function resetEntries() {
-                    me.entriesResult = null;
-                    me.entriesPage = null;
+                    me.result.reset();
                     resetChecked();
                 }
             };

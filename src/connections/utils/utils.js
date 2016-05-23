@@ -16,6 +16,14 @@ define(function(require, exports, module) {'use strict';
     return angular.module('np.connections.utils', _.pluck(angularModules, 'name'))
         //
         .factory('npConnectionsUtils', ['$log', '$rootScope', function($log, $rootScope){
+            //
+            var paginationResultDefaultPaths = {
+                listPath: '_embedded.list',
+                pageInfoPath: 'page',
+                totalPath: 'page.totalElements'
+            };
+
+            //
             return {
                 requestDone: function(hasError, data, callback) {
                     if (hasError) {
@@ -25,6 +33,42 @@ define(function(require, exports, module) {'use strict';
                     if (_.isFunction(callback)) {
                         callback(hasError, data);
                     }
+                },
+
+                getPaginationResultDefaultPaths: function(options) {
+                    return paginationResultDefaultPaths;
+                },
+
+                PaginationResult: function(options) {
+                    options = options || _.extend({}, paginationResultDefaultPaths);
+
+                    var me = this;
+
+                    me.result = null;
+
+                    me.setResult = function(result) {
+                        me.result = result;
+                    };
+
+                    me.getList = function() {
+                        return _.get(me.result, options.listPath);
+                    };
+
+                    me.getPageInfo = function() {
+                        return _.get(me.result, options.pageInfoPath);
+                    };
+
+                    me.getTotal = function() {
+                        return _.get(me.result, options.totalPath);
+                    };
+
+                    me.isEmpty = function() {
+                        return !me.getTotal();
+                    };
+
+                    me.reset = function() {
+                        me.result = null;
+                    };
                 },
 
                 Checked: function(options) {

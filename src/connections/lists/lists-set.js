@@ -20,9 +20,9 @@ define(function(require, exports, module) {'use strict';
                 var me          = this,
                     _request    = null;
 
-                me.result = null;
-                me.page = null;
                 me.successfulOrder = null;
+
+                me.result = new npConnectionsUtils.PaginationResult();
 
                 me.checked = new npConnectionsUtils.Checked({
                     checkedProperty: '__checked',
@@ -31,10 +31,6 @@ define(function(require, exports, module) {'use strict';
 
                 me.checkOptions = {
                     insideList: false
-                };
-
-                me.isEmpty = function() {
-                    return !_.get(me.page, 'totalElements');
                 };
 
                 me.check = function(list) {
@@ -47,8 +43,7 @@ define(function(require, exports, module) {'use strict';
 
                     _request = npConnectionsListsResource.lists({
                         success: function(data) {
-                            me.result = _.get(data, '_embedded');
-                            me.page = _.get(data, 'page');
+                            me.result.setResult(data);
                             npConnectionsUtils.requestDone(false, data, callback);
                         },
                         error: function() {
@@ -65,7 +60,7 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 me.showList = function(list) {
-                    $rootScope.$emit('np-connections-do-show-list', list);
+                    $rootScope.$emit('np-connections-show-list', list);
                 };
 
                 function resetChecked() {
@@ -74,8 +69,8 @@ define(function(require, exports, module) {'use strict';
                 }
 
                 function resetResult() {
-                    me.result = null;
-                    me.page = null;
+                    me.result.reset();
+                    resetChecked();
                 }
 
                 function resetOrder() {

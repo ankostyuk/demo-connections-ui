@@ -131,8 +131,8 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     $timeout(function(){
-                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
-                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
+                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
+                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
                     }, 500);
                 }
             };

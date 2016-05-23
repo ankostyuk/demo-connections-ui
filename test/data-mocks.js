@@ -190,6 +190,9 @@ define(function(require, exports, module) {'use strict';
 
                 return [204];
             });
+
+            // orders
+            $httpBackend.whenGET('/connections/api/orders').respond(testData['connections']['orders']);
         }]);
     //
 });

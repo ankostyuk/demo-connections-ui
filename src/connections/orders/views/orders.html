@@ -4,9 +4,20 @@
         <!-- Просмотр заказов -->
         <div class="tab-pane orders-set" id="np-connections-orders-orders-set">
             <ul class="row orders-nav tools">
-                <li class="span6" ng-show="true || navigation.prevTarget === '#np-connections-orders-current-order'"><a data-target="#np-connections-orders-current-order" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру проверки", "Проверки связей")}</a></li>
+                <li class="span6" ng-show="navigation.prevTarget === '#np-connections-orders-current-order'"><a data-target="#np-connections-orders-current-order" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру проверки", "Проверки связей")}</a></li>
             </ul>
-            // TODO Просмотр заказов
+            <div class="muted align-center" ng-show="ordersSet.result.isEmpty()">${_trc("У вас нет проверок связей", "Проверки связей")}</div>
+            <!-- <ul class="orders" ng-hide="ordersSet.result.isEmpty()">
+                <li class="row order" ng-repeat="order in ordersSet.result.getList() track by $index">
+                    <div class="span1 list-checked-wrapper">
+                        <a class="list-checked" ng-class="{'checked': list.__checked}" ng-click="listsSet.check(list)"><i class="icon" ng-class="{'i-check-checked': list.__checked, 'i-check-unchecked': !list.__checked}"></i></a>
+                    </div>
+                    <div class="span8 list-name-wrapper">
+                        <a data-target="#np-connections-lists-current-list" ng-click="listsSet.showList(list)">{{list.name}}</a>
+                    </div>
+                    <div class="muted align-right">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.type)}}</div>
+                </li>
+            </ul> -->
         </div>
 
         <!-- Просмотр заказа -->
