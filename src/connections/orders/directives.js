@@ -33,55 +33,31 @@ define(function(require, exports, module) {'use strict';
                 template: templates['orders-view'].html,
                 link: function(scope, element, attrs) {
                     //
+                    var navOptions = {
+                        element: element,
+                        markActive: false
+                    };
+
                     _.extend(scope, {
-                        navigation:     new npConnectionsNavigation(element),
+                        navigation:     new npConnectionsNavigation(navOptions),
                         ordersSet:      new npConnectionsOrdersSet(),
                         currentOrder:   new npConnectionsCurrentOrder()
                     }, i18n.translateFuncs);
 
-                    function showOrders() {
+                    //
+                    $rootScope.$on('np-connections-show-orders', function(e, callback){
                         $rootScope.$emit('np-connections-loading', function(done){
-                            scope.ordersSet.fetch(function(){
+                            // scope.ordersSet.fetch(function(){
                                 scope.navigation.showNav('#np-connections-orders-orders-set');
+
+                                if (_.isFunction(callback)) {
+                                    callback();
+                                }
+
                                 done();
-
-                                // test
-                                // showOrder(scope.ordersSet.result[0]);
-                            });
+                            // });
                         });
-                    }
-
-                    function showOrder(order) {
-                        $rootScope.$emit('np-connections-loading', function(done){
-                            scope.currentOrder.fetch(order, function(){
-                                scope.navigation.showNav('#np-connections-orders-current-order');
-                                done();
-                            });
-                        });
-                    }
-
-                    // $rootScope.$on('np-connections-delete-order', function(e, order, callback){
-                    //     scope.ordersSet.fetch(function(){
-                    //         scope.navigation.showNav('#np-connections-orders-orders-set', true);
-                    //
-                    //         if (_.isFunction(callback)) {
-                    //             callback();
-                    //         }
-                    //     });
-                    // });
-                    //
-                    // $rootScope.$on('np-connections-do-show-orders', function(){
-                    //     showOrders();
-                    // });
-                    //
-                    // $rootScope.$on('np-connections-do-show-order', function(e, order){
-                    //     showOrder(order);
-                    // });
-
-
-                    // test
-                    scope.navigation.showNav('#np-connections-orders-orders-set');
-                    // me.navigation.showDesktopTab('#np-connections-orders');
+                    });
                 }
             };
         }]);

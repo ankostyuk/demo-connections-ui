@@ -11,13 +11,13 @@
 
     <div ng-show="isUserAuthenticated()">
         <ul class="desktop-tab nav nav-tabs">
-            <li class="active"><a data-target="#np-connections-lists">${_trc("Списки", "Пользовательские списки")}</a></li>
-            <li><a data-target="#np-connections-orders">${_trc("Проверки связей", "Заказы на проверку взаимосвязей")}</a></li>
-            <li><a data-target="#np-connections-notifications">${_trc("Уведомления", "Уведомления пользователю")} <span class="badge">23</span></a></li>
+            <li><a data-target="#np-connections-lists" ng-click="navigation.doNav($event)">${_trc("Списки", "Пользовательские списки")}</a></li>
+            <li><a data-target="#np-connections-orders" ng-click="navigation.doNav($event)">${_trc("Проверки связей", "Заказы на проверку взаимосвязей")}</a></li>
+            <li><a data-target="#np-connections-notifications" ng-click="navigation.doNav($event)">${_trc("Уведомления", "Уведомления пользователю")} <span class="badge">23</span></a></li>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="np-connections-lists" np-connections-lists></div>
+            <div class="tab-pane" id="np-connections-lists" np-connections-lists></div>
             <div class="tab-pane" id="np-connections-orders" np-connections-orders></div>
             <div class="tab-pane" id="np-connections-notifications">
                 // TODO Уведомления

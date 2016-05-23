@@ -52,7 +52,7 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', 'nkbUser', 'npUtils', function($log, $rootScope, $timeout, nkbUser, npUtils){
+        .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', 'nkbUser', 'npUtils', 'npConnectionsNavigation', function($log, $rootScope, $timeout, nkbUser, npUtils, npConnectionsNavigation){
             return {
                 restrict: 'A',
                 scope: {},
@@ -101,26 +101,44 @@ define(function(require, exports, module) {'use strict';
                     //
                     scope.message.setMessageHtml(templates['messages']['default-error'].html);
 
-                    // Tab
-                    element.find('.desktop-tab > li > a').click(function(e){
-                        e.preventDefault();
-                        $(this).tab('show');
+                    //
+                    var navOptions = {
+                        element: element,
+                        markActive: true,
+                        targets: {
+                            '#np-connections-lists': {
+                                before: function(targetProxy, callback) {
+                                    if (targetProxy.showCount === 1) {
+                                        $rootScope.$emit('np-connections-show-lists', callback);
+                                    } else {
+                                        callback();
+                                    }
+                                }
+                            },
+                            '#np-connections-orders': {
+                                before: function(targetProxy, callback) {
+                                    if (targetProxy.showCount === 1) {
+                                        $rootScope.$emit('np-connections-show-orders', callback);
+                                    } else {
+                                        callback();
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    _.extend(scope, {
+                        navigation: new npConnectionsNavigation(navOptions)
                     });
 
-                    function showTab(target) {
-                        element
-                            .find('[data-target="' + target + '"]')
-                            .eq(0).tab('show');
-                    }
-
                     //
-                    $rootScope.$on('np-connections-show-desktop-tab', function(e, target){
-                        showTab(target);
+                    $rootScope.$on('np-connections-show-desktop-nav', function(e, target){
+                        scope.navigation.showNav(target);
                     });
 
-                    //
                     $timeout(function(){
-                        $rootScope.$emit('np-connections-do-show-lists');
+                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
+                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
                     }, 500);
                 }
             };

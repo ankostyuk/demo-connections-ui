@@ -34,35 +34,41 @@ define(function(require, exports, module) {'use strict';
                 template: templates['lists-view'].html,
                 link: function(scope, element, attrs) {
                     //
+                    var navOptions = {
+                        element: element,
+                        markActive: false
+                    };
+
                     _.extend(scope, {
-                        navigation:     new npConnectionsNavigation(element),
+                        navigation:     new npConnectionsNavigation(navOptions),
                         listsSet:       new npConnectionsListsSet(),
                         newList:        new npConnectionsNewList(),
                         currentList:    new npConnectionsCurrentList()
                     }, i18n.translateFuncs);
 
-                    function showLists() {
+                    //
+                    $rootScope.$on('np-connections-show-lists', function(e, callback){
                         $rootScope.$emit('np-connections-loading', function(done){
                             scope.listsSet.fetch(function(){
                                 scope.navigation.showNav('#np-connections-lists-lists-set');
-                                done();
 
-                                // test
-                                // showList(scope.listsSet.result[1]);
-                                // scope.navigation.showNav('#np-connections-lists-new-list');
-                                scope.navigation.showDesktopTab('#np-connections-orders');
+                                if (_.isFunction(callback)) {
+                                    callback();
+                                }
+
+                                done();
                             });
                         });
-                    }
+                    });
 
-                    function showList(list) {
+                    $rootScope.$on('np-connections-do-show-list', function(e, list){
                         $rootScope.$emit('np-connections-loading', function(done){
                             scope.currentList.fetch(list, function(){
                                 scope.navigation.showNav('#np-connections-lists-current-list');
                                 done();
                             });
                         });
-                    }
+                    });
 
                     $rootScope.$on('np-connections-new-list', function(e, list, callback){
                         scope.listsSet.fetch(function(){
@@ -84,14 +90,6 @@ define(function(require, exports, module) {'use strict';
                                 callback();
                             }
                         });
-                    });
-
-                    $rootScope.$on('np-connections-do-show-lists', function(){
-                        showLists();
-                    });
-
-                    $rootScope.$on('np-connections-do-show-list', function(e, list){
-                        showList(list);
                     });
                 }
             };
