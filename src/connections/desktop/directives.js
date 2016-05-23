@@ -10,10 +10,6 @@ define(function(require, exports, module) {'use strict';
         'desktop':      require('text!./views/desktop.html')
     };
 
-    var externalTemplates = {
-        'np-rsearch-node-info': require('text!../../../external_components/nullpointer-rsearch/rsearch/views/rsearch-node-info.html')
-    };
-
                           require('jquery');
                           require('lodash');
     var i18n            = require('i18n'),
@@ -30,20 +26,6 @@ define(function(require, exports, module) {'use strict';
             _.each(templates, function(template, name){
                 templates[name] = templateUtils.processTemplate(template).templates;
             });
-
-            _.each(externalTemplates, function(template, name){
-                externalTemplates[name] = i18n.translateTemplate(template);
-            });
-        }])
-        //
-        .directive('npConnectionsNodeInfo', ['$log', function($log){
-            return {
-                restrict: 'A',
-                scope: {
-                    node: '=npConnectionsNodeInfo'
-                },
-                template: externalTemplates['np-rsearch-node-info']
-            };
         }])
         //
         .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', 'nkbUser', 'npUtils', 'npConnectionsNavigation', function($log, $rootScope, $timeout, nkbUser, npUtils, npConnectionsNavigation){
@@ -131,8 +113,8 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     $timeout(function(){
-                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
-                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
+                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
+                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
                     }, 500);
                 }
             };

@@ -1,8 +1,11 @@
-/* connections */
+/* НКБ стили */
+@import '../../../external_components/nullpointer-commons/nkb/styles/styles.less';
 
-@import '../../connections/desktop/styles/desktop.less';
-@import '../../connections/lists/styles/lists.less';
-@import '../../connections/orders/styles/orders.less';
+/* rsearch стили */
+@import '../../../external_components/nullpointer-rsearch/nkb-app/styles/rsearch.less';
+
+/* */
+@import './config.less';
 
 .np-connections .tab-content {
     overflow-x: visible;
@@ -42,7 +45,18 @@
     cursor: text !important;
 }
 
-/* */
-.request-pending .hide-if-request-pending {
-    visibility: hidden;
+/* np-connections-node-info np-rsearch-node-info */
+[np-connections-checked] {
+    width: 16px;
 }
+[np-connections-checked] a {
+    display: inline-block;
+    width: 16px;
+    vertical-align: -2px;
+    font-size: 120%;
+}
+
+/* connections components */
+@import '../../connections/desktop/styles/desktop.less';
+@import '../../connections/lists/styles/lists.less';
+@import '../../connections/orders/styles/orders.less';

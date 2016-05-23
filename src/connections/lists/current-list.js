@@ -177,7 +177,7 @@ define(function(require, exports, module) {'use strict';
                 }
 
                 function resetEntries() {
-                    me.result.reset();
+                    me.entriesResult.reset();
                     resetChecked();
                 }
             };

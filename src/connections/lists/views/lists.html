@@ -33,9 +33,7 @@
             <div class="muted align-center" ng-show="listsSet.result.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
             <ul class="lists" ng-hide="listsSet.result.isEmpty()">
                 <li class="row list" ng-repeat="list in listsSet.result.getList() track by $index">
-                    <div class="span1 list-checked-wrapper">
-                        <a class="list-checked" ng-class="{'checked': list.__checked}" ng-click="listsSet.check(list)"><i class="icon" ng-class="{'i-check-checked': list.__checked, 'i-check-unchecked': !list.__checked}"></i></a>
-                    </div>
+                    <div class="span1" np-connections-checked="list" np-connections-checked-check="listsSet.check(list)"></div>
                     <div class="span8 list-name-wrapper">
                         <a data-target="#np-connections-lists-current-list" ng-click="listsSet.showList(list)">{{list.name}}</a>
                     </div>
@@ -74,9 +72,7 @@
                     </div>
                     <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.entriesResult.getList() track by $index">
                         <div class="row info">
-                            <div class="span1 entry-checked-wrapper">
-                                <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="currentList.checked.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
-                            </div>
+                            <div class="span1" np-connections-checked="entry" np-connections-checked-check="currentList.checked.check(entry)"></div>
                             <div class="span11 user-data-wrapper">
                                 <div class="row">
                                     <div class="user-data-label">${_trc("Ваши данные", "Пользовательские списки")}:</div>
