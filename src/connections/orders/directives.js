@@ -14,9 +14,6 @@ define(function(require, exports, module) {'use strict';
         templateUtils   = require('template-utils');
 
     var angularModules = [
-        require('./orders-set'),
-        require('./current-order'),
-        require('./resource')
     ];
 
     //

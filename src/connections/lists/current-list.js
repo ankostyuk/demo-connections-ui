@@ -15,18 +15,22 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.current-list', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsCurrentList', ['$log', '$rootScope', 'npConnectionsListsResource', function($log, $rootScope, npConnectionsListsResource){
+        .factory('npConnectionsCurrentList', ['$log', '$rootScope', 'npConnectionsListsResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsListsResource, npConnectionsUtils){
             return function() {
                 var me                      = this,
                     _updateRequest          = null,
                     _deleteRequest          = null,
                     _entriesRequest         = null,
-                    _deleteEntriesRequest   = null,
-                    _checked                = {};
+                    _deleteEntriesRequest   = null;
 
                 me.info = null;
                 me.entriesResult = null;
                 me.entriesPage = null;
+
+                me.checked = new npConnectionsUtils.Checked({
+                    checkedProperty: '__checked',
+                    idProperty: 'id'
+                });
 
                 me.getEntriesCount = function() {
                     return _.get(me.entriesPage, 'totalElements');
@@ -34,20 +38,6 @@ define(function(require, exports, module) {'use strict';
 
                 me.isEmpty = function() {
                     return !me.getEntriesCount();
-                };
-
-                me.check = function(entry) {
-                    entry.__checked = !entry.__checked;
-
-                    if (entry.__checked) {
-                        _checked[entry.id] = entry;
-                    } else {
-                        delete _checked[entry.id];
-                    }
-                };
-
-                me.isChecked = function() {
-                    return !_.isEmpty(_checked);
                 };
 
                 me.addListEntriesProxy = {
@@ -98,7 +88,9 @@ define(function(require, exports, module) {'use strict';
 
                 me.doDeleteEntries = function(all) {
                     $rootScope.$emit('np-connections-loading', function(done){
-                        var entryIds = all ? null : _.pluck(_checked, 'id');
+
+                        var entryIds = all ? null : _.pluck(me.checked.getChecked(), 'id');
+
                         me.deleteEntries(entryIds, function(hasError){
                             if (hasError) {
                                 done();
@@ -125,10 +117,10 @@ define(function(require, exports, module) {'use strict';
                         id: me.info.id,
                         data: updatedData,
                         success: function(data) {
-                            requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, data, callback);
                         },
                         error: function() {
-                            requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, null, callback);
                         },
                         previousRequest: _updateRequest
                     });
@@ -138,10 +130,10 @@ define(function(require, exports, module) {'use strict';
                     _deleteRequest = npConnectionsListsResource.deleteList({
                         id: me.info.id,
                         success: function(data) {
-                            requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, data, callback);
                         },
                         error: function() {
-                            requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, null, callback);
                         },
                         previousRequest: _deleteRequest
                     });
@@ -166,11 +158,11 @@ define(function(require, exports, module) {'use strict';
                                 };
                             });
 
-                            requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, data, callback);
                         },
                         error: function() {
                             resetEntries();
-                            requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, null, callback);
                         },
                         previousRequest: _entriesRequest
                     });
@@ -181,27 +173,17 @@ define(function(require, exports, module) {'use strict';
                         id: me.info.id,
                         data: entryIds || undefined,
                         success: function(data) {
-                            requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, data, callback);
                         },
                         error: function() {
-                            requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, null, callback);
                         },
                         previousRequest: _deleteEntriesRequest
                     });
                 };
 
-                function requestDone(hasError, data, callback) {
-                    if (hasError) {
-                        $rootScope.$emit('np-connections-error');
-                    }
-
-                    if (_.isFunction(callback)) {
-                        callback(hasError, data);
-                    }
-                }
-
                 function resetChecked() {
-                    _checked = {};
+                    me.checked.resetChecked();
                 }
 
                 function resetEntries() {

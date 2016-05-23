@@ -2,18 +2,18 @@
 <script id="lists-view" type="text/template">
     <div class="tab-content">
         <!-- Просмотр списков -->
-        <div class="tab-pane lists-set" id="np-connections-lists-lists-set" ng-class="{'request-pending': !listsSet.isRequestDone}">
+        <div class="tab-pane lists-set" id="np-connections-lists-lists-set">
             <ul class="row lists-nav tools">
                 <li class="span6" ng-show="navigation.prevTarget === '#np-connections-lists-current-list'"><a data-target="#np-connections-lists-current-list" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру списка", "Пользовательские списки")}</a></li>
                 <li class="align-right"><a data-target="#np-connections-lists-new-list" ng-click="navigation.doNav($event)"><i class="icon i-plus"></i> ${_trc("Новый список", "Пользовательские списки")}</a></li>
             </ul>
             <div class="tools order" ng-hide="listsSet.isEmpty()">
                 <div class="row">
-                    <div class="span9 muted" ng-hide="listsSet.successfulOrder || listsSet.getCheckedCount() > 1">
-                        <span ng-hide="listsSet.getCheckedCount() === 1">${_tr("Выберете список или несколько списков для проверки связей")}</span>
-                        <span ng-show="listsSet.getCheckedCount() === 1">${_tr("Вы можете выбрать несколько списков для проверки связей")}</span>
+                    <div class="span9 muted" ng-hide="listsSet.successfulOrder || listsSet.checked.getCheckedCount() > 1">
+                        <span ng-hide="listsSet.checked.getCheckedCount() === 1">${_tr("Выберете список или несколько списков для проверки связей")}</span>
+                        <span ng-show="listsSet.checked.getCheckedCount() === 1">${_tr("Вы можете выбрать несколько списков для проверки связей")}</span>
                     </div>
-                    <div class="span9" ng-show="!listsSet.successfulOrder && listsSet.getCheckedCount() > 1">
+                    <div class="span9" ng-show="!listsSet.successfulOrder && listsSet.checked.getCheckedCount() > 1">
                         <label class="checkbox inside-list">
                             <input type="checkbox" ng-model="listsSet.checkOptions.insideList">
                             ${_tr("проверять связи внутри каждого списка")}
@@ -26,11 +26,11 @@
                         <a ng-click="navigation.showDesktopNav('#np-connections-notifications')">${_trc("Уведомлениях", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}</a>
                     </div>
                     <div class="align-right">
-                        <button class="btn flat order-btn" ng-disabled="listsSet.successfulOrder || !listsSet.isChecked()" ng-click="listsSet.doOrder()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>
+                        <button class="btn flat order-btn" ng-disabled="listsSet.successfulOrder || !listsSet.checked.isChecked()" ng-click="listsSet.doOrder()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>
                     </div>
                 </div>
             </div>
-            <div class="muted align-center hide-if-request-pending" ng-show="listsSet.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
+            <div class="muted align-center" ng-show="listsSet.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
             <ul class="lists" ng-hide="listsSet.isEmpty()">
                 <li class="row list" ng-repeat="list in listsSet.result.list track by $index">
                     <div class="span1 list-checked-wrapper">
@@ -67,15 +67,15 @@
                 </div>
                 <div class="list-entries" ng-hide="currentList.isEmpty()">
                     <div class="align-right tools">
-                        <button class="btn flat"ng-show="currentList.info.type === 'COMPANY'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранные компании из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранные компании из списка", "Пользовательские списки")}</button>
-                        <button class="btn flat"ng-show="currentList.info.type === 'INDIVIDUAL'" ng-disabled="!currentList.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранных физических лиц из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранных физических лиц из списка", "Пользовательские списки")}</button>
+                        <button class="btn flat"ng-show="currentList.info.type === 'COMPANY'" ng-disabled="!currentList.checked.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранные компании из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранные компании из списка", "Пользовательские списки")}</button>
+                        <button class="btn flat"ng-show="currentList.info.type === 'INDIVIDUAL'" ng-disabled="!currentList.checked.isChecked()" np-inline-confirm="currentList.removeCheckedEntries()" confirm-text='${_trc("Точно удалить выбранных физических лиц из списка?", "Пользовательские списки")}'>${_trc("Удалить выбранных физических лиц из списка", "Пользовательские списки")}</button>
 
                         <button class="btn flat" np-inline-confirm="currentList.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
                     </div>
                     <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.entriesResult.list track by $index">
                         <div class="row info">
                             <div class="span1 entry-checked-wrapper">
-                                <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="currentList.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
+                                <a class="entry-checked" ng-class="{'checked': entry.__checked}" ng-click="currentList.checked.check(entry)"><i class="icon" ng-class="{'i-check-checked': entry.__checked, 'i-check-unchecked': !entry.__checked}"></i></a>
                             </div>
                             <div class="span11 user-data-wrapper">
                                 <div class="row">
@@ -109,7 +109,7 @@
             </ul>
             <div class="row list-info">
                 <div class="span5">
-                    <input class="input-block-level" type="text" placeholder='${_trc("Введите наименование нового списка", "Пользовательские списки")}' ng-model="newList.info.name">
+                    <input class="input-block-level list-name" type="text" placeholder='${_trc("Введите наименование нового списка", "Пользовательские списки")}' ng-model="newList.info.name">
                 </div>
                 <div class="align-right">
                     <select class="span4" ng-model="newList.info.type">

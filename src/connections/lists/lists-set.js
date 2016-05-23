@@ -15,16 +15,19 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.lists-set', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsListsSet', ['$log', '$rootScope', 'npConnectionsListsResource', function($log, $rootScope, npConnectionsListsResource){
+        .factory('npConnectionsListsSet', ['$log', '$rootScope', 'npConnectionsListsResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsListsResource, npConnectionsUtils){
             return function() {
                 var me          = this,
-                    _request    = null,
-                    _checked    = {};
+                    _request    = null;
 
                 me.result = null;
                 me.page = null;
-                me.isRequestDone = false;
                 me.successfulOrder = null;
+
+                me.checked = new npConnectionsUtils.Checked({
+                    checkedProperty: '__checked',
+                    idProperty: 'id'
+                });
 
                 me.checkOptions = {
                     insideList: false
@@ -35,39 +38,22 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 me.check = function(list) {
-                    list.__checked = !list.__checked;
-
-                    if (list.__checked) {
-                        _checked[list.id] = list;
-                    } else {
-                        delete _checked[list.id];
-                    }
-
+                    me.checked.check(list);
                     resetOrder();
                 };
 
-                me.isChecked = function() {
-                    return !_.isEmpty(_checked);
-                };
-
-                me.getCheckedCount = function() {
-                    return _.size(_checked);
-                };
-
                 me.fetch = function(callback) {
-                    me.isRequestDone = false;
-
                     resetChecked();
 
                     _request = npConnectionsListsResource.lists({
                         success: function(data) {
                             me.result = _.get(data, '_embedded');
                             me.page = _.get(data, 'page');
-                            requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, data, callback);
                         },
                         error: function() {
                             resetResult();
-                            requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, null, callback);
                         },
                         previousRequest: _request
                     });
@@ -82,20 +68,8 @@ define(function(require, exports, module) {'use strict';
                     $rootScope.$emit('np-connections-do-show-list', list);
                 };
 
-                function requestDone(hasError, data, callback) {
-                    me.isRequestDone = true;
-
-                    if (hasError) {
-                        $rootScope.$emit('np-connections-error');
-                    }
-
-                    if (_.isFunction(callback)) {
-                        callback(hasError, data);
-                    }
-                }
-
                 function resetChecked() {
-                    _checked = {};
+                    me.checked.resetChecked();
                     resetOrder();
                 }
 

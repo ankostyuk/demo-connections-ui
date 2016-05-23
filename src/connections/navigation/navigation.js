@@ -16,7 +16,7 @@ define(function(require, exports, module) {'use strict';
     return angular.module('np.connections.navigation', _.pluck(angularModules, 'name'))
         //
         .factory('npConnectionsNavigation', ['$log', '$rootScope', function($log, $rootScope){
-            return function(navOptions) {
+            return function(options) {
                 var me = this;
 
                 me.currentTarget = null;
@@ -28,7 +28,7 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 me.showNav = function(target, noStore) {
-                    var targetProxy = _.get(navOptions.targets, target);
+                    var targetProxy = _.get(options.targets, target);
 
                     if (targetProxy) {
                         targetProxy.showCount = targetProxy.showCount ? targetProxy.showCount + 1 : 1;
@@ -48,11 +48,11 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 function showNav(target, noStore) {
-                    var tab = navOptions.element
+                    var tab = options.element
                                 .find('[data-target="' + target + '"]')
                                 .eq(0).tab('show');
 
-                    if (!navOptions.markActive) {
+                    if (!options.markActive) {
                         tab.parent('li').removeClass('active');
                     }
 

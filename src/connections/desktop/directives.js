@@ -21,12 +21,6 @@ define(function(require, exports, module) {'use strict';
         templateUtils   = require('template-utils');
 
     var angularModules = [
-        require('../lists/lists'),
-        require('../orders/orders'),
-        require('../navigation/navigation'),
-        require('np.directives'),
-        require('np.utils'),
-        require('nullpointer-rsearch/rsearch/rsearch')
     ];
 
     //
@@ -79,9 +73,6 @@ define(function(require, exports, module) {'use strict';
                             500);
                         },
                         message: {}, // см. directive npMessage
-                        showLoginForm: function() {
-                            $('[app-login-form] input[name="login"]').focus();
-                        },
                         isUserAuthenticated: function() {
                             // TODO права на "Пакетную проверку"
                             return user.isAuthenticated();
@@ -128,7 +119,10 @@ define(function(require, exports, module) {'use strict';
                     };
 
                     _.extend(scope, {
-                        navigation: new npConnectionsNavigation(navOptions)
+                        navigation: new npConnectionsNavigation(navOptions),
+                        showLoginForm: function() {
+                            $('[app-login-form] input[name="login"]').focus();
+                        }
                     });
 
                     //
@@ -137,8 +131,8 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     $timeout(function(){
-                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
-                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
+                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
+                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
                     }, 500);
                 }
             };

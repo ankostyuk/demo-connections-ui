@@ -14,10 +14,6 @@ define(function(require, exports, module) {'use strict';
         templateUtils   = require('template-utils');
 
     var angularModules = [
-        require('./lists-set'),
-        require('./new-list'),
-        require('./current-list'),
-        require('./resource')
     ];
 
     //
@@ -34,9 +30,21 @@ define(function(require, exports, module) {'use strict';
                 template: templates['lists-view'].html,
                 link: function(scope, element, attrs) {
                     //
+                    var newListNameInput = element.find('.new-list input.list-name');
+
+                    //
                     var navOptions = {
                         element: element,
-                        markActive: false
+                        markActive: false,
+                        targets: {
+                            '#np-connections-lists-new-list': {
+                                after: function(targetProxy) {
+                                    if (!scope.newList.isReady()) {
+                                        newListNameInput.focus();
+                                    }
+                                }
+                            }
+                        }
                     };
 
                     _.extend(scope, {

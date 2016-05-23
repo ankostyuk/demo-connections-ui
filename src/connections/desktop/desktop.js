@@ -10,6 +10,12 @@ define(function(require, exports, module) {'use strict';
 
     var angularModules = [
         require('./directives'),
+        require('../lists/lists'),
+        require('../orders/orders'),
+        require('../navigation/navigation'),
+        require('../utils/utils'),
+        require('np.directives'),
+        require('np.utils'),
         require('nullpointer-rsearch/rsearch/rsearch')
     ];
 

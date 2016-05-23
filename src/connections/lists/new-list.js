@@ -15,7 +15,7 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.new-list', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsNewList', ['$log', '$rootScope', 'npConnectionsListsResource', function($log, $rootScope, npConnectionsListsResource){
+        .factory('npConnectionsNewList', ['$log', '$rootScope', 'npConnectionsListsResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsListsResource, npConnectionsUtils){
             return function() {
                 var me              = this,
                     _createRequest  = null;
@@ -49,10 +49,10 @@ define(function(require, exports, module) {'use strict';
                     _createRequest = npConnectionsListsResource.createList({
                         data: me.info,
                         success: function(data) {
-                            requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, data, callback);
                         },
                         error: function() {
-                            requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, null, callback);
                         },
                         previousRequest: _createRequest
                     });
@@ -70,16 +70,6 @@ define(function(require, exports, module) {'use strict';
                         type: null
                     });
                 };
-
-                function requestDone(hasError, data, callback) {
-                    if (hasError) {
-                        $rootScope.$emit('np-connections-error');
-                    }
-
-                    if (_.isFunction(callback)) {
-                        callback(hasError, data);
-                    }
-                }
 
                 me.reset();
             };
