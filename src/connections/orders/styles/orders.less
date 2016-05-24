@@ -1,5 +1,60 @@
 @import './config.less';
 
 /* orders-set */
+[np-connections-orders] .orders-set .empty-result {
+    padding-top: 40px;
+}
+
+[np-connections-orders] .orders-set .orders {
+    margin: 10px 0 0 0;
+    order-style: none;
+    overflow: hidden;
+}
+[np-connections-orders] .orders-set .orders > .order {
+    display: block;
+    padding: 20px 0 10px 0;
+    border-top: 1px solid @defaultLineColor;
+}
+[np-connections-orders] .orders-set .orders > .order:first-child {
+    border-top: 0 none;
+}
+[np-connections-orders] .orders-set .orders > .order .lists-wrapper {
+    width: 500px;
+    /*margin-left: 10px;*/
+}
+[np-connections-orders] .orders-set .orders > .order .lists-wrapper a {
+    display: inline-block;
+}
+[np-connections-orders] .orders-set .orders > .order .lists-wrapper a .list {
+    display: block;
+    margin-bottom: 10px;
+}
+[np-connections-orders] .orders-set .orders > .order .lists-wrapper a .list:first-child {
+    margin-top: 0;
+}
+
+[np-connections-orders] .orders-set .orders > .order .order-date {
+    width: 180px;
+}
+
+[np-connections-orders] .orders-set .orders > .order .order-progress-indicator {
+    display: none;
+}
+[np-connections-orders] .orders-set .orders > .order .cancel-order {
+    display: none;
+    margin-top: -5px;
+}
+[np-connections-orders] .orders-set .orders > .order .cancel-order .icon.i-delete {
+    vertical-align: -1px;
+}
+[np-connections-orders] .orders-set .orders > .order.order-status-PROGRESS .order-progress-indicator {
+    display: inline;
+}
+[np-connections-orders] .orders-set .orders > .order.order-status-PROGRESS:hover .order-status-text {
+    display: none;
+}
+[np-connections-orders] .orders-set .orders > .order.order-status-PROGRESS:hover .cancel-order {
+    display: inline-block;
+}
 
 /* current-order */

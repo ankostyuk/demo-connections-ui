@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: feedback@null-pointer.ru\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: NULLPOINTER <feedback@null-pointer.ru>\n"
+"Last-Translator: ankostyuk <andrew.kostyuk@gmail.com>\n"
 "Language-Team: NULLPOINTER <feedback@null-pointer.ru>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -12,6 +12,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "CLDR_PLURAL_FORMS_FORMAT: one{0}other{1}\n"
+"X-Generator: Poedit 1.7.6\n"
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Формат даты: http://momentjs.com/docs/#/displaying/format/"
+msgid "medium"
+msgstr "MMM D, YYYY h:mm:ss a"
 
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
@@ -31,6 +37,10 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Введите ... или добавьте из файла"
 msgid "Введите физических лиц"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgid "Вы можете выбрать несколько списков для проверки связей"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -78,6 +88,11 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Новый список"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "О готовности"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -130,6 +145,11 @@ msgctxt "Заказы на проверку взаимосвязей"
 msgid "Проверки связей"
 msgstr ""
 
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "Проверки связей"
+msgstr ""
+
 #: ../src/nkb-app/index.html:1
 msgid "Сделано в"
 msgstr ""
@@ -153,6 +173,11 @@ msgctxt "Пользовательские списки"
 msgid "Точно удалить выбранные компании из списка?"
 msgstr ""
 
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "Точно удалить выбранные проверки связей?"
+msgstr ""
+
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Точно удалить выбранных физических лиц из списка?"
@@ -161,6 +186,11 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Точно удалить список?"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "У вас нет проверок связей"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -174,8 +204,18 @@ msgid "Уведомления"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "Уведомлениях"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Удалить выбранные компании из списка"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "Удалить выбранные проверки связей"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -193,6 +233,16 @@ msgctxt "Пользовательские списки"
 msgid "Укажите тип объектов в списке..."
 msgstr ""
 
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "вернуться к проверкам"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "вернуться к просмотру проверки"
+msgstr ""
+
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "вернуться к просмотру списка"
@@ -206,6 +256,11 @@ msgstr ""
 #: ../src/connections/desktop/views/desktop.html:1
 msgctxt "Для работы с приложением необходимо войти или зарегистрироваться"
 msgid "войти"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "вы будете извещены по электронной почте и в"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
@@ -226,6 +281,10 @@ msgstr ""
 #: ../src/connections/desktop/views/desktop.html:1
 msgctxt "Для работы с приложением необходимо войти или зарегистрироваться"
 msgid "или"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgid "проверять связи внутри каждого списка"
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1

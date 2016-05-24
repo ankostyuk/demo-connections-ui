@@ -44,3 +44,19 @@ msgstr ""
 #: ../i18n/ui_keys/src/keys.txt:1
 msgid "NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.COMPANY.OBJECT_MULTIPLE"
 msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NP.CONNECTIONS.ORDER_STATUS.PROGRESS"
+msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NP.CONNECTIONS.ORDER_STATUS.CANCELED"
+msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NP.CONNECTIONS.ORDER_STATUS.READY"
+msgstr ""
+
+#: ../i18n/ui_keys/src/keys.txt:1
+msgid "NP.CONNECTIONS.ORDER_STATUS.FAILED"
+msgstr ""

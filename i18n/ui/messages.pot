@@ -63,6 +63,34 @@ msgid "Выберете список или несколько списков д
 msgstr ""
 
 #: ../src/connections/lists/views/lists.html:1
+msgid "Вы можете выбрать несколько списков для проверки связей"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgid "проверять связи внутри каждого списка"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "О готовности"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "Проверки связей"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "вы будете извещены по электронной почте и в"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
+msgctxt "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]"
+msgid "Уведомлениях"
+msgstr ""
+
+#: ../src/connections/lists/views/lists.html:1
 msgctxt "Связи между объектами"
 msgid "Проверить связи"
 msgstr ""
@@ -211,6 +239,36 @@ msgstr ""
 #: ../src/connections/lists/views/lists.html:1
 msgctxt "Пользовательские списки"
 msgid "Добавить физических лиц"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "вернуться к просмотру проверки"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "Точно удалить выбранные проверки связей?"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "Удалить выбранные проверки связей"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "У вас нет проверок связей"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Формат даты: http://momentjs.com/docs/#/displaying/format/"
+msgid "medium"
+msgstr ""
+
+#: ../src/connections/orders/views/orders.html:1
+msgctxt "Проверки связей"
+msgid "вернуться к проверкам"
 msgstr ""
 
 #: ../src/nkb-app/app.js:1

@@ -38,6 +38,22 @@
     "NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL": [
       null,
       "Физические лица"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.CANCELED": [
+      null,
+      "Отменено"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.FAILED": [
+      null,
+      "Не выполнено"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.PROGRESS": [
+      null,
+      "Выполняется"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.READY": [
+      null,
+      "Готово"
     ]
   },
   "en": {
@@ -79,6 +95,22 @@
     "NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL": [
       null,
       "Individuals"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.CANCELED": [
+      null,
+      "Отменено"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.FAILED": [
+      null,
+      "Не выполнено"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.PROGRESS": [
+      null,
+      "Выполняется"
+    ],
+    "NP.CONNECTIONS.ORDER_STATUS.READY": [
+      null,
+      "Готово"
     ]
   }
 }

@@ -49,3 +49,23 @@ msgstr "Companies"
 #: ../i18n/ui_keys/src/keys.txt:1
 msgid "NP.CONNECTIONS.LIST_TYPE.INDIVIDUAL"
 msgstr "Individuals"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NP.CONNECTIONS.ORDER_STATUS.CANCELED"
+msgstr "Отменено"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NP.CONNECTIONS.ORDER_STATUS.FAILED"
+msgstr "Не выполнено"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NP.CONNECTIONS.ORDER_STATUS.PROGRESS"
+msgstr "Выполняется"
+
+#: ../i18n/ui_keys/src/keys.txt:1
+#, fuzzy
+msgid "NP.CONNECTIONS.ORDER_STATUS.READY"
+msgstr "Готово"
