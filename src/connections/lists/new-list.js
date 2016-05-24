@@ -35,7 +35,9 @@ define(function(require, exports, module) {'use strict';
 
                 me.doCreateList = function() {
                     $rootScope.$emit('np-connections-loading', function(done){
-                        me.create(function(hasError, list){
+                        me.create(function(hasError, response){
+                            var list = response.data;
+
                             if (hasError) {
                                 done();
                             } else {
@@ -49,10 +51,10 @@ define(function(require, exports, module) {'use strict';
                     _createRequest = npConnectionsListsResource.createList({
                         data: me.info,
                         success: function(data) {
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _createRequest
                     });

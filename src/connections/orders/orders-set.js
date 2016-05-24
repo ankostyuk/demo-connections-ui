@@ -34,11 +34,11 @@ define(function(require, exports, module) {'use strict';
                     _request = npConnectionsOrdersResource.orders({
                         success: function(data) {
                             me.result.setResult(data);
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
                             resetResult();
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _request
                     });
@@ -62,10 +62,10 @@ define(function(require, exports, module) {'use strict';
                     _deleteOrdersRequest = npConnectionsOrdersResource.deleteOrders({
                         data: orderIds,
                         success: function(data) {
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _deleteOrdersRequest
                     });

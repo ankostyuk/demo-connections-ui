@@ -44,11 +44,11 @@ define(function(require, exports, module) {'use strict';
                     _request = npConnectionsListsResource.lists({
                         success: function(data) {
                             me.result.setResult(data);
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
                             resetResult();
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _request
                     });

@@ -25,13 +25,20 @@ define(function(require, exports, module) {'use strict';
 
             //
             return {
-                requestDone: function(hasError, data, callback) {
-                    if (hasError) {
+                requestDone: function(hasError, args, callback) {
+                    var response = {
+                        data:       args[0],
+                        status:     args[1],
+                        headers:    args[2],
+                        config:     args[3]
+                    };
+
+                    if (hasError && response.status !== 403) {
                         $rootScope.$emit('np-connections-error');
                     }
 
                     if (_.isFunction(callback)) {
-                        callback(hasError, data);
+                        callback(hasError, response);
                     }
                 },
 

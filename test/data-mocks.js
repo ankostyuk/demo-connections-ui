@@ -114,6 +114,14 @@ define(function(require, exports, module) {'use strict';
                 $httpBackend.whenGET('/siteapp/api/users/me/limits').respond(auth ? testData['siteapp']['limits'] : testData['siteapp']['limits-forbidden']);
             }
 
+            var apiContext          = /^\/connections\/api\//,
+                apiIsDeniedStatus   = 403;
+
+            if (!auth) {
+                $httpBackend.whenGET(apiContext).respond(apiIsDeniedStatus);
+                return;
+            }
+
             // list
             $httpBackend.whenPOST('/connections/api/list').respond(function(method, url, data, headers, params){
                 var listData = angular.fromJson(data);

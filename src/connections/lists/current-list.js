@@ -108,10 +108,10 @@ define(function(require, exports, module) {'use strict';
                         id: me.info.id,
                         data: updatedData,
                         success: function(data) {
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _updateRequest
                     });
@@ -121,10 +121,10 @@ define(function(require, exports, module) {'use strict';
                     _deleteRequest = npConnectionsListsResource.deleteList({
                         id: me.info.id,
                         success: function(data) {
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _deleteRequest
                     });
@@ -148,11 +148,11 @@ define(function(require, exports, module) {'use strict';
                                 };
                             });
 
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
                             resetEntries();
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _entriesRequest
                     });
@@ -163,10 +163,10 @@ define(function(require, exports, module) {'use strict';
                         id: me.info.id,
                         data: entryIds || undefined,
                         success: function(data) {
-                            npConnectionsUtils.requestDone(false, data, callback);
+                            npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            npConnectionsUtils.requestDone(true, null, callback);
+                            npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _deleteEntriesRequest
                     });
