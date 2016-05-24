@@ -17,8 +17,9 @@ define(function(require, exports, module) {'use strict';
         //
         .factory('npConnectionsOrdersSet', ['$log', '$rootScope', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsOrdersResource, npConnectionsUtils){
             return function() {
-                var me          = this,
-                    _request    = null;
+                var me                      = this,
+                    _request                = null,
+                    _deleteOrdersRequest    = null;
 
                 me.result = new npConnectionsUtils.PaginationResult();
 
@@ -32,7 +33,6 @@ define(function(require, exports, module) {'use strict';
 
                     _request = npConnectionsOrdersResource.orders({
                         success: function(data) {
-                            $log.info('* data', data);
                             me.result.setResult(data);
                             npConnectionsUtils.requestDone(false, data, callback);
                         },
@@ -41,6 +41,33 @@ define(function(require, exports, module) {'use strict';
                             npConnectionsUtils.requestDone(true, null, callback);
                         },
                         previousRequest: _request
+                    });
+                };
+
+                me.doDeleteOrders = function() {
+                    $rootScope.$emit('np-connections-loading', function(done){
+                        var orderIds = _.pluck(me.checked.getChecked(), 'id');
+
+                        me.deleteOrders(orderIds, function(hasError){
+                            if (hasError) {
+                                done();
+                            } else {
+                                me.fetch(done);
+                            }
+                        });
+                    });
+                };
+
+                me.deleteOrders = function(orderIds, callback) {
+                    _deleteOrdersRequest = npConnectionsOrdersResource.deleteOrders({
+                        data: orderIds,
+                        success: function(data) {
+                            npConnectionsUtils.requestDone(false, data, callback);
+                        },
+                        error: function() {
+                            npConnectionsUtils.requestDone(true, null, callback);
+                        },
+                        previousRequest: _deleteOrdersRequest
                     });
                 };
 

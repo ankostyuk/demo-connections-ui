@@ -7,7 +7,7 @@
                 <li class="span6" ng-show="navigation.prevTarget === '#np-connections-orders-current-order'"><a data-target="#np-connections-orders-current-order" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру проверки", "Проверки связей")}</a></li>
             </ul>
             <div class="align-right tools" ng-hide="ordersSet.result.isEmpty()">
-                <button class="btn flat" ng-disabled="!ordersSet.checked.isChecked()" np-inline-confirm="ordersSet.removeCheckedOrders()" confirm-text='${_trc("Точно удалить выбранные проверки связей?", "Проверки связей")}'><i class="icon i-trash"></i>${_trc("Удалить выбранные проверки связей", "Проверки связей")}</button>
+                <button class="btn flat" ng-disabled="!ordersSet.checked.isChecked()" np-inline-confirm="ordersSet.doDeleteOrders()" confirm-text='${_trc("Точно удалить выбранные проверки связей?", "Проверки связей")}'><i class="icon i-trash"></i>${_trc("Удалить выбранные проверки связей", "Проверки связей")}</button>
             </div>
             <div class="muted align-center empty-result" ng-show="ordersSet.result.isEmpty()">${_trc("У вас нет проверок связей", "Проверки связей")}</div>
             <ul class="orders" ng-hide="ordersSet.result.isEmpty()">
@@ -18,8 +18,8 @@
                             <span class="list" ng-repeat="list in order.userLists track by $index">{{list.name}}</span>
                         </a>
                     </div>
-                    <div class="span2 muted order-date">{{order.edited | amDateFormat:'${_trc("medium", "Формат даты: http://momentjs.com/docs/#/displaying/format/")}'}}</div>
-                    <div class="muted align-right">
+                    <div class="span2 muted order-date order-info-text">{{order.edited | amDateFormat:'${_trc("medium", "Формат даты: http://momentjs.com/docs/#/displaying/format/")}'}}</div>
+                    <div class="muted align-right order-info-text">
                         <span class="order-status-text">{{_tr('NP.CONNECTIONS.ORDER_STATUS.' + order.status)}}<span class="order-progress-indicator">...</span></span>
                         <button class="btn flat mini cancel-order" np-inline-confirm="ordersSet.removeCheckedOrders()" confirm-text='${_trc("Точно отменить?", "Проверки связей")}'><i class="icon i-delete"></i>${_trc("Отменить проверку", "Проверки связей")}</button>
                     </div>

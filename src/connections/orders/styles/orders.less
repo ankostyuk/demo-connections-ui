@@ -25,12 +25,20 @@
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper a {
     display: inline-block;
 }
+[np-connections-orders] .orders-set .orders > .order:not(.order-status-READY) .lists-wrapper a {
+    color: @defaultDisabledColor;
+    cursor: default;
+}
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper a .list {
     display: block;
     margin-bottom: 10px;
 }
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper a .list:first-child {
     margin-top: 0;
+}
+
+[np-connections-orders] .orders-set .orders > .order.order-status-READY .order-info-text {
+    color: @defaultColor;
 }
 
 [np-connections-orders] .orders-set .orders > .order .order-date {

@@ -27,6 +27,14 @@ define(function(require, exports, module) {'use strict';
                         method: 'GET',
                         url: config['orders.url']
                     }, null, options);
+                },
+
+                deleteOrders: function(options) {
+                    return npResource.request({
+                        method: 'DELETE',
+                        url: config['orders.url'],
+                        data: options.data
+                    }, null, options);
                 }
             };
         }]);

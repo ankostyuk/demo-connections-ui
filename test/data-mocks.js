@@ -193,6 +193,19 @@ define(function(require, exports, module) {'use strict';
 
             // orders
             $httpBackend.whenGET('/connections/api/orders').respond(testData['connections']['orders']);
+
+            $httpBackend.whenDELETE('/connections/api/orders').respond(function(method, url, data){
+                var orders      = testData['connections']['orders'],
+                    orderIds    = angular.fromJson(data);
+
+                orders._embedded.list = _.reject(orders._embedded.list, function(order){
+                    return _.includes(orderIds, order.id);
+                });
+
+                orders.page.totalElements -= _.size(orderIds);
+
+                return [204];
+            });
         }]);
     //
 });
