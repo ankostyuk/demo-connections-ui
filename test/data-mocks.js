@@ -101,8 +101,15 @@ define(function(require, exports, module) {'use strict';
             });
         })
         //
-        .run(['$log', '$httpBackend', '$timeout', function($log, $httpBackend, $timeout){
+        .run(['$log', '$httpBackend', '$timeout', 'nkbUser', function($log, $httpBackend, $timeout, nkbUser){
             $log.info('testData:', testData);
+
+            // auth
+            var user = nkbUser.user();
+
+            function accessIsDenied() {
+                return user.isAuthenticated() ? false : [403];
+            }
 
             // user
             if (_.isUndefined(auth)) {
@@ -112,14 +119,6 @@ define(function(require, exports, module) {'use strict';
                 $httpBackend.whenPOST('/siteapp/login').respond(auth ? testData['siteapp']['login'] : testData['siteapp']['login-error']);
                 $httpBackend.whenGET('/siteapp/logout').respond(testData['siteapp']['logout']);
                 $httpBackend.whenGET('/siteapp/api/users/me/limits').respond(auth ? testData['siteapp']['limits'] : testData['siteapp']['limits-forbidden']);
-            }
-
-            var apiContext          = /^\/connections\/api\//,
-                apiIsDeniedStatus   = 403;
-
-            if (!auth) {
-                $httpBackend.whenGET(apiContext).respond(apiIsDeniedStatus);
-                return;
             }
 
             // list
@@ -169,7 +168,9 @@ define(function(require, exports, module) {'use strict';
             });
 
             // lists
-            $httpBackend.whenGET('/connections/api/lists').respond(testData['connections']['lists']);
+            $httpBackend.whenGET('/connections/api/lists').respond(function(){
+                return accessIsDenied() || [200, testData['connections']['lists']];
+            });
 
             // /connections/api/list/<id>/entries
             $httpBackend.whenGET(/^\/connections\/api\/list\/[^\/]+\/entries/).respond(function(method, url){

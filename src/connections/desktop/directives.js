@@ -80,20 +80,28 @@ define(function(require, exports, module) {'use strict';
                         markActive: true,
                         targets: {
                             '#np-connections-lists': {
-                                before: function(targetProxy, callback) {
-                                    if (targetProxy.showCount === 1) {
-                                        $rootScope.$emit('np-connections-show-lists', callback);
+                                before: function(targetProxy, done) {
+                                    if (!scope.isUserAuthenticated()) {
+                                        targetProxy.forbidden = true;
+                                        return;
+                                    }
+
+                                    if (targetProxy.showCount === 1 || targetProxy.forbidden) {
+                                        $rootScope.$emit('np-connections-show-lists', function(hasError, response){
+                                            done();
+                                        });
+                                        targetProxy.forbidden = false;
                                     } else {
-                                        callback();
+                                        done();
                                     }
                                 }
                             },
                             '#np-connections-orders': {
-                                before: function(targetProxy, callback) {
+                                before: function(targetProxy, done) {
                                     if (targetProxy.showCount === 1) {
-                                        $rootScope.$emit('np-connections-show-orders', callback);
+                                        $rootScope.$emit('np-connections-show-orders', done);
                                     } else {
-                                        callback();
+                                        done();
                                     }
                                 }
                             }
@@ -113,8 +121,8 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     $timeout(function(){
-                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
-                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
+                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
+                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
                     }, 500);
                 }
             };

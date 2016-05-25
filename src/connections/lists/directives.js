@@ -57,11 +57,11 @@ define(function(require, exports, module) {'use strict';
                     //
                     $rootScope.$on('np-connections-show-lists', function(e, callback){
                         $rootScope.$emit('np-connections-loading', function(done){
-                            scope.listsSet.fetch(function(){
+                            scope.listsSet.fetch(function(hasError, response){
                                 scope.navigation.showNav('#np-connections-lists-lists-set');
 
                                 if (_.isFunction(callback)) {
-                                    callback();
+                                    callback(hasError, response);
                                 }
 
                                 done();
