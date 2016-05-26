@@ -33,6 +33,9 @@ define(function(require, exports, module) {'use strict';
 
                 me.addListEntriesProxy = {
                     addActionEnabled: true,
+                    getListId: function() {
+                        return me.info.id;
+                    },
                     getListType: function() {
                         return me.info.type;
                     }

@@ -58,12 +58,6 @@ define(function(require, exports, module) {'use strict';
                         },
                         previousRequest: _createRequest
                     });
-
-                    function done(hasError, data) {
-                        if (_.isFunction(callback)) {
-                            callback(hasError, data);
-                        }
-                    }
                 };
 
                 me.reset = function() {

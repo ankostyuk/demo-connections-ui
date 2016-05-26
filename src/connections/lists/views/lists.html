@@ -149,7 +149,7 @@
             <a ng-click="cancel()">${_trc("Отменить", "Отменить действие")}</a>
         </div>
         <div class="align-right">
-            <button class="btn flat" ng-show="proxy.addActionEnabled" ng-disabled="!isAddActionReady()">
+            <button class="btn flat" ng-show="proxy.addActionEnabled" ng-disabled="!isAddActionReady()" ng-click="doAdd()">
                 <i class="icon i-save-3"></i>&nbsp;
                 <span ng-show="proxy.getListType() === 'COMPANY'">${_trc("Добавить компании", "Пользовательские списки")}</span>
                 <span ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Добавить физических лиц", "Пользовательские списки")}</span>

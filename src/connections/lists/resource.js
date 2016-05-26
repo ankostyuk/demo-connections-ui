@@ -57,6 +57,16 @@ define(function(require, exports, module) {'use strict';
                     }, null, options);
                 },
 
+                createListEntries: function(options) {
+                    return npResource.request({
+                        method: 'POST',
+                        url: $interpolate(config['list.entry.create.url'])({
+                            listId: options.listId
+                        }),
+                        data: options.data
+                    }, null, options);
+                },
+
                 listEntries: function(options) {
                     return npResource.request({
                         method: 'GET',
