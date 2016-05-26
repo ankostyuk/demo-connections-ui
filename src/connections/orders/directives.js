@@ -55,6 +55,14 @@ define(function(require, exports, module) {'use strict';
                             });
                         });
                     });
+
+                    $rootScope.$on('np-connections-new-order', function(e, order, callback){
+                        scope.ordersSet.fetch(function(){
+                            if (_.isFunction(callback)) {
+                                callback();
+                            }
+                        });
+                    });
                 }
             };
         }]);

@@ -22,6 +22,14 @@ define(function(require, exports, module) {'use strict';
             // API
             return {
 
+                createOrder: function(options) {
+                    return npResource.request({
+                        method: 'POST',
+                        url: config['order.create.url'],
+                        data: options.data
+                    }, null, options);
+                },
+
                 orders: function(options) {
                     return npResource.request({
                         method: 'GET',

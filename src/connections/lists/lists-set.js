@@ -15,10 +15,11 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.lists-set', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsListsSet', ['$log', '$rootScope', 'npConnectionsListsResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsListsResource, npConnectionsUtils){
+        .factory('npConnectionsListsSet', ['$log', '$rootScope', 'npConnectionsListsResource', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsListsResource, npConnectionsOrdersResource, npConnectionsUtils){
             return function() {
-                var me          = this,
-                    _request    = null;
+                var me                  = this,
+                    _request            = null,
+                    _createOrderRequest = null;
 
                 me.successfulOrder = null;
 
@@ -55,8 +56,45 @@ define(function(require, exports, module) {'use strict';
                 };
 
                 me.doOrder = function() {
-                    // TODO
-                    me.successfulOrder = true;
+                    $rootScope.$emit('np-connections-loading', function(done){
+                        me.createOrder(function(hasError, response){
+                            var order = response.data;
+
+                            if (hasError) {
+                                me.successfulOrder = false;
+                                done();
+                            } else {
+                                $rootScope.$emit('np-connections-new-order', order, function(){
+                                    me.successfulOrder = true;
+                                    done();
+                                });
+                            }
+                        });
+                    });
+                };
+
+                me.createOrder = function(callback) {
+                    _createOrderRequest = npConnectionsOrdersResource.createOrder({
+                        data: {
+                            userListIds: _.pluck(me.checked.getChecked(), 'id'),
+                            checkOptions: {
+                                insideList: me.checked.getCheckedCount() > 1 ? me.checkOptions.insideList : true
+                            }
+                        },
+                        success: function(data) {
+                            npConnectionsUtils.requestDone(false, arguments, callback);
+                        },
+                        error: function() {
+                            npConnectionsUtils.requestDone(true, arguments, callback);
+                        },
+                        previousRequest: _createOrderRequest
+                    });
+
+                    function done(hasError, data) {
+                        if (_.isFunction(callback)) {
+                            callback(hasError, data);
+                        }
+                    }
                 };
 
                 me.showList = function(list) {

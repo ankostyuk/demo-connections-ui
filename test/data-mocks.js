@@ -6,7 +6,9 @@
 define(function(require, exports, module) {'use strict';
 
                           require('lodash');
-    var angular         = require('angular');
+    var angular         = require('angular'),
+        moment          = require('moment');
+
                           require('angular-mocks');
 
     var purl                = require('purl'),
@@ -44,8 +46,6 @@ define(function(require, exports, module) {'use strict';
     };
 
     //
-    var userId = testData['siteapp']['limits']['userId'];
-
     function getList(listId) {
         return _.find(testData['connections']['lists']['_embedded']['list'], function(list){
             return list.id === listId;
@@ -105,7 +105,7 @@ define(function(require, exports, module) {'use strict';
             $log.info('testData:', testData);
 
             // auth
-            var user = nkbUser.user();
+            var user  = nkbUser.user();
 
             function accessIsDenied() {
                 return user.isAuthenticated() ? false : [403];
@@ -131,7 +131,7 @@ define(function(require, exports, module) {'use strict';
 
                 var list = _.extend(listData, {
                     id: _.uniqueId('list-x-'),
-                    userId: userId
+                    userId: user.getId()
                 });
 
                 var d = testData['connections']['lists'];
@@ -198,6 +198,34 @@ define(function(require, exports, module) {'use strict';
                 }
 
                 return [204];
+            });
+
+            // orders
+            $httpBackend.whenPOST('/connections/api/order').respond(function(method, url, data, headers, params){
+                var orderData   = angular.fromJson(data),
+                    date        = moment().valueOf(),
+                    userLists   = [];
+
+                _.each(orderData.userListIds, function(listId){
+                    userLists.push(getList(listId));
+                });
+
+                var order = {
+                    id: _.uniqueId('order-x-'),
+                    userId: user.getId(),
+                    created: date,
+                    edited: date,
+                    status: "PROGRESS",
+                    checkOptions: orderData.checkOptions,
+                    userLists: userLists
+                };
+
+                var orders = testData['connections']['orders'];
+
+                orders._embedded.list = [order].concat(orders._embedded.list);
+                orders.page.totalElements++;
+
+                return [200, order];
             });
 
             // orders
