@@ -25,7 +25,7 @@ define(function(require, exports, module) {'use strict';
                 createList: function(options) {
                     return npResource.request({
                         method: 'POST',
-                        url: config['list.url'],
+                        url: config['list.create.url'],
                         data: options.data
                     }, null, options);
                 },
@@ -33,7 +33,9 @@ define(function(require, exports, module) {'use strict';
                 updateList: function(options) {
                     return npResource.request({
                         method: 'PUT',
-                        url: config['list.url'] + '/' + options.id,
+                        url: $interpolate(config['list.url'])({
+                            id: options.id
+                        }),
                         data: options.data
                     }, null, options);
                 },
@@ -41,7 +43,9 @@ define(function(require, exports, module) {'use strict';
                 deleteList: function(options) {
                     return npResource.request({
                         method: 'DELETE',
-                        url: config['list.url'] + '/' + options.id,
+                        url: $interpolate(config['list.url'])({
+                            id: options.id
+                        }),
                         data: options.data
                     }, null, options);
                 },

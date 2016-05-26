@@ -143,7 +143,7 @@ define(function(require, exports, module) {'use strict';
             });
 
             // /connections/api/list/<id>
-            $httpBackend.whenPUT(/^\/connections\/api\/list\/[^\/]+/).respond(function(method, url, data){
+            $httpBackend.whenPUT(/^\/connections\/api\/list\/[^\/]+$/).respond(function(method, url, data){
                 var listId      = getUrlParam(url, 'list'),
                     listData    = angular.fromJson(data),
                     list        = getList(listId);
