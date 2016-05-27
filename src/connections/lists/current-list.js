@@ -98,7 +98,7 @@ define(function(require, exports, module) {'use strict';
 
                 me.setList = function(list) {
                     me.info = list;
-                    resetEntries();
+                    reset();
                 };
 
                 me.fetch = function(list, callback) {
@@ -182,6 +182,17 @@ define(function(require, exports, module) {'use strict';
                 function resetEntries() {
                     me.entriesResult.reset();
                     resetChecked();
+                }
+
+                function reset() {
+                    if (_.isFunction(me.inlineEditProxy.off)) {
+                        me.inlineEditProxy.off();
+                    }
+                    if (_.isFunction(me.addListEntriesProxy.reset)) {
+                        me.addListEntriesProxy.reset();
+                    }
+
+                    resetEntries();
                 }
             };
         }]);

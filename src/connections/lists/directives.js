@@ -72,7 +72,7 @@ define(function(require, exports, module) {'use strict';
                                 done();
 
                                 // test
-                                $rootScope.$emit('np-connections-show-list', scope.listsSet.result.getList()[1]);
+                                // $rootScope.$emit('np-connections-show-list', scope.listsSet.result.getList()[1]);
                             });
                         });
                     });
@@ -86,10 +86,16 @@ define(function(require, exports, module) {'use strict';
                         });
                     });
 
-                    $rootScope.$on('np-connections-new-list', function(e, list, callback){
+                    $rootScope.$on('np-connections-new-list', function(e, newList, callback){
                         scope.listsSet.fetch(function(){
-                            scope.newList.reset();
+                            var fetchedList = _.find(scope.listsSet.result.getList(), function(list){
+                                return list.id === newList.id;
+                            });
+
+                            var list = fetchedList || newList;
+
                             scope.currentList.setList(list);
+                            scope.newList.reset();
                             scope.navigation.showNav('#np-connections-lists-current-list');
 
                             if (_.isFunction(callback)) {
@@ -134,6 +140,11 @@ define(function(require, exports, module) {'use strict';
                         isAddActionReady: function() {
                             return _.get(scope, 'proxy.addActionEnabled') &&
                                 ((scope.target === 'text' && scope.text) || scope.target === 'file');
+                        },
+                        reset: function() {
+                            resetText();
+                            resetFile();
+                            resetTarget();
                         },
                         cancel: function() {
                             resetFile();
@@ -206,6 +217,10 @@ define(function(require, exports, module) {'use strict';
                             decoder         = new TextDecoder(encodingInfo.encoding);
 
                         return decoder.decode(array);
+                    }
+
+                    function resetText() {
+                        scope.text = null;
                     }
 
                     function resetFile() {
