@@ -22,6 +22,8 @@
         "nullpointer-commons": "git://github.com/newpointer/commons-js.git",
         "nullpointer-i18n": "git://github.com/newpointer/i18n-js.git",
         "nullpointer-rsearch": "git://github.com/newpointer/rsearch.git#4.2.2",
+        "text-encoding": "v0.6.0",
+        "jschardet": "git://github.com/aadsm/jschardet.git#v1.4.1",
         "bootstrap": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip"
     },
     "devDependencies": {},
@@ -49,6 +51,9 @@
         },
         "session.js": {
             "": "session.js"
+        },
+        "jschardet": {
+            "": "dist/jschardet.js"
         },
         "bootstrap": {
             "css": "css/bootstrap.css",

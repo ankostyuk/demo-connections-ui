@@ -13,6 +13,11 @@ define(function(require, exports, module) {'use strict';
         angular         = require('angular'),
         templateUtils   = require('template-utils');
 
+    // for encoding user file
+                          require('text-encoding');
+    var jschardet       = require('jschardet');
+
+
     var angularModules = [
     ];
 
@@ -124,7 +129,7 @@ define(function(require, exports, module) {'use strict';
                     //
                     _.extend(scope, {
                         target: null,
-                        text: 'Костюк Андрей Григорьевич',
+                        text: null,
                         file: null,
                         isAddActionReady: function() {
                             return _.get(scope, 'proxy.addActionEnabled') &&
@@ -145,29 +150,26 @@ define(function(require, exports, module) {'use strict';
                             scope.target = target;
                         },
                         doAdd: function() {
-                            // TODO Charset: UTF8, CP1251, ...
-                            // https://github.com/aadsm/jschardet
-
                             $log.info('* doAdd', scope.target);
                             // $log.info('< text', scope.text);
                             // $log.info('< file', scope.file);
 
                             var userDataList = _.compact(
-                                _.lines(scope.target === 'text' ? scope.text : fileReader.result)
+                                _.lines(scope.target === 'text' ? scope.text : getFileText())
                             );
 
                             $log.info('< userDataList:\n', userDataList);
 
-                            $rootScope.$emit('np-connections-loading', function(done){
-                                addEntries(userDataList, function(hasError, response){
-                                    done();
-                                    // if (hasError) {
-                                    //     done();
-                                    // } else {
-                                    //     $rootScope.$emit('np-connections-new-list', list, done);
-                                    // }
-                                });
-                            });
+                            // $rootScope.$emit('np-connections-loading', function(done){
+                            //     addEntries(userDataList, function(hasError, response){
+                            //         done();
+                            //         // if (hasError) {
+                            //         //     done();
+                            //         // } else {
+                            //         //     $rootScope.$emit('np-connections-new-list', list, done);
+                            //         // }
+                            //     });
+                            // });
                         }
                     });
 
@@ -186,7 +188,7 @@ define(function(require, exports, module) {'use strict';
                         }
 
                         scope.fileLoad = true;
-                        fileReader.readAsText(file);
+                        fileReader.readAsArrayBuffer(file);
 
                         scope.file = file;
                     }
@@ -198,6 +200,14 @@ define(function(require, exports, module) {'use strict';
                         }
                     };
 
+                    function getFileText() {
+                        var array           = new Uint8Array(fileReader.result),
+                            encodingInfo    = jschardet.detect(String.fromCharCode.apply(null, array)),
+                            decoder         = new TextDecoder(encodingInfo.encoding);
+
+                        return decoder.decode(array);
+                    }
+
                     function resetFile() {
                         resetFileReader();
                         scope.file = null;
@@ -205,6 +215,7 @@ define(function(require, exports, module) {'use strict';
                     }
 
                     function resetFileReader() {
+                        fileReader.abort();
                         scope.fileLoad = false;
                     }
 
