@@ -178,6 +178,7 @@ define(function(require, exports, module) {'use strict';
                     entries = angular.fromJson(data);
 
                 // TODO добавить записи в данные
+                $log.debug(method, url, entries);
 
                 var addedEntriesInfo = {
                     listId: listId,

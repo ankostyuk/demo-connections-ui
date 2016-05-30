@@ -254,8 +254,11 @@ define(function(require, exports, module) {'use strict';
                             return;
                         }
 
-                        var userDataList = _.compact(
-                            _.lines(scope.target === 'text' ? scope.text : getFileText())
+                        var userDataList = _.filter(
+                            _.lines(scope.target === 'text' ? scope.text : getFileText()),
+                            function(userData) {
+                                return !_.isBlank(userData);
+                            }
                         );
 
                         addEntriesRequest = npConnectionsListsResource.createListEntries({
