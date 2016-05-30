@@ -21,6 +21,7 @@ define(function(require, exports, module) {'use strict';
                     _updateRequest          = null,
                     _deleteRequest          = null,
                     _entriesRequest         = null,
+                    _updateEntryRequest     = null,
                     _deleteEntriesRequest   = null;
 
                 me.info = null;
@@ -145,9 +146,24 @@ define(function(require, exports, module) {'use strict';
                             _.each(me.entriesResult.getList(), function(entry){
                                 entry.__inlineEditProxy = {
                                     onEdit: function(newText, oldText, data) {
-                                        $log.info('* list entry onEdit...', newText, oldText, entry);
                                         entry.userData = newText;
-                                        // TODO
+
+                                        var updatedData = {
+                                            userData: newText
+                                        };
+
+                                        $rootScope.$emit('np-connections-loading', function(done){
+                                            me.updateEntry(entry.id, updatedData, function(hasError, response){
+                                                if (hasError) {
+                                                    entry.userData = oldText;
+                                                } else {
+                                                    delete entry.validation;
+                                                    delete entry.node;
+                                                    _.extend(entry, response.data);
+                                                }
+                                                done();
+                                            });
+                                        });
                                     }
                                 };
                             });
@@ -159,6 +175,21 @@ define(function(require, exports, module) {'use strict';
                             npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _entriesRequest
+                    });
+                };
+
+                me.updateEntry = function(entryId, updatedData, callback) {
+                    _updateEntryRequest = npConnectionsListsResource.updateListEntry({
+                        listId: me.info.id,
+                        entryId: entryId,
+                        data: updatedData,
+                        success: function(data) {
+                            npConnectionsUtils.requestDone(false, arguments, callback);
+                        },
+                        error: function() {
+                            npConnectionsUtils.requestDone(true, arguments, callback);
+                        },
+                        previousRequest: _updateEntryRequest
                     });
                 };
 

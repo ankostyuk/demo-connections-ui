@@ -67,6 +67,17 @@ define(function(require, exports, module) {'use strict';
                     }, null, options);
                 },
 
+                updateListEntry: function(options) {
+                    return npResource.request({
+                        method: 'PUT',
+                        url: $interpolate(config['list.entry.url'])({
+                            listId: options.listId,
+                            entryId: options.entryId
+                        }),
+                        data: options.data
+                    }, null, options);
+                },
+
                 listEntries: function(options) {
                     return npResource.request({
                         method: 'GET',

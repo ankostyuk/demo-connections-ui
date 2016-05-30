@@ -52,6 +52,12 @@ define(function(require, exports, module) {'use strict';
         });
     }
 
+    function getEntry(listId, entryId) {
+        return _.find(testData['connections']['list'][listId]['entries']['_embedded']['list'], function(entry){
+            return entry.id === entryId;
+        });
+    }
+
     //
     function getRequestDelay(url) {
         var delay = /^\/siteapp\//.test(url) ? siteappDelay : connectionsDelay;
@@ -145,10 +151,10 @@ define(function(require, exports, module) {'use strict';
             // /connections/api/list/<id>
             $httpBackend.whenPUT(/^\/connections\/api\/list\/[^\/]+$/).respond(function(method, url, data){
                 var listId      = getUrlParam(url, 'list'),
-                    listData    = angular.fromJson(data),
-                    list        = getList(listId);
+                    list        = getList(listId),
+                    updatedData = angular.fromJson(data);
 
-                _.extend(list, listData);
+                _.extend(list, updatedData);
 
                 return [200, list];
             });
@@ -213,6 +219,39 @@ define(function(require, exports, module) {'use strict';
                 }
 
                 return [204];
+            });
+
+            $httpBackend.whenPUT(/^\/connections\/api\/list\/[^\/]+\/entry\/[^\/]+$/).respond(function(method, url, data){
+                var listId      = getUrlParam(url, 'list'),
+                    entryId     = getUrlParam(url, 'entry'),
+                    entry       = getEntry(listId, entryId),
+                    updatedData = angular.fromJson(data);
+
+                _.extend(entry, updatedData);
+
+                // fake data
+                if (entry.node) {
+                    entry.validation = {
+                        status: 'NOT_FOUND'
+                    };
+                    entry.___node = entry.node;
+                    delete entry.node;
+                } else
+                if (entry.___node) {
+                    delete entry.validation;
+                    entry.node = entry.___node;
+                    delete entry.___node;
+                } else
+                if (entry.validation && entry.validation.status === 'MULTIPLE') {
+                    entry.validation.status = 'NOT_FOUND';
+                    delete entry.validation.info;
+                } else
+                if (entry.validation && entry.validation.status === 'NOT_FOUND') {
+                    entry.validation.status = 'MULTIPLE';
+                    entry.validation.info = 12345;
+                }
+
+                return [200, entry];
             });
 
             // orders
