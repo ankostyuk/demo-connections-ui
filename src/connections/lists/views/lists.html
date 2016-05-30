@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="np-rsearch-node-info" ng-show="entry.node" np-connections-node-info="entry.node"></div>
+                        <div class="np-rsearch-node-info" ng-show="entry.node" ng-class="entry.node._type" np-connections-node-info="entry.node"></div>
                         <div class="validation-info" ng-show="entry.validation">
                             <span ng-show="entry.validation.status === 'NOT_FOUND'">{{_tr('NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_NOT_FOUND')}}</span>
                             <span ng-show="entry.validation.status === 'MULTIPLE'"><np-pluralize plural="{count: entry.validation.info, when: _tr('NG_PLURALIZE::NP.CONNECTIONS.LIST_ENTRIES.' + currentList.info.type + '.OBJECT_MULTIPLE')}"></np-pluralize></span>
