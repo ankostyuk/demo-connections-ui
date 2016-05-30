@@ -103,6 +103,7 @@ define(function(require, exports, module) {'use strict';
 
                 me.fetch = function(list, callback) {
                     me.info = list;
+                    reset();
                     me.fetchEntries(callback);
                 };
 

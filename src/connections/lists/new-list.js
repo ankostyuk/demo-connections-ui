@@ -28,6 +28,9 @@ define(function(require, exports, module) {'use strict';
 
                 me.addListEntriesProxy = {
                     addActionEnabled: false,
+                    getListId: function() {
+                        return me.info.id;
+                    },
                     getListType: function() {
                         return me.info.type;
                     }
@@ -41,7 +44,15 @@ define(function(require, exports, module) {'use strict';
                             if (hasError) {
                                 done();
                             } else {
-                                $rootScope.$emit('np-connections-new-list', list, done);
+                                me.info.id = list.id;
+
+                                me.addListEntriesProxy.addEntries(function(hasError, response){
+                                    if (hasError) {
+                                        done();
+                                    } else {
+                                        $rootScope.$emit('np-connections-new-list', list, done);
+                                    }
+                                });
                             }
                         });
                     });
@@ -62,9 +73,14 @@ define(function(require, exports, module) {'use strict';
 
                 me.reset = function() {
                     _.extend(me.info, {
+                        id: null,
                         name: null,
                         type: null
                     });
+
+                    if (_.isFunction(me.addListEntriesProxy.reset)) {
+                        me.addListEntriesProxy.reset();
+                    }
                 };
 
                 me.reset();

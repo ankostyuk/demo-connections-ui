@@ -172,6 +172,21 @@ define(function(require, exports, module) {'use strict';
                 return accessIsDenied() || [200, testData['connections']['lists']];
             });
 
+            // /connections/api/list/<id>/entry
+            $httpBackend.whenPOST(/^\/connections\/api\/list\/[^\/]+\/entry/).respond(function(method, url, data){
+                var listId  = getUrlParam(url, 'list'),
+                    entries = angular.fromJson(data);
+
+                // TODO добавить записи в данные
+
+                var addedEntriesInfo = {
+                    listId: listId,
+                    addedEntryCount: _.size(entries)
+                };
+
+                return [200, addedEntriesInfo];
+            });
+
             // /connections/api/list/<id>/entries
             $httpBackend.whenGET(/^\/connections\/api\/list\/[^\/]+\/entries/).respond(function(method, url){
                 var listId  = getUrlParam(url, 'list'),
@@ -181,7 +196,6 @@ define(function(require, exports, module) {'use strict';
                 return [200, entries];
             });
 
-            // /connections/api/list/<id>/entries
             $httpBackend.whenDELETE(/^\/connections\/api\/list\/[^\/]+\/entries/).respond(function(method, url, data){
                 var listId      = getUrlParam(url, 'list'),
                     entries     = testData['connections']['list'][listId]['entries'],

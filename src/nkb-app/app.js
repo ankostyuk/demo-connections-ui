@@ -45,16 +45,13 @@ define(function(require) {'use strict';
             resource: {
                 'list.create.url':          '/connections/api/list',
                 'list.url':                 '/connections/api/list/{{id}}',
-
                 'lists.url':                '/connections/api/lists',
-                // 'lists.url':                '/connections/api/list',
 
                 'list.entry.create.url':    '/connections/api/list/{{listId}}/entry',
                 'list.entries.url':         '/connections/api/list/{{id}}/entries',
-                'order.create.url':         '/connections/api/order',
 
+                'order.create.url':         '/connections/api/order',
                 'orders.url':               '/connections/api/orders'
-                // 'orders.url':               '/connections/api/order'
             }
         })
         //

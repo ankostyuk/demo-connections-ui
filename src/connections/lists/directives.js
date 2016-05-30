@@ -94,10 +94,19 @@ define(function(require, exports, module) {'use strict';
 
                             var list = fetchedList || newList;
 
-                            scope.currentList.setList(list);
-                            scope.newList.reset();
-                            scope.navigation.showNav('#np-connections-lists-current-list');
+                            scope.currentList.fetch(list, function(){
+                                scope.newList.reset();
+                                scope.navigation.showNav('#np-connections-lists-current-list');
 
+                                if (_.isFunction(callback)) {
+                                    callback();
+                                }
+                            });
+                        });
+                    });
+
+                    $rootScope.$on('np-connections-list-add-entries', function(e, addedEntriesInfo, callback){
+                        scope.currentList.fetchEntries(function(){
                             if (_.isFunction(callback)) {
                                 callback();
                             }
@@ -161,26 +170,27 @@ define(function(require, exports, module) {'use strict';
                             scope.target = target;
                         },
                         doAdd: function() {
-                            $log.info('* doAdd', scope.target);
-                            // $log.info('< text', scope.text);
-                            // $log.info('< file', scope.file);
+                            $rootScope.$emit('np-connections-loading', function(done){
+                                addEntries(function(hasError, response){
+                                    if (hasError) {
+                                        done();
+                                    } else {
+                                        $rootScope.$emit('np-connections-list-add-entries', response.data, function(){
+                                            scope.reset();
+                                            done();
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                    });
 
-                            var userDataList = _.compact(
-                                _.lines(scope.target === 'text' ? scope.text : getFileText())
-                            );
-
-                            $log.info('< userDataList:\n', userDataList);
-
-                            // $rootScope.$emit('np-connections-loading', function(done){
-                            //     addEntries(userDataList, function(hasError, response){
-                            //         done();
-                            //         // if (hasError) {
-                            //         //     done();
-                            //         // } else {
-                            //         //     $rootScope.$emit('np-connections-new-list', list, done);
-                            //         // }
-                            //     });
-                            // });
+                    _.extend(scope.proxy, {
+                        addEntries: function(callback) {
+                            addEntries(callback);
+                        },
+                        reset: function() {
+                            scope.reset();
                         }
                     });
 
@@ -238,7 +248,16 @@ define(function(require, exports, module) {'use strict';
                         scope.doTarget(null);
                     }
 
-                    function addEntries(userDataList, callback) {
+                    function addEntries(callback) {
+                        if (!scope.target) {
+                            callback();
+                            return;
+                        }
+
+                        var userDataList = _.compact(
+                            _.lines(scope.target === 'text' ? scope.text : getFileText())
+                        );
+
                         addEntriesRequest = npConnectionsListsResource.createListEntries({
                             listId: scope.proxy.getListId(),
                             data: userDataList,

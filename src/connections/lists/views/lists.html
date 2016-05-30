@@ -115,7 +115,7 @@
                     </select>
                 </div>
             </div>
-            <div ng-show="newList.info.type" np-connections-lists-add-list-entries="newList.addListEntriesProxy"></div>
+            <div ng-if="newList.info.type" np-connections-lists-add-list-entries="newList.addListEntriesProxy"></div>
             <div class="align-right">
                 <button class="btn flat" ng-disabled="!newList.isReady()" ng-click="newList.doCreateList()"><i class="icon i-save-3"></i>&nbsp;&nbsp;${_trc("Добавить новый список", "Пользовательские списки")}</button>
             </div>
