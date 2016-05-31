@@ -268,7 +268,7 @@ define(function(require, exports, module) {'use strict';
                     id: _.uniqueId('order-x-'),
                     userId: user.getId(),
                     created: date,
-                    edited: date,
+                    changed: date,
                     status: "PROGRESS",
                     checkOptions: orderData.checkOptions,
                     userLists: userLists

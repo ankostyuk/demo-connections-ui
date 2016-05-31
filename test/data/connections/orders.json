@@ -3,7 +3,7 @@
         "list": [{
             "id": "order-1",
             "created": 1460387732392,
-            "edited": 1463748952608,
+            "changed": 1463748952608,
             "status": "READY",
 
             "userLists": [{
@@ -26,7 +26,7 @@
         }, {
             "id": "order-2",
             "created": 1460387732392,
-            "edited": 1463748952608,
+            "changed": 1463748952608,
             "status": "PROGRESS",
 
             "userLists": [{
@@ -44,7 +44,7 @@
         }, {
             "id": "order-3",
             "created": 1460387732392,
-            "edited": 1463748952608,
+            "changed": 1463748952608,
             "status": "CANCELED",
 
             "userLists": [{
@@ -62,7 +62,7 @@
         }, {
             "id": "order-4",
             "created": 1460387732392,
-            "edited": 1463748952608,
+            "changed": 1463748952608,
             "status": "FAILED",
 
             "userLists": [{

@@ -32,7 +32,7 @@
             </div>
             <div class="muted align-center" ng-show="listsSet.result.isEmpty()">${_trc("У вас нет списков", "Пользовательские списки")}</div>
             <ul class="lists" ng-hide="listsSet.result.isEmpty()">
-                <li class="row list" ng-repeat="list in listsSet.result.getList() track by $index">
+                <li class="row list" ng-repeat="list in listsSet.result.getList() track by list.id">
                     <div class="span1" np-connections-checked="list" np-connections-checked-check="listsSet.check(list)"></div>
                     <div class="span8 list-name-wrapper">
                         <a data-target="#np-connections-lists-current-list" ng-click="listsSet.showList(list)">{{list.name}}</a>
@@ -70,7 +70,7 @@
 
                         <button class="btn flat" np-inline-confirm="currentList.clean()" confirm-text='${_trc("Точно очистить весь список?", "Пользовательские списки")}'>${_trc("Очистить весь список", "Пользовательские списки")}</button>
                     </div>
-                    <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.entriesResult.getList() track by $index">
+                    <div class="list-entry shadow-lift-lb-corner" ng-repeat="entry in currentList.entriesResult.getList() track by entry.id">
                         <div class="row info">
                             <div class="span1" np-connections-checked="entry" np-connections-checked-check="currentList.checked.check(entry)"></div>
                             <div class="span11 user-data-wrapper">

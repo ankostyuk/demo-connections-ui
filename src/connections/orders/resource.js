@@ -41,7 +41,10 @@ define(function(require, exports, module) {'use strict';
                     return npResource.request({
                         method: 'DELETE',
                         url: config['orders.url'],
-                        data: options.data
+                        data: options.data,
+                        headers: {
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        }
                     }, null, options);
                 }
             };

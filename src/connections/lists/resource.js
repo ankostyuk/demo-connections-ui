@@ -45,8 +45,7 @@ define(function(require, exports, module) {'use strict';
                         method: 'DELETE',
                         url: $interpolate(config['list.url'])({
                             id: options.id
-                        }),
-                        data: options.data
+                        })
                     }, null, options);
                 },
 
@@ -93,7 +92,10 @@ define(function(require, exports, module) {'use strict';
                         url: $interpolate(config['list.entries.url'])({
                             id: options.id
                         }),
-                        data: options.data
+                        data: options.data,
+                        headers: {
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        }
                     }, null, options);
                 }
             };
