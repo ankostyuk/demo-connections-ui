@@ -52,12 +52,14 @@
 [np-connections-orders] .orders-set .orders > .order.order-status-PROGRESS .order-progress-indicator {
     display: inline;
 }
+/* TODO uncomment
 [np-connections-orders] .orders-set .orders > .order.order-status-PROGRESS:hover .order-status-text {
     display: none;
 }
 [np-connections-orders] .orders-set .orders > .order.order-status-PROGRESS:hover .cancel-order {
     display: inline-block;
 }
+*/
 [np-connections-orders] .orders-set .orders > .order.order-status-READY .order-info-text {
     color: @defaultColor;
 }
@@ -100,5 +102,14 @@
 }
 
 [np-connections-orders] .current-order .order-info .check-options-info {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+[np-connections-orders] .current-order .order-result .pairs .pair {
+    display: inline-block;
+    margin-bottom: 15px;
+}
+[np-connections-orders] .current-order .order-result .pairs .pair [np-rsearch-node-simple] {
+    display: inline-block;
+    margin-bottom: 5px;
 }

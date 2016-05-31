@@ -43,6 +43,9 @@ define(function(require) {'use strict';
             meta: root._APP_CONFIG.meta,
             yandexMetrikaCounterName: 'yaCounter23296318',
             resource: {
+                'meta.url':                 '/nkbrelation/api/meta',
+
+                // connections
                 'list.create.url':          '/connections/api/list',
                 'list.url':                 '/connections/api/list/{{id}}',
                 'lists.url':                '/connections/api/lists',
@@ -87,6 +90,9 @@ define(function(require) {'use strict';
             $rootScope.$on('nkb-user-apply', function(){
                 $rootScope.app.ready = true;
             });
+            // $rootScope.$on('np-rsearch-meta-ready', function(){
+            //     $rootScope.app.ready = true;
+            // });
 
             //
             Commons.DOMUtils.window().bind('beforeunload', function() {

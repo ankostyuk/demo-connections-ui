@@ -21,7 +21,7 @@ define(function(require, exports, module) {'use strict';
 
     var testData = {
         'connections': {
-            'lists':            angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
+            'lists':                angular.fromJson(emptyLists ? require('text!./data/connections/empty-lists.json') : require('text!./data/connections/lists.json')),
 
             'list': {
                 'list-1': {
@@ -34,7 +34,12 @@ define(function(require, exports, module) {'use strict';
                 'empty-entries':    angular.fromJson(require('text!./data/connections/list/empty-entries.json'))
             },
 
-            'orders':           angular.fromJson(emptyOrders ? require('text!./data/connections/empty-orders.json') : require('text!./data/connections/orders.json'))
+            'orders':                   angular.fromJson(emptyOrders ? require('text!./data/connections/empty-orders.json') : require('text!./data/connections/orders.json')),
+
+            'order': {
+                'ready-result-1':       angular.fromJson(require('text!./data/connections/order/ready-result-1.json')),
+                'ready-result-1-nodes': angular.fromJson(require('text!./data/connections/order/ready-result-1-nodes.json'))
+            },
         },
         'siteapp': {
             'login':            angular.fromJson(require('text!./data/siteapp/login.json')),
@@ -46,20 +51,25 @@ define(function(require, exports, module) {'use strict';
     };
 
     //
+    _.each(testData['connections']['order']['ready-result-1'].entries, function(entry, i){
+        entry.node = testData['connections']['order']['ready-result-1-nodes'][i];
+    });
+
+    //
     function getList(listId) {
-        return _.find(testData['connections']['lists']['_embedded']['list'], function(list){
+        return _.find(testData['connections']['lists']._embedded.list, function(list){
             return list.id === listId;
         });
     }
 
     function getEntry(listId, entryId) {
-        return _.find(testData['connections']['list'][listId]['entries']['_embedded']['list'], function(entry){
+        return _.find(testData['connections']['list'][listId]['entries']._embedded.list, function(entry){
             return entry.id === entryId;
         });
     }
 
     function getOrder(orderId) {
-        return _.find(testData['connections']['orders']['_embedded']['list'], function(order){
+        return _.find(testData['connections']['orders']._embedded.list, function(order){
             return order.id === orderId;
         });
     }
@@ -122,6 +132,9 @@ define(function(require, exports, module) {'use strict';
             function accessIsDenied() {
                 return user.isAuthenticated() ? false : [403];
             }
+
+            // nkbrelation
+            $httpBackend.whenGET(/^\/nkbrelation\//).passThrough();
 
             // user
             if (_.isUndefined(auth)) {
@@ -292,6 +305,10 @@ define(function(require, exports, module) {'use strict';
             $httpBackend.whenGET(/^\/connections\/api\/order\/[^\/]+$/).respond(function(method, url){
                 var orderId = getUrlParam(url, 'order'),
                     order   = getOrder(orderId);
+
+                if (orderId === 'order-1') {
+                    order.result = testData['connections']['order']['ready-result-1'];
+                }
 
                 return [200, order];
             });

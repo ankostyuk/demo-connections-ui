@@ -26,9 +26,24 @@ define(function(require, exports, module) {'use strict';
                     return _.size(_.get(me.order, 'userLists'));
                 };
 
+                me.getResultPairs = function() {
+                    return _.get(me.order, 'result.pairs');
+                };
+
                 me.isEmptyResult = function() {
-                    // TODO
-                    return _.get(me.order, 'status') === 'READY';
+                    return _.get(me.order, 'status') === 'READY' && _.isEmpty(me.getResultPairs());
+                };
+
+                me.isResult = function() {
+                    return _.get(me.order, 'status') === 'READY' && !_.isEmpty(me.getResultPairs());
+                };
+
+                me.getResultEntries = function() {
+                    return _.get(me.order, 'result.entries');
+                };
+
+                me.getResultEntry = function(index) {
+                    return _.get(me.getResultEntries(), index);
                 };
 
                 me.fetch = function(order, callback) {
@@ -49,6 +64,9 @@ define(function(require, exports, module) {'use strict';
                         },
                         previousRequest: _request
                     });
+                };
+
+                me.setNodeTracesView = function(nodeTracesView) {
                 };
 
                 function reset() {

@@ -98,11 +98,12 @@ define(function(require, exports, module) {'use strict';
                             },
                             '#np-connections-orders': {
                                 before: function(targetProxy, done) {
-                                    if (targetProxy.showCount === 1) {
+                                    // TODO uncomment
+                                    // if (targetProxy.showCount === 1) {
                                         $rootScope.$emit('np-connections-show-orders', done);
-                                    } else {
-                                        done();
-                                    }
+                                    // } else {
+                                    //     done();
+                                    // }
                                 }
                             }
                         }

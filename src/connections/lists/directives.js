@@ -222,11 +222,16 @@ define(function(require, exports, module) {'use strict';
                     };
 
                     function getFileText() {
-                        var array           = new Uint8Array(fileReader.result),
-                            encodingInfo    = jschardet.detect(String.fromCharCode.apply(null, array)),
-                            decoder         = new TextDecoder(encodingInfo.encoding);
+                        try {
+                            var array           = new Uint8Array(fileReader.result),
+                                encodingInfo    = jschardet.detect(String.fromCharCode.apply(null, array)),
+                                decoder         = new TextDecoder(encodingInfo.encoding);
 
-                        return decoder.decode(array);
+                            return decoder.decode(array);
+                        } catch (e) {
+                           $log.error('getFileText... error:', e);
+                           return null;
+                        }
                     }
 
                     function resetText() {
@@ -250,12 +255,25 @@ define(function(require, exports, module) {'use strict';
 
                     function addEntries(callback) {
                         if (!scope.target) {
-                            callback();
+                            callback(true);
                             return;
                         }
 
+                        var text = scope.text;
+
+                        if (scope.target === 'file') {
+                            text = getFileText();
+
+                            if (!text) {
+                                // TODO сообщение: "Не удалось прочитать ваш файл <scope.file.name>"
+                                alert('Не удалось прочитать ваш файл ' + scope.file.name);
+                                callback(true);
+                                return;
+                            }
+                        }
+
                         var userDataList = _.filter(
-                            _.lines(scope.target === 'text' ? scope.text : getFileText()),
+                            _.lines(text),
                             function(userData) {
                                 return !_.isBlank(userData);
                             }

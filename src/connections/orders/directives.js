@@ -42,6 +42,10 @@ define(function(require, exports, module) {'use strict';
                     }, i18n.translateFuncs);
 
                     //
+                    // var nodeTracesView = npRsearchViews.createNodeTracesView(nodeTracesElement, scope, navigationProxy);
+                    // scope.currentOrder.setNodeTracesView(nodeTracesView);
+
+                    //
                     $rootScope.$on('np-connections-show-orders', function(e, callback){
                         $rootScope.$emit('np-connections-loading', function(done){
                             scope.ordersSet.fetch(function(){

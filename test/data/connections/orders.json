@@ -82,6 +82,29 @@
             },
 
             "userId": "user-1"
+        }, {
+            "id": "order-5",
+            "created": 1460387732392,
+            "changed": 1463748952608,
+            "status": "READY",
+
+            "userLists": [{
+                "id": "list-1",
+                "name": "Тендерная комиссия",
+                "type": "INDIVIDUAL",
+                "userId": "user-1"
+            }, {
+                "id": "list-2",
+                "name": "Компании-участники тендера на поставку оборудования",
+                "type": "COMPANY",
+                "userId": "user-1"
+            }],
+
+            "checkOptions": {
+                "insideList": false
+            },
+
+            "userId": "user-1"
         }]
     },
     "_links": {

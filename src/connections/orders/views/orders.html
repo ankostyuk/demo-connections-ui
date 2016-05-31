@@ -25,7 +25,9 @@
                     <div class="span2 muted order-date order-info-text">{{order.changed | amDateFormat:'${_trc("medium", "Формат даты: http://momentjs.com/docs/#/displaying/format/")}'}}</div>
                     <div class="muted align-right order-info-text">
                         <span class="order-status-text">{{_tr('NP.CONNECTIONS.ORDER_STATUS.' + order.status)}}<span class="order-progress-indicator">...</span></span>
+                        <!-- TODO uncomment
                         <button class="btn flat mini cancel-order" np-inline-confirm="ordersSet.removeCheckedOrders()" confirm-text='${_trc("Точно отменить?", "Проверки связей")}'><i class="icon i-delete"></i>${_trc("Отменить проверку", "Проверки связей")}</button>
+                        -->
                     </div>
                 </li>
             </ul>
@@ -53,6 +55,19 @@
                     <span ng-show="currentOrder.order.checkOptions.insideList">${_trc("Проводилась проверка внутри списков", "Проверки связей")}</span>
                 </div>
                 <div class="align-center" ng-show="currentOrder.isEmptyResult()">${_trc("Связей не найдено", "Проверки связей")}</span></div>
+                <div class="order-result-box" ng-show="currentOrder.isResult()">
+                    <div class="row order-result">
+                        <div class="span8">
+                            // TODO traces
+                        </div>
+                        <div class="span4 pairs">
+                            <a class="pair" ng-repeat="pair in currentOrder.getResultPairs() track by $index">
+                                <span np-rsearch-node-simple="currentOrder.getResultEntry(pair.first).node"></span>
+                                <span np-rsearch-node-simple="currentOrder.getResultEntry(pair.second).node"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
