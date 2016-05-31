@@ -53,6 +53,7 @@ define(function(require, exports, module) {'use strict';
                                 done();
                             } else {
                                 me.fetch(done);
+                                $rootScope.$emit('np-connections-delete-orders', orderIds);
                             }
                         });
                     });

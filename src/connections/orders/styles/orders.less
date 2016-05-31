@@ -10,6 +10,9 @@
     order-style: none;
     overflow: hidden;
 }
+[np-connections-orders] .orders-set .tools .delete-orders-btn {
+    margin-top: -5px;
+}
 [np-connections-orders] .orders-set .orders > .order {
     display: block;
     padding: 20px 0 10px 0;
@@ -18,16 +21,12 @@
 [np-connections-orders] .orders-set .orders > .order:first-child {
     border-top: 0 none;
 }
+
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper {
-    width: 500px;
-    /*margin-left: 10px;*/
+    width: @orderListWrapperWidth;
 }
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper a {
     display: inline-block;
-}
-[np-connections-orders] .orders-set .orders > .order:not(.order-status-READY) .lists-wrapper a {
-    color: @defaultDisabledColor;
-    cursor: default;
 }
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper a .list {
     display: block;
@@ -36,11 +35,6 @@
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper a .list:first-child {
     margin-top: 0;
 }
-
-[np-connections-orders] .orders-set .orders > .order.order-status-READY .order-info-text {
-    color: @defaultColor;
-}
-
 [np-connections-orders] .orders-set .orders > .order .order-date {
     width: 180px;
 }
@@ -64,5 +58,47 @@
 [np-connections-orders] .orders-set .orders > .order.order-status-PROGRESS:hover .cancel-order {
     display: inline-block;
 }
+[np-connections-orders] .orders-set .orders > .order.order-status-READY .order-info-text {
+    color: @defaultColor;
+}
+[np-connections-orders] .orders-set .orders > .order:not(.order-status-READY) .lists-wrapper a {
+    color: @defaultDisabledColor;
+    cursor: default;
+}
 
 /* current-order */
+[np-connections-orders] .current-order .order-info {
+    padding-top: 30px;
+}
+
+[np-connections-orders] .current-order .order-info .order {
+    margin-bottom: 40px;
+}
+[np-connections-orders] .current-order .order-info .lists-wrapper {
+    width: @orderListWrapperWidth;
+    margin-bottom: 0;
+    list-style: none;
+}
+[np-connections-orders] .current-order .order-info .lists-wrapper > li {
+    display: block;
+    margin-bottom: 10px;
+}
+[np-connections-orders] .current-order .order-info .lists-wrapper > li {
+    margin-top: 0;
+}
+[np-connections-orders] .current-order .order-info .lists-wrapper > li > a {
+    display: inline-block;
+}
+[np-connections-orders] .current-order .order-info .order-progress-indicator {
+    display: none;
+}
+[np-connections-orders] .current-order .order-info.order-status-PROGRESS .order-progress-indicator {
+    display: inline;
+}
+[np-connections-orders] .current-order .order-info.order-status-READY .order-info-text {
+    color: @defaultColor;
+}
+
+[np-connections-orders] .current-order .order-info .check-options-info {
+    margin-bottom: 20px;
+}

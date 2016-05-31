@@ -37,6 +37,15 @@ define(function(require, exports, module) {'use strict';
                     }, null, options);
                 },
 
+                order: function(options) {
+                    return npResource.request({
+                        method: 'GET',
+                        url: $interpolate(config['order.url'])({
+                            id: options.id
+                        })
+                    }, null, options);
+                },
+
                 deleteOrders: function(options) {
                     return npResource.request({
                         method: 'DELETE',
