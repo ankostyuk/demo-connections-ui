@@ -56,12 +56,25 @@ define(function(require, exports, module) {'use strict';
                         });
                     });
 
+                    $rootScope.$on('np-connections-show-order', function(e, order){
+                        $rootScope.$emit('np-connections-loading', function(done){
+                            scope.currentOrder.fetch(order, function(){
+                                scope.navigation.showNav('#np-connections-orders-current-order');
+                                done();
+                            });
+                        });
+                    });
+
                     $rootScope.$on('np-connections-new-order', function(e, order, callback){
                         scope.ordersSet.fetch(function(){
                             if (_.isFunction(callback)) {
                                 callback();
                             }
                         });
+                    });
+
+                    $rootScope.$on('np-connections-delete-orders', function(e, orderIds){
+                        scope.navigation.showNav('#np-connections-orders-orders-set', true);
                     });
                 }
             };

@@ -58,6 +58,12 @@ define(function(require, exports, module) {'use strict';
         });
     }
 
+    function getOrder(orderId) {
+        return _.find(testData['connections']['orders']['_embedded']['list'], function(order){
+            return order.id === orderId;
+        });
+    }
+
     //
     function getRequestDelay(url) {
         var delay = /^\/siteapp\//.test(url) ? siteappDelay : connectionsDelay;
@@ -254,7 +260,7 @@ define(function(require, exports, module) {'use strict';
                 return [200, entry];
             });
 
-            // orders
+            // order
             $httpBackend.whenPOST('/connections/api/order').respond(function(method, url, data, headers, params){
                 var orderData   = angular.fromJson(data),
                     date        = moment().valueOf(),
@@ -278,6 +284,14 @@ define(function(require, exports, module) {'use strict';
 
                 orders._embedded.list = [order].concat(orders._embedded.list);
                 orders.page.totalElements++;
+
+                return [200, order];
+            });
+
+            // /connections/api/order/<id>
+            $httpBackend.whenGET(/^\/connections\/api\/order\/[^\/]+$/).respond(function(method, url){
+                var orderId = getUrlParam(url, 'order'),
+                    order   = getOrder(orderId);
 
                 return [200, order];
             });
