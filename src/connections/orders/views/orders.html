@@ -3,14 +3,6 @@
     <div class="tab-content">
         <!-- Просмотр заказов -->
         <div class="tab-pane orders-set" id="np-connections-orders-orders-set">
-            <!--
-            <ul class="row orders-nav tools" ng-hide="ordersSet.result.isEmpty()">
-                <li class="span6" ng-show="navigation.prevTarget === '#np-connections-orders-current-order'"><a data-target="#np-connections-orders-current-order" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру проверки", "Проверки связей")}</a></li>
-            </ul>
-            <div class="align-right tools" ng-hide="ordersSet.result.isEmpty()">
-                <button class="btn flat" ng-disabled="!ordersSet.checked.isChecked()" np-inline-confirm="ordersSet.doDeleteOrders()" confirm-text='${_trc("Точно удалить выбранные проверки связей?", "Проверки связей")}'><i class="icon i-trash"></i>${_trc("Удалить выбранные проверки связей", "Проверки связей")}</button>
-            </div>
-            -->
             <div class="row" ng-hide="ordersSet.result.isEmpty()">
                 <div class="span6">
                     <ul class="orders-nav tools">
@@ -63,6 +55,5 @@
                 <div class="align-center" ng-show="currentOrder.isEmptyResult()">${_trc("Связей не найдено", "Проверки связей")}</span></div>
             </div>
         </div>
-
     </div>
 </script>
