@@ -39,6 +39,8 @@ root._RESOURCES_CONFIG = {
         'jquery':               'external_components/jquery/jquery',
         'jquery.cookie':        'external_components/jquery.cookie/jquery.cookie',
 
+        'download':             'external_components/downloadjs/download',
+
         // for encoding user file
         'text-encoding':        'external_components/text-encoding/encoding',
         'jschardet':            'external_components/jschardet/jschardet',

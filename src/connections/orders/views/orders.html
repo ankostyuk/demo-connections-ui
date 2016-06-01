@@ -54,7 +54,7 @@
                         <span ng-show="currentOrder.order.checkOptions.insideList">${_trc("Проводилась проверка внутри списков", "Проверки связей")}</span>
                     </div>
                     <div class="align-right tools" ng-show="currentOrder.isResult()">
-                        <button class="btn flat btn-export-result" ng-disabled="true"><i class="icon i-document-2"></i> ${_trc("Экспортировать результат проверки", "Проверки связей")}</button>
+                        <button class="btn flat btn-export-result" ng-click="currentOrder.doExportResult()"><i class="icon i-document-2"></i> ${_trc("Экспортировать результат проверки", "Проверки связей")}</button>
                     </div>
                 </div>
                 <div class="align-center" ng-show="currentOrder.isEmptyResult()">${_trc("Связей не найдено", "Проверки связей")}</span></div>

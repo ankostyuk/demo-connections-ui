@@ -6,7 +6,8 @@
 define(function(require, exports, module) {'use strict';
 
                           require('lodash');
-    var angular         = require('angular');
+    var angular         = require('angular'),
+        download        = require('download');
 
     var angularModules = [
         require('./resource')
@@ -15,7 +16,7 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.current-order', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsOrdersResource, npConnectionsUtils){
+        .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', '$timeout', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsOrdersResource, npConnectionsUtils){
             return function() {
                 var me          = this,
                     _request    = null;
@@ -160,6 +161,25 @@ define(function(require, exports, module) {'use strict';
                     me.order.result = null;
                     resetNodeTraces();
                 }
+
+                //
+                me.doExportResult = function() {
+                    download(buildResultText(), 'connections-result.txt', 'text/plain');
+                };
+
+                function buildResultText() {
+                    return resultText;
+                }
+
+                var resultText = ''
+                    + 'Результат проверки связей\r\n'
+                    + '--------------------------------------------------------------------------------\r\n'
+                    + '\r\n'
+                    + '--------------------------------------------------------------------------------\r\n'
+                    + '© 2016 Национальное кредитное бюро\r\n'
+                    + '+7 495 229-67-47\r\n'
+                    + 'www.creditnet.ru\r\n'
+                    + '';
             };
         }]);
     //
