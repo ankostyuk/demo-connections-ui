@@ -255,7 +255,7 @@ define(function(require, exports, module) {'use strict';
 
                     function addEntries(callback) {
                         if (!scope.target) {
-                            callback(true);
+                            callback();
                             return;
                         }
 
