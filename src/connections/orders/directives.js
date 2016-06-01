@@ -23,7 +23,7 @@ define(function(require, exports, module) {'use strict';
             templates = templateUtils.processTemplate(templates).templates;
         }])
         //
-        .directive('npConnectionsOrders', ['$log', '$timeout', '$rootScope', 'npConnectionsOrdersSet', 'npConnectionsCurrentOrder', 'npConnectionsNavigation', function($log, $timeout, $rootScope, npConnectionsOrdersSet, npConnectionsCurrentOrder, npConnectionsNavigation){
+        .directive('npConnectionsOrders', ['$log', '$timeout', '$rootScope', 'npConnectionsOrdersSet', 'npConnectionsCurrentOrder', 'npConnectionsNavigation', 'npRsearchViews', 'npRsearchNavigationHelper', function($log, $timeout, $rootScope, npConnectionsOrdersSet, npConnectionsCurrentOrder, npConnectionsNavigation, npRsearchViews, npRsearchNavigationHelper){
             return {
                 restrict: 'A',
                 scope: {},
@@ -42,8 +42,10 @@ define(function(require, exports, module) {'use strict';
                     }, i18n.translateFuncs);
 
                     //
-                    // var nodeTracesView = npRsearchViews.createNodeTracesView(nodeTracesElement, scope, navigationProxy);
-                    // scope.currentOrder.setNodeTracesView(nodeTracesView);
+                    var nodeTracesElement   = element.find('.current-order .node-traces-view'),
+                        nodeTracesView      = npRsearchViews.createNodeTracesView(nodeTracesElement, scope, npRsearchNavigationHelper.getNavigationProxy());
+
+                    scope.currentOrder.setNodeTracesView(nodeTracesView);
 
                     //
                     $rootScope.$on('np-connections-show-orders', function(e, callback){
@@ -56,6 +58,9 @@ define(function(require, exports, module) {'use strict';
                                 }
 
                                 done();
+
+                                // test
+                                // $rootScope.$emit('np-connections-show-order', scope.ordersSet.result.getList()[0]);
                             });
                         });
                     });

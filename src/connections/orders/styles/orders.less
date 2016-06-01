@@ -32,9 +32,6 @@
     display: block;
     margin-bottom: 10px;
 }
-[np-connections-orders] .orders-set .orders > .order .lists-wrapper a .list:first-child {
-    margin-top: 0;
-}
 [np-connections-orders] .orders-set .orders > .order .order-date {
     width: 180px;
 }
@@ -70,27 +67,27 @@
 
 /* current-order */
 [np-connections-orders] .current-order .order-info {
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 [np-connections-orders] .current-order .order-info .order {
     margin-bottom: 15px;
 }
 [np-connections-orders] .current-order .order-info .lists-wrapper {
-    width: @orderListWrapperWidth;
+    width: 550px;
     margin-bottom: 0;
     list-style: none;
 }
 [np-connections-orders] .current-order .order-info .lists-wrapper > li {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 150%;
+    line-height: 25px;
 }
-[np-connections-orders] .current-order .order-info .lists-wrapper > li {
-    margin-top: 0;
+[np-connections-orders] .current-order .order-info .order-date {
+    width: 180px;
 }
-[np-connections-orders] .current-order .order-info .lists-wrapper > li > a {
-    display: inline-block;
-}
+
 [np-connections-orders] .current-order .order-info .order-progress-indicator {
     display: none;
 }
@@ -105,11 +102,37 @@
     margin-bottom: 25px;
 }
 
+[np-connections-orders] .current-order .btn-export-result {
+    margin-top: -5px;
+}
+
+[np-connections-orders] .current-order .order-result-box {
+    padding-top: 20px;
+    border-top: 1px solid @defaultLineColor;
+}
+[np-connections-orders] .current-order .order-result .pairs-box {
+    position: relative;
+}
+[np-connections-orders] .current-order .order-result .pairs-box .pairs {
+    position: absolute;
+    left: 20px;
+    top: 0;
+}
 [np-connections-orders] .current-order .order-result .pairs .pair {
-    display: inline-block;
+    display: block;
+    max-width: 350px;
     margin-bottom: 15px;
+    white-space: nowrap;
 }
 [np-connections-orders] .current-order .order-result .pairs .pair [np-rsearch-node-simple] {
-    display: inline-block;
+    display: block;
     margin-bottom: 5px;
+}
+
+[np-connections-orders] .current-order .order-result [np-rsearch-node-traces] {
+    padding: 0;
+}
+[np-connections-orders] .current-order .order-result [np-rsearch-node-traces] .filters,
+[np-connections-orders] .current-order .order-result [np-rsearch-node-traces] .filters-message {
+    display: none;
 }
