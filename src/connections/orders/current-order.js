@@ -62,6 +62,9 @@ define(function(require, exports, module) {'use strict';
 
                     me.doNodePairTracesResult(0);
                     me.nodeTracesView.toggle(true);
+
+                    // test
+                    // buildResultText();
                 }
 
                 function buildNodePairTracesResult(pairIndex) {
@@ -73,25 +76,11 @@ define(function(require, exports, module) {'use strict';
 
                     var nodeTracesResult = {
                         nodes: me.nodeTracesNodes,
-                        traces: normalizeNodeTraces(pair.traces),
+                        traces: pair.traces,
                         relations: []
                     };
 
                     me.nodeTracesView.setResult([firstNode, secondNode], filters, nodeTracesResult, traceIndex, false);
-                }
-
-                function normalizeNodeTraces(traces) {
-                    var normalizedTraces = [];
-
-                    // схлопнуть цепочки
-                    // TODO на сервере
-                    _.each(traces, function(trace, i){
-                        if (!_.isEqual(trace, traces[i - 1])) {
-                            normalizedTraces.push(trace);
-                        }
-                    });
-
-                    return normalizedTraces;
                 }
 
                 function resetNodeTraces() {
@@ -163,23 +152,66 @@ define(function(require, exports, module) {'use strict';
                 }
 
                 //
+                // export
+                //
                 me.doExportResult = function() {
-                    download(buildResultText(), 'connections-result.txt', 'text/plain');
+                    $rootScope.$emit('np-connections-loading', function(done){
+                        $timeout(function(){
+                            download(buildResultText(), 'connections-result.txt', 'text/plain');
+                            done();
+                        }, 1000);
+                    });
                 };
 
                 function buildResultText() {
+                    var resultText = ''
+                        + 'Результат проверки связей\r\n'
+                        + '--------------------------------------------------------------------------------\r\n'
+                        + '\r\n'
+                        + (_.size(me.order.userLists) === 1 ? 'В списке\r\n' : 'В списках\r\n')
+                        + '\r\n'
+                        + '';
+
+                    _.each(me.order.userLists, function(userList){
+                        resultText += userList.name + '\r\n';
+                    });
+
+                    resultText += ''
+                        + '\r\n'
+                        + 'связаны...'
+                        + '\r\n'
+                        + '';
+
+                    _.each(me.getResultPairs(), function(pair){
+                        var firstNode   = me.getResultEntry(pair.first).node,
+                            secondNode  = me.getResultEntry(pair.second).node,
+                            filters     = {},
+                            traceIndex  = 0;
+
+                        var nodeTracesResult = {
+                            nodes: me.nodeTracesNodes,
+                            traces: pair.traces,
+                            relations: []
+                        };
+
+                        resultText += ''
+                            + '\r\n'
+                            + me.nodeTracesView.buildResultText([firstNode, secondNode], nodeTracesResult)
+                            + '\r\n'
+                            + '--------------------------------------------------------------------------------\r\n'
+                            + '';
+                    });
+
+                    resultText += ''
+                        + '© 2016 Национальное кредитное бюро\r\n'
+                        + '+7 495 229-67-47\r\n'
+                        + 'www.creditnet.ru\r\n'
+                        + '';
+
+                    // $log.warn('resultText', '\n', resultText);
+
                     return resultText;
                 }
-
-                var resultText = ''
-                    + 'Результат проверки связей\r\n'
-                    + '--------------------------------------------------------------------------------\r\n'
-                    + '\r\n'
-                    + '--------------------------------------------------------------------------------\r\n'
-                    + '© 2016 Национальное кредитное бюро\r\n'
-                    + '+7 495 229-67-47\r\n'
-                    + 'www.creditnet.ru\r\n'
-                    + '';
             };
         }]);
     //

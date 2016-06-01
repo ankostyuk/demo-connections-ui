@@ -86,14 +86,15 @@ define(function(require, exports, module) {'use strict';
                                         return;
                                     }
 
-                                    if (targetProxy.showCount === 1 || targetProxy.forbidden) {
+                                    // TODO uncomment
+                                    // if (targetProxy.showCount === 1 || targetProxy.forbidden) {
                                         $rootScope.$emit('np-connections-show-lists', function(hasError, response){
                                             done();
                                         });
                                         targetProxy.forbidden = false;
-                                    } else {
-                                        done();
-                                    }
+                                    // } else {
+                                    //     done();
+                                    // }
                                 }
                             },
                             '#np-connections-orders': {
