@@ -157,29 +157,80 @@ define(function(require, exports, module) {'use strict';
                 me.doExportResult = function() {
                     $rootScope.$emit('np-connections-loading', function(done){
                         $timeout(function(){
-                            download(buildResultText(), 'connections-result.txt', 'text/plain');
+                            // download(buildResultText(), 'connections-result.txt', 'text/plain');
+                            download(buildResultText(), 'connections-result.doc', 'application/msword');
                             done();
                         }, 1000);
                     });
                 };
 
+                // function __buildResultText() {
+                //     var resultText = ''
+                //         + 'Результат проверки связей\r\n'
+                //         + '--------------------------------------------------------------------------------\r\n'
+                //         + '\r\n'
+                //         + (_.size(me.order.userLists) === 1 ? 'В списке\r\n' : 'В списках\r\n')
+                //         + '\r\n'
+                //         + '';
+                //
+                //     _.each(me.order.userLists, function(userList){
+                //         resultText += userList.name + '\r\n';
+                //     });
+                //
+                //     resultText += ''
+                //         + '\r\n'
+                //         + 'связаны...'
+                //         + '\r\n'
+                //         + '';
+                //
+                //     _.each(me.getResultPairs(), function(pair){
+                //         var firstNode   = me.getResultEntry(pair.first).node,
+                //             secondNode  = me.getResultEntry(pair.second).node,
+                //             filters     = {},
+                //             traceIndex  = 0;
+                //
+                //         var nodeTracesResult = {
+                //             nodes: me.nodeTracesNodes,
+                //             traces: pair.traces,
+                //             relations: []
+                //         };
+                //
+                //         resultText += ''
+                //             + '\r\n'
+                //             + me.nodeTracesView.buildResultText([firstNode, secondNode], nodeTracesResult)
+                //             + '\r\n'
+                //             + '--------------------------------------------------------------------------------\r\n'
+                //             + '';
+                //     });
+                //
+                //     resultText += ''
+                //         + '© 2016 Национальное кредитное бюро\r\n'
+                //         + '+7 495 229-67-47\r\n'
+                //         + 'www.creditnet.ru\r\n'
+                //         + '';
+                //
+                //     // $log.warn('resultText', '\n', resultText);
+                //
+                //     return resultText;
+                // }
+
                 function buildResultText() {
                     var resultText = ''
-                        + 'Результат проверки связей\r\n'
-                        + '--------------------------------------------------------------------------------\r\n'
-                        + '\r\n'
-                        + (_.size(me.order.userLists) === 1 ? 'В списке\r\n' : 'В списках\r\n')
-                        + '\r\n'
+                        + '<body>'
+                        + '<h1>Результат проверки связей</h1>'
+                        + '<br>'
+                        + (_.size(me.order.userLists) === 1 ? 'В списке' : 'В списках')
+                        + '<br>'
                         + '';
 
                     _.each(me.order.userLists, function(userList){
-                        resultText += userList.name + '\r\n';
+                        resultText += ('<h2>' + userList.name + '</h2>');
                     });
 
                     resultText += ''
-                        + '\r\n'
+                        + '<br>'
                         + 'связаны...'
-                        + '\r\n'
+                        + '<br>'
                         + '';
 
                     _.each(me.getResultPairs(), function(pair){
@@ -195,17 +246,18 @@ define(function(require, exports, module) {'use strict';
                         };
 
                         resultText += ''
-                            + '\r\n'
+                            // + '<br>'
                             + me.nodeTracesView.buildResultText([firstNode, secondNode], nodeTracesResult)
-                            + '\r\n'
-                            + '--------------------------------------------------------------------------------\r\n'
+                            + '<br>'
+                            + '<hr>'
                             + '';
                     });
 
                     resultText += ''
-                        + '© 2016 Национальное кредитное бюро\r\n'
-                        + '+7 495 229-67-47\r\n'
-                        + 'www.creditnet.ru\r\n'
+                        + '<i>© 2016 Национальное кредитное бюро</i><br>'
+                        + '<i>+7 495 229-67-47</i><br>'
+                        + '<a href="http://www.creditnet.ru"><i>www.creditnet.ru</i></a><br>'
+                        + '</body>'
                         + '';
 
                     // $log.warn('resultText', '\n', resultText);
