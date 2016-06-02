@@ -135,12 +135,10 @@
             <span class="inline link add-file attach-file-wrapper" ng-class="{'active': target === 'file'}">${_trc("добавьте из файла", "Введите ... или добавьте из файла")}<input type="file" name="file" accept="text/*,text/anytext,text/comma-separated-values,application/csv"></span>
             <span class="inline file-name text-ellipsis">{{file.name}}</span>
         </form>
-        <!--
         <div class="align-right">
-            <a class="inline underline" href="./examples/files/company-list.txt" target="_blank" ng-show="proxy.getListType() === 'COMPANY'">${_trc("Пример файла с данными компаний", "Пользовательские списки")}</a>
-            <a class="inline underline" href="./examples/files/individual-list.txt" target="_blank" ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Пример файла с данными физических лиц", "Пользовательские списки")}</a>
+            <a class="inline underline" href="./example-file-company-list.txt" target="_blank" ng-show="proxy.getListType() === 'COMPANY'">${_trc("Пример файла с данными компаний", "Пользовательские списки")}</a>
+            <a class="inline underline" href="./example-file-individual-list.txt" target="_blank" ng-show="proxy.getListType() === 'INDIVIDUAL'">${_trc("Пример файла с данными физических лиц", "Пользовательские списки")}</a>
         </div>
-        -->
     </div>
     <div ng-show="target === 'text'">
         <textarea rows="5" wrap="off" placeholder='${_trc("Строка — ОГРН или ИНН, или ОКПО компании", "Введите ... или добавьте из файла")}' ng-model="text" ng-show="proxy.getListType() === 'COMPANY'"></textarea>

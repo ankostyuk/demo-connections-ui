@@ -18,6 +18,7 @@ module.exports = function(grunt) {
 
     // extend copy
     _.set(gruntConfig, 'copy.dist.options.noProcess', '**/*.{ico,properties,js,gif}');
+    _.get(gruntConfig, 'copy.dist.src').push('src/nkb-app/example-file-*.txt');
 
     // extend i18n
     _.set(gruntConfig, 'i18n.ui_keys.options', {
