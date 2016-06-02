@@ -12,6 +12,7 @@ define(function(require, exports, module) {'use strict';
         require('./directives'),
         require('../lists/lists'),
         require('../orders/orders'),
+        require('../notifications/notifications'),
         require('../navigation/navigation'),
         require('../utils/utils'),
         require('np.directives'),
