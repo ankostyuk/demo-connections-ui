@@ -328,6 +328,8 @@ define(function(require, exports, module) {'use strict';
 
                 return [204];
             });
+
+            $httpBackend.whenPOST('/connections/api/orders/state').respond(204);
         }]);
     //
 });

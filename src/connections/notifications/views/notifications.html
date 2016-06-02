@@ -3,7 +3,24 @@
     <div class="tab-content">
         <!-- Просмотр уведомлений -->
         <div class="tab-pane notifications-set active" id="np-connections-notifications-notifications-set">
-            <div class="muted align-center empty-result" ng-show="true">${_trc("Нет новых уведомлений", "Уведомления пользователю")}</div>
+            <div class="muted align-center empty-result" ng-show="notificationsSet.isEmpty()">${_trc("Нет новых уведомлений", "Уведомления пользователю")}</div>
+            <ul class="notifications" ng-hide="notificationsSet.isEmpty()">
+                <li class="row notification" ng-repeat="notification in notificationsSet.list track by $index">
+                    <div class="span1">${_trc("Проверка связей", "Проверки связей")}</div>
+                    <div class="span5 lists-wrapper">
+                        <a>
+                            <span class="list" ng-repeat="list in notification.order.userLists track by list.id">{{list.name}}</span>
+                        </a>
+                    </div>
+                    <div class="span2">
+                        <span ng-show="notification.order.status === 'READY'">${_trc("Выполнена", "Проверки связей")}</span>
+                        <span ng-show="notification.order.status === 'FAILED'">${_trc("Не выполнена", "Проверки связей")}</span>
+                    </div>
+                    <div class="align-right" ng-show="notification.order.status === 'READY'">
+                        <a ng-click="notificationsSet.showOrder(notification.order)">${_trc("Посмотреть результат", "Проверки связей")}</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </script>

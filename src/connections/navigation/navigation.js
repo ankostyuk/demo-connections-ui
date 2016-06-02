@@ -47,10 +47,14 @@ define(function(require, exports, module) {'use strict';
                     }
                 };
 
-                function showNav(target, noStore) {
-                    var tab = options.element
+                me.getNavElement = function(target) {
+                    return options.element
                                 .find('[data-target="' + target + '"]')
-                                .eq(0).tab('show');
+                                .eq(0);
+                };
+
+                function showNav(target, noStore) {
+                    var tab = me.getNavElement(target).tab('show');
 
                     if (!options.markActive) {
                         tab.parent('li').removeClass('active');

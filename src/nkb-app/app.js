@@ -56,7 +56,8 @@ define(function(require) {'use strict';
 
                 'order.create.url':         '/connections/api/order',
                 'order.url':                '/connections/api/order/{{id}}',
-                'orders.url':               '/connections/api/orders'
+                'orders.url':               '/connections/api/orders',
+                'orders.state.url':         '/connections/api/orders/state'
             }
         })
         //

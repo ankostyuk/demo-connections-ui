@@ -30,6 +30,15 @@ define(function(require, exports, module) {'use strict';
                     }, null, options);
                 },
 
+                order: function(options) {
+                    return npResource.request({
+                        method: 'GET',
+                        url: $interpolate(config['order.url'])({
+                            id: options.id
+                        })
+                    }, null, options);
+                },
+
                 orders: function(options) {
                     return npResource.request({
                         method: 'GET',
@@ -37,12 +46,11 @@ define(function(require, exports, module) {'use strict';
                     }, null, options);
                 },
 
-                order: function(options) {
+                ordersState: function(options) {
                     return npResource.request({
-                        method: 'GET',
-                        url: $interpolate(config['order.url'])({
-                            id: options.id
-                        })
+                        method: 'POST',
+                        url: config['orders.state.url'],
+                        data: options.data
                     }, null, options);
                 },
 

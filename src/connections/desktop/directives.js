@@ -106,6 +106,11 @@ define(function(require, exports, module) {'use strict';
                                     //     done();
                                     // }
                                 }
+                            },
+                            '#np-connections-notifications': {
+                                after: function(targetProxy, done) {
+                                    scope.navigation.getNavElement('#np-connections-notifications').removeClass('animate-pulsed-flash');
+                                }
                             }
                         }
                     };
@@ -120,6 +125,12 @@ define(function(require, exports, module) {'use strict';
                     //
                     $rootScope.$on('np-connections-show-desktop-nav', function(e, target){
                         scope.navigation.showNav(target);
+                    });
+
+                    $rootScope.$on('np-connections-new-notification', function(e){
+                        if (scope.navigation.currentTarget !== '#np-connections-notifications') {
+                            scope.navigation.getNavElement('#np-connections-notifications').addClass('animate-pulsed-flash');
+                        }
                     });
 
                     $timeout(function(){
