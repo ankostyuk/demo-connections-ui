@@ -149,7 +149,7 @@ define(function(require, exports, module) {'use strict';
                                         entry.userData = newText;
 
                                         var updatedData = {
-                                            userData: newText
+                                            userData: _.clean(newText)
                                         };
 
                                         $rootScope.$emit('np-connections-loading', function(done){

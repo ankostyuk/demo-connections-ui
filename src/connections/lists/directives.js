@@ -272,12 +272,14 @@ define(function(require, exports, module) {'use strict';
                             }
                         }
 
-                        var userDataList = _.filter(
-                            _.lines(text),
-                            function(userData) {
-                                return !_.isBlank(userData);
+                        var userDataList = [];
+
+                        _.each(_.lines(text), function(userData){
+                            userData = _.clean(userData);
+                            if (userData) {
+                                userDataList.push(userData);
                             }
-                        );
+                        });
 
                         addEntriesRequest = npConnectionsListsResource.createListEntries({
                             listId: scope.proxy.getListId(),
