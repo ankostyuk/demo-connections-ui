@@ -106,12 +106,12 @@ define(function(require, exports, module) {'use strict';
                                     //     done();
                                     // }
                                 }
-                            },
-                            '#np-connections-notifications': {
-                                after: function(targetProxy, done) {
-                                    scope.navigation.getNavElement('#np-connections-notifications').removeClass('animate-pulsed-flash');
-                                }
                             }
+                            // '#np-connections-notifications': {
+                            //     after: function(targetProxy, done) {
+                            //         scope.navigation.getNavElement('#np-connections-notifications').removeClass('animate-pulsed-flash');
+                            //     }
+                            // }
                         }
                     };
 
@@ -127,11 +127,11 @@ define(function(require, exports, module) {'use strict';
                         scope.navigation.showNav(target);
                     });
 
-                    $rootScope.$on('np-connections-new-notification', function(e){
-                        if (scope.navigation.currentTarget !== '#np-connections-notifications') {
-                            scope.navigation.getNavElement('#np-connections-notifications').addClass('animate-pulsed-flash');
-                        }
-                    });
+                    // $rootScope.$on('np-connections-new-notification', function(e){
+                    //     if (scope.navigation.currentTarget !== '#np-connections-notifications') {
+                    //         scope.navigation.getNavElement('#np-connections-notifications').addClass('animate-pulsed-flash');
+                    //     }
+                    // });
 
                     $timeout(function(){
                         $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');

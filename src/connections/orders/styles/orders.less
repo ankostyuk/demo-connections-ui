@@ -21,6 +21,9 @@
 [np-connections-orders] .orders-set .orders > .order:first-child {
     border-top: 0 none;
 }
+[np-connections-orders] .orders-set .orders > .order.not-viewed {
+    font-weight: bold;
+}
 
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper {
     width: @orderListWrapperWidth;
@@ -62,7 +65,7 @@
 }
 [np-connections-orders] .orders-set .orders > .order:not(.order-status-READY) .lists-wrapper a {
     color: @defaultDisabledColor;
-    cursor: default;
+    /*cursor: default;*/
 }
 
 /* current-order */

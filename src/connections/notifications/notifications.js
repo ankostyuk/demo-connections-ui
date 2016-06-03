@@ -3,6 +3,7 @@
  * @desc RequireJS/Angular module
  * @author ankostyuk
  */
+// @Deprecated
 define(function(require, exports, module) {'use strict';
 
                           require('lodash');

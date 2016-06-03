@@ -20,10 +20,14 @@
                         </label>
                     </div>
                     <div class="span9" ng-show="listsSet.successfulOrder">
+                        <!--
                         ${_trc("О готовности", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}
                         <a ng-click="navigation.showDesktopNav('#np-connections-orders')">${_trc("Проверки связей", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}</a>
                         ${_trc("вы будете извещены по электронной почте и в", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}
                         <a ng-click="navigation.showDesktopNav('#np-connections-notifications')">${_trc("Уведомлениях", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}</a>
+                        -->
+
+                        ${_trc("Проверка выполняется, результат проверки можно посмотреть ", "Проверки связей")} <a ng-click="navigation.showDesktopNav('#np-connections-orders')">${_trc("здесь", "Проверка выполняется, результат проверки можно посмотреть здесь")}</a>
                     </div>
                     <div class="align-right">
                         <button class="btn flat order-btn" ng-disabled="listsSet.successfulOrder || !listsSet.checked.isChecked()" ng-click="listsSet.doOrder()"><i class="icon i-graph-cluster"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>

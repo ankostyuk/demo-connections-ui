@@ -84,7 +84,7 @@ define(function(require, exports, module) {'use strict';
                     _lookatOrders[order.id] = order;
                 });
 
-                polling();
+                // polling();
             };
         }]);
     //

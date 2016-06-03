@@ -87,6 +87,19 @@ define(function(require, exports, module) {'use strict';
                     });
                 }
             };
+        }])
+        //
+        .directive('npConnectionsOrdersViewedInfo', ['$log', '$timeout', '$rootScope', 'npConnectionsOrdersSet', 'npConnectionsCurrentOrder', 'npConnectionsNavigation', 'npRsearchViews', 'npRsearchNavigationHelper', function($log, $timeout, $rootScope, npConnectionsOrdersSet, npConnectionsCurrentOrder, npConnectionsNavigation, npRsearchViews, npRsearchNavigationHelper){
+            return {
+                restrict: 'A',
+                scope: {},
+                template: templates['orders-viewed-info-view'].html,
+                link: function(scope, element, attrs) {
+                    $rootScope.$on('np-connections-orders-viewed-change', function(e, notViewedOrderCount){
+                        scope.notViewedOrderCount = notViewedOrderCount;
+                    });
+                }
+            };
         }]);
     //
 });
