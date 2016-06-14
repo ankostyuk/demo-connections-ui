@@ -60,7 +60,7 @@ define(function(require, exports, module) {'use strict';
                                 done();
 
                                 // test
-                                // $rootScope.$emit('np-connections-show-order', scope.ordersSet.result.getList()[0]);
+                                $rootScope.$emit('np-connections-show-order', scope.ordersSet.result.getList()[0]);
                             });
                         });
                     });

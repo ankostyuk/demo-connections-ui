@@ -28,7 +28,7 @@ define(function(require, exports, module) {'use strict';
             });
         }])
         //
-        .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', 'nkbUser', 'npUtils', 'npConnectionsNavigation', function($log, $rootScope, $timeout, nkbUser, npUtils, npConnectionsNavigation){
+        .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', '$q', 'nkbUser', 'npUtils', 'npRsearchMetaHelper', 'npConnectionsNavigation', function($log, $rootScope, $timeout, $q, nkbUser, npUtils, npRsearchMetaHelper, npConnectionsNavigation){
             return {
                 restrict: 'A',
                 scope: {},
@@ -107,11 +107,6 @@ define(function(require, exports, module) {'use strict';
                                     // }
                                 }
                             }
-                            // '#np-connections-notifications': {
-                            //     after: function(targetProxy, done) {
-                            //         scope.navigation.getNavElement('#np-connections-notifications').removeClass('animate-pulsed-flash');
-                            //     }
-                            // }
                         }
                     };
 
@@ -127,16 +122,13 @@ define(function(require, exports, module) {'use strict';
                         scope.navigation.showNav(target);
                     });
 
-                    // $rootScope.$on('np-connections-new-notification', function(e){
-                    //     if (scope.navigation.currentTarget !== '#np-connections-notifications') {
-                    //         scope.navigation.getNavElement('#np-connections-notifications').addClass('animate-pulsed-flash');
-                    //     }
-                    // });
-
-                    $timeout(function(){
-                        $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
-                        // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
-                    }, 500);
+                    //
+                    $q.all([nkbUser.initPromise(), npRsearchMetaHelper.initPromise()]).then(function(){
+                        $timeout(function(){
+                            // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-lists');
+                            $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
+                        }, 100);
+                    });
                 }
             };
         }]);

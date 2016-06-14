@@ -77,7 +77,7 @@ define(function(require) {'use strict';
             $logProvider.debugEnabled(root.APP_BUILD_TYPE !== 'production');
         }])
         //
-        .run(['$log', '$rootScope', '$window', 'npL10n', function($log, $rootScope, $window, npL10n){
+        .run(['$log', '$rootScope', '$window', '$q', 'npL10n', 'nkbUser', 'npRsearchMetaHelper', function($log, $rootScope, $window, $q, npL10n, nkbUser, npRsearchMetaHelper){
             //
             _.extend($rootScope, {
                 app: {
@@ -88,18 +88,16 @@ define(function(require) {'use strict';
                 }
             });
 
-            $rootScope.$on('nkb-user-apply', function(){
-                $rootScope.app.ready = true;
-            });
-            // $rootScope.$on('np-rsearch-meta-ready', function(){
-            //     $rootScope.app.ready = true;
-            // });
-
             //
             Commons.DOMUtils.window().bind('beforeunload', function() {
                 if ($window.APP_BUILD_TYPE === 'production') {
                     return _tr("Текущий сеанс работы с приложением будет завершён");
                 }
+            });
+
+            //
+            $q.all([nkbUser.initPromise(), npRsearchMetaHelper.initPromise()]).then(function(){
+                $rootScope.app.ready = true;
             });
         }]);
     //

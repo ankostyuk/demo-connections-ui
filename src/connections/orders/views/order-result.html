@@ -1,0 +1,37 @@
+<!-- order-result-view -->
+<!-- lodash template -->
+<script id="order-result-view" type="text/template">
+    <body>
+        <h1>Результат проверки связей</h1>
+        <br>
+        <%= _.size(me.order.userLists) === 1 ? '${_trc("В списке", "Экспорт результата проверки")}' : '${_trc("В списках", "Экспорт результата проверки")}' %>
+        <br>
+        <% _.each(me.order.userLists, function(userList){ %>
+            <h2><%- userList.name %></h2>
+        <% }); %>
+        <br>
+        <div>${_trc("связаны...", "Экспорт результата проверки")}</div>
+        <br>
+        <% _.each(me.getResultPairs(), function(pair){ %>
+            <%
+            var firstNode   = me.getResultEntry(pair.first).node,
+                secondNode  = me.getResultEntry(pair.second).node,
+                filters     = {},
+                traceIndex  = 0;
+
+            var nodeTracesResult = {
+                nodes: me.nodeTracesNodes,
+                traces: pair.traces,
+                relations: []
+            };
+            print(me.nodeTracesView.buildResultText([firstNode, secondNode], nodeTracesResult))
+            %>
+            <br>
+            <hr>
+        <% }); %>
+
+        <div><i>©&nbsp;2002—2016 ${_tr("Национальное кредитное бюро")}</i></div>
+        <div><i>+7 495 229-67-47</i></div>
+        <div><a href="http://www.creditnet.ru"><i>www.creditnet.ru</i></a></div>
+    </body>
+</script>
