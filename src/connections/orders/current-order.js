@@ -8,9 +8,9 @@ define(function(require, exports, module) {'use strict';
     var orderResultTemplates = require('text!./views/order-result.html');
 
     var orderResultTemplatesSettings = {
-        evaluate    : /\<%([\s\S]+?)%\>/g,
-        interpolate : /\<%=([\s\S]+?)%\>/g,
-        escape      : /\<%-([\s\S]+?)%\>/g
+        evaluate:       /<%([\s\S]+?)%>/g,
+        interpolate:    /<%=([\s\S]+?)%>/g,
+        escape:         /<%-([\s\S]+?)%>/g
     };
 
                           require('lodash');
@@ -32,8 +32,9 @@ define(function(require, exports, module) {'use strict';
         //
         .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', '$timeout', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsOrdersResource, npConnectionsUtils){
             return function() {
-                var me          = this,
-                    _request    = null;
+                var me              = this,
+                    _tracesInfo     = {},
+                    _request        = null;
 
                 me.order = null;
 
@@ -41,6 +42,7 @@ define(function(require, exports, module) {'use strict';
                 me.nodeTracesView = null;
                 me.nodeTracesNodes = null;
                 me.nodeTracesCurrentPair = null;
+                me.nodeTracesCurrentTrace = null;
 
                 var _tracesDataSource = {
                     reverse: true,
@@ -48,10 +50,77 @@ define(function(require, exports, module) {'use strict';
                     depths: null,
                     tracesRequest: _.noop,
                     nodeClick: _.noop,
-                    applyResult: _.noop,
+                    applyResult: null,
                     doTrace: function(traceIndex) {
-                        // ?
+                        me.nodeTracesCurrentTrace = traceIndex;
                     }
+                };
+
+                me.getCurrentTraceInfo = function() {
+                    if (_.isNull(me.nodeTracesCurrentPair) || _.isNull(me.nodeTracesCurrentTrace)) {
+                        return {};
+                    }
+
+                    var info = _.get(_tracesInfo, [me.nodeTracesCurrentPair, me.nodeTracesCurrentTrace]);
+
+                    if (info) {
+                        return info;
+                    }
+
+                    info = {
+                        checked: false
+                    };
+
+                    _.set(_tracesInfo, [me.nodeTracesCurrentPair, me.nodeTracesCurrentTrace], info);
+
+                    return info;
+                };
+
+                me.isCurrentTraceChecked = function() {
+                    return me.isTraceChecked(me.nodeTracesCurrentPair, me.nodeTracesCurrentTrace);
+                };
+
+                me.isTraceChecked = function(pairIndex, traceIndex) {
+                    return _.get(_tracesInfo, [pairIndex, traceIndex, 'checked']);
+                };
+
+                me.isTracesChecked = function() {
+                    var checked = false;
+
+                    _.each(_tracesInfo, function(p){
+                        _.each(p, function(t){
+                            checked = t.checked;
+                            return !checked;
+                        });
+                        return !checked;
+                    });
+
+                    return checked;
+                };
+
+                me.isPairTracesChecked = function(pairIndex) {
+                    var checked = false;
+
+                    _.each(_tracesInfo[pairIndex], function(t){
+                        checked = t.checked;
+                        return !checked;
+                    });
+
+                    return checked;
+                };
+
+                me.getPairCheckedTraces = function(pairIndex) {
+                    var pair = me.getResultPair(pairIndex);
+
+                    if (!pair) {
+                        return null;
+                    }
+
+                    var traces = _.filter(pair.traces, function(trace, traceIndex){
+                        return me.isTraceChecked(pairIndex, traceIndex);
+                    });
+
+                    return traces;
                 };
 
                 me.setNodeTracesView = function(nodeTracesView) {
@@ -76,9 +145,6 @@ define(function(require, exports, module) {'use strict';
 
                     me.doNodePairTracesResult(0);
                     me.nodeTracesView.toggle(true);
-
-                    // test
-                    // buildResultText();
                 }
 
                 function buildNodePairTracesResult(pairIndex) {
@@ -102,10 +168,13 @@ define(function(require, exports, module) {'use strict';
                         return;
                     }
 
+                    _tracesInfo = {};
+
                     me.nodeTracesView.toggle(false);
                     me.nodeTracesView.reset();
                     me.nodeTracesNodes = null;
                     me.nodeTracesCurrentPair = null;
+                    me.nodeTracesCurrentTrace = null;
                 }
 
                 //
@@ -149,6 +218,7 @@ define(function(require, exports, module) {'use strict';
                         success: function(data) {
                             _.extend(me.order, data);
 
+                            normalizeResult();
                             buildNodeTraces();
 
                             npConnectionsUtils.requestDone(false, arguments, callback);
@@ -159,6 +229,23 @@ define(function(require, exports, module) {'use strict';
                         previousRequest: _request
                     });
                 };
+
+                // Убрать дубликаты цепочек
+                // TODO убрать данный код,
+                // когда дубликаты цепочек будут убраны на сервере
+                function normalizeResult() {
+                    _.each(_.get(me.order, 'result.pairs'), function(pair){
+                        var uniqTraces = [];
+
+                        _.each(pair.traces, function(trace, i){
+                            if (!_.isEqual(trace, pair.traces[i - 1])) {
+                                uniqTraces.push(trace);
+                            }
+                        });
+
+                        pair.traces = uniqTraces;
+                    });
+                }
 
                 function reset() {
                     me.order.result = null;
@@ -171,9 +258,8 @@ define(function(require, exports, module) {'use strict';
                 me.doExportResult = function() {
                     $rootScope.$emit('np-connections-loading', function(done){
                         $timeout(function(){
-                            // buildResultHTML();
-                            download(buildResultHTML(), 'connections-result.html', 'text/html');
-                            // download(buildResultHTML(), 'connections-result.doc', 'application/msword');
+                            // download(buildResultHTML(), 'connections-result.html', 'text/html');
+                            download(buildResultHTML(), 'connections-result.doc', 'application/msword');
                             done();
                         }, 1000);
                     });
@@ -187,60 +273,7 @@ define(function(require, exports, module) {'use strict';
                         me: me
                     });
 
-                    $log.warn('html', html);
-
                     return html;
-                }
-
-                function __buildResultText() {
-                    var resultText = ''
-                        + '<body>'
-                        + '<h1>Результат проверки связей</h1>'
-                        + '<br>'
-                        + (_.size(me.order.userLists) === 1 ? 'В списке' : 'В списках')
-                        + '<br>'
-                        + '';
-
-                    _.each(me.order.userLists, function(userList){
-                        resultText += ('<h2>' + userList.name + '</h2>');
-                    });
-
-                    resultText += ''
-                        + '<br>'
-                        + 'связаны...'
-                        + '<br>'
-                        + '';
-
-                    _.each(me.getResultPairs(), function(pair){
-                        var firstNode   = me.getResultEntry(pair.first).node,
-                            secondNode  = me.getResultEntry(pair.second).node,
-                            filters     = {},
-                            traceIndex  = 0;
-
-                        var nodeTracesResult = {
-                            nodes: me.nodeTracesNodes,
-                            traces: pair.traces,
-                            relations: []
-                        };
-
-                        resultText += ''
-                            // + '<br>'
-                            + me.nodeTracesView.buildResultText([firstNode, secondNode], nodeTracesResult)
-                            + '<br>'
-                            + '<hr>'
-                            + '';
-                    });
-
-                    resultText += ''
-                        + '<i>© 2016 Национальное кредитное бюро</i><br>'
-                        + '<i>+7 495 229-67-47</i><br>'
-                        + '<a href="http://www.creditnet.ru"><i>www.creditnet.ru</i></a><br>'
-                        + '</body>'
-                        + '';
-
-                    // $log.warn('resultText', '\n', resultText);
-
-                    return resultText;
                 }
             };
         }]);

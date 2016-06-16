@@ -105,13 +105,26 @@
     margin-bottom: 25px;
 }
 
-[np-connections-orders] .current-order .btn-export-result {
-    margin-top: -5px;
-}
-
 [np-connections-orders] .current-order .order-result-box {
     padding-top: 20px;
     border-top: 1px solid @defaultLineColor;
+}
+[np-connections-orders] .current-order .order-result-box > .tools {
+    position: relative;
+    margin-bottom: 40px;
+}
+[np-connections-orders] .current-order .order-result-box > .tools .trace-check {
+    position: absolute;
+    z-index: 10;
+    top: 71px;
+    padding: 2px 10px 35px 0;
+}
+[np-connections-orders] .current-order .order-result-box > .tools .trace-check label {
+    display: inline-block;
+    margin-left: 4px;
+}
+[np-connections-orders] .current-order .order-result-box > .tools .btn {
+    background-color: @checkedTraceColor;
 }
 [np-connections-orders] .current-order .order-result .pairs-box {
     position: relative;
@@ -131,9 +144,31 @@
 }
 
 [np-connections-orders] .current-order .order-result [np-rsearch-node-traces] {
+    position: relative;
     padding: 0;
+}
+[np-connections-orders] .current-order .order-result [np-rsearch-node-traces] .tools {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    top: 0;
+}
+[np-connections-orders] .current-order .order-result [np-rsearch-node-traces] .trace-result {
+    padding-top: 60px;
 }
 [np-connections-orders] .current-order .order-result [np-rsearch-node-traces] .filters,
 [np-connections-orders] .current-order .order-result [np-rsearch-node-traces] .filters-message {
     display: none;
+}
+
+[np-connections-orders] .current-order .order-result-box.current-trace-checked > .tools .trace-check,
+[np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces,
+[np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces .relation .target-relations-info {
+    background-color: @checkedTraceColor;
+}
+[np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces .relation.parents:after {
+    border-top-color: @checkedTraceColor;
+}
+[np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces .relation.children:after {
+    border-bottom-color: @checkedTraceColor;
 }

@@ -12,19 +12,23 @@
         <br>
         <div>${_trc("связаны...", "Экспорт результата проверки")}</div>
         <br>
-        <% _.each(me.getResultPairs(), function(pair){ %>
+        <% _.each(me.getResultPairs(), function(pair, pairIndex){ %>
             <%
+            if (!me.isPairTracesChecked(pairIndex)) {
+                return;
+            }
+
             var firstNode   = me.getResultEntry(pair.first).node,
-                secondNode  = me.getResultEntry(pair.second).node,
-                filters     = {},
-                traceIndex  = 0;
+                secondNode  = me.getResultEntry(pair.second).node;
 
             var nodeTracesResult = {
                 nodes: me.nodeTracesNodes,
-                traces: pair.traces,
+                // traces: pair.traces,
+                traces: me.getPairCheckedTraces(pairIndex),
                 relations: []
             };
-            print(me.nodeTracesView.buildResultText([firstNode, secondNode], nodeTracesResult))
+
+            print(me.nodeTracesView.buildResultHTML([firstNode, secondNode], nodeTracesResult))
             %>
             <br>
             <hr>
