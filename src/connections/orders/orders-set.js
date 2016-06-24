@@ -8,6 +8,30 @@ define(function(require, exports, module) {'use strict';
                           require('lodash');
     var angular         = require('angular');
 
+    // <<< push
+    // var SockJS          = require('sockjs'); // sockjs#1.1.0
+                          require('sockjs'); // sockjs#0.3.4
+                          require('stomp');
+
+    console.info('* SockJS', SockJS);
+    console.info('* Stomp', Stomp);
+
+    var sockjs = new SockJS('/connections/stomp');
+    console.info('* sockjs', sockjs);
+
+    var stompClient = Stomp.over(sockjs);
+    console.info('* stompClient', stompClient);
+
+    stompClient.debug = false;
+
+    stompClient.connect({}, function(frame){
+        console.info('* connect', frame);
+        stompClient.subscribe('/user/queue/order', function(data){
+            console.info('* subscribe... orders', angular.fromJson(data.body));
+        });
+    });
+    // >>> push
+
     var angularModules = [
         require('./resource')
     ];

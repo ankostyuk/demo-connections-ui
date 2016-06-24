@@ -52,7 +52,10 @@ root._RESOURCES_CONFIG = {
 
         'moment':               'external_components/moment/moment',
         'moment-timezone':      'external_components/moment-timezone/moment-timezone-with-data',
-        'angular-moment':       'external_components/angular-moment/angular-moment'
+        'angular-moment':       'external_components/angular-moment/angular-moment',
+
+        'sockjs':               'external_components/sockjs-client/sockjs-0.3.4',
+        'stomp':                'external_components/stomp-websocket/stomp'
     },
 
     packages: [{

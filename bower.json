@@ -18,6 +18,8 @@
         "moment": "2.8.*",
         "moment-timezone": "0.3.*",
         "angular-moment": "0.9.*",
+        "sockjs-client": "1.1.0",
+        "stomp-websocket": "2.3.4",
         "nullpointer-commons": "git://github.com/newpointer/commons-js.git",
         "nullpointer-i18n": "git://github.com/newpointer/i18n-js.git",
         "nullpointer-rsearch": "git://github.com/newpointer/rsearch.git#connections",
@@ -63,6 +65,15 @@
         },
         "moment-timezone": {
             "": "builds/moment-timezone-with-data.js"
+        },
+        "sockjs-client": {
+            "": [
+                "dist/sockjs-0.3.4.js",
+                "dist/sockjs.js"
+            ]
+        },
+        "stomp-websocket": {
+            "": "lib/stomp.js"
         },
         "nullpointer-commons": {
             "lodash": "src/lodash",
