@@ -57,7 +57,12 @@ define(function(require) {'use strict';
                 'order.create.url':         '/connections/api/order',
                 'order.url':                '/connections/api/order/{{id}}',
                 'orders.url':               '/connections/api/orders',
-                'orders.state.url':         '/connections/api/orders/state'
+                'orders.state.url':         '/connections/api/orders/state',
+                'orders.view.url':          '/connections/api/orders/view',
+
+                // push
+                'push.url':                 '/connections/stomp',
+                'push.orders.state.url':    '/user/queue/order'
             }
         })
         //

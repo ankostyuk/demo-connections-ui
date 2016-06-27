@@ -18,7 +18,7 @@
                 <li class="row order" ng-class="['order-status-' + order.status, ordersSet.isOrderNotViewed(order) ? 'not-viewed' : '']" ng-repeat="order in ordersSet.result.getList() track by order.id">
                     <div class="span1" np-connections-checked="order" np-connections-checked-check="ordersSet.checked.check(order)"></div>
                     <div class="span7 lists-wrapper">
-                        <a data-target="#np-connections-orders-current-order" ng-click="order.status === ordersSet.showOrder(order)">
+                        <a data-target="#np-connections-orders-current-order" ng-click="order.status === 'READY' && ordersSet.showOrder(order)">
                             <span class="list" ng-repeat="list in order.userLists track by list.id">{{list.name}}</span>
                         </a>
                     </div>

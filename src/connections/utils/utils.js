@@ -61,6 +61,12 @@ define(function(require, exports, module) {'use strict';
                         return _.get(me.result, options.listPath);
                     };
 
+                    me.getItemById = function(id) {
+                        return _.find(me.getList(), {
+                            id: id
+                        });
+                    };
+
                     me.getPageInfo = function() {
                         return _.get(me.result, options.pageInfoPath);
                     };

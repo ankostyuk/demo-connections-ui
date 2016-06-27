@@ -65,12 +65,28 @@ define(function(require, exports, module) {'use strict';
                         });
                     });
 
-                    $rootScope.$on('np-connections-show-order', function(e, order){
+                    $rootScope.$on('np-connections-show-order', function(e, order, callback){
                         $rootScope.$emit('np-connections-loading', function(done){
-                            scope.currentOrder.fetch(order, function(){
-                                scope.navigation.showNav('#np-connections-orders-current-order');
-                                done();
+                            scope.currentOrder.fetch(order, function(hasError){
+                                if (hasError) {
+                                    complete();
+                                    return;
+                                }
+
+                                scope.currentOrder.sendOrderView(function(){
+                                    complete();
+                                });
                             });
+
+                            function complete() {
+                                scope.navigation.showNav('#np-connections-orders-current-order');
+
+                                if (_.isFunction(callback)) {
+                                    callback();
+                                }
+
+                                done();
+                            }
                         });
                     });
 

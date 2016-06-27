@@ -32,9 +32,10 @@ define(function(require, exports, module) {'use strict';
         //
         .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', '$timeout', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsOrdersResource, npConnectionsUtils){
             return function() {
-                var me              = this,
-                    _tracesInfo     = {},
-                    _request        = null;
+                var me                      = this,
+                    _tracesInfo             = {},
+                    _request                = null,
+                    _sendOrdersViewRequest  = null;
 
                 me.order = null;
 
@@ -227,6 +228,19 @@ define(function(require, exports, module) {'use strict';
                             npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _request
+                    });
+                };
+
+                me.sendOrderView = function(callback) {
+                    _sendOrdersViewRequest = npConnectionsOrdersResource.ordersView({
+                        data: [me.order.id],
+                        success: function(data) {
+                            npConnectionsUtils.requestDone(false, arguments, callback);
+                        },
+                        error: function(data, status) {
+                            npConnectionsUtils.requestDone(true, arguments, callback);
+                        },
+                        previousRequest: _sendOrdersViewRequest
                     });
                 };
 

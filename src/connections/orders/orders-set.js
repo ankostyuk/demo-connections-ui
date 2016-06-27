@@ -8,29 +8,9 @@ define(function(require, exports, module) {'use strict';
                           require('lodash');
     var angular         = require('angular');
 
-    // <<< push
     // var SockJS          = require('sockjs'); // sockjs#1.1.0
                           require('sockjs'); // sockjs#0.3.4
                           require('stomp');
-
-    console.info('* SockJS', SockJS);
-    console.info('* Stomp', Stomp);
-
-    var sockjs = new SockJS('/connections/stomp');
-    console.info('* sockjs', sockjs);
-
-    var stompClient = Stomp.over(sockjs);
-    console.info('* stompClient', stompClient);
-
-    stompClient.debug = false;
-
-    stompClient.connect({}, function(frame){
-        console.info('* connect', frame);
-        stompClient.subscribe('/user/queue/order', function(data){
-            console.info('* subscribe... orders', angular.fromJson(data.body));
-        });
-    });
-    // >>> push
 
     var angularModules = [
         require('./resource')
@@ -39,15 +19,16 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.orders-set', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsOrdersSet', ['$log', '$rootScope', '$interval', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $interval, npConnectionsOrdersResource, npConnectionsUtils){
+        .factory('npConnectionsOrdersSet', ['$log', '$rootScope', 'appConfig', 'nkbUser', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, appConfig, nkbUser, npConnectionsOrdersResource, npConnectionsUtils){
+            var config = appConfig.resource || {};
+
             return function() {
                 var me                          = this,
                     _notViewedOrders            = {},
-                    _lookatOrders               = {},
-                    _pollingInterval            = 5000, // !!!
+                    _viewedOrders               = {},
                     _request                    = null,
                     _deleteOrdersRequest        = null,
-                    _fetchOrdersStateRequest    = null;
+                    user                        = nkbUser.user();
 
                 me.result = new npConnectionsUtils.PaginationResult();
 
@@ -92,7 +73,6 @@ define(function(require, exports, module) {'use strict';
                         data: orderIds,
                         success: function(data) {
                             removeFromNotViewedOrdersByIds(orderIds);
-                            removeFromLookatOrdersByIds(orderIds);
                             onViewedOrdersChange();
                             npConnectionsUtils.requestDone(false, arguments, callback);
                         },
@@ -122,60 +102,78 @@ define(function(require, exports, module) {'use strict';
                     resetChecked();
                 }
 
-                // order notification
-                function polling() {
-                    $interval(function(){
-                        fetchOrdersState();
-                    }, _pollingInterval);
-                }
+                //
+                // order push-notification
+                //
+                var sockClient          = null,
+                    stompClient         = null,
+                    stompSubscription   = null;
 
-                function fetchOrdersState() {
-                    if (_.isEmpty(_lookatOrders)) {
+                $rootScope.$on('nkb-user-apply', function(e, change){
+                    if (!change.login) {
                         return;
                     }
 
-                    _fetchOrdersStateRequest = npConnectionsOrdersResource.ordersState({
-                        data: _.keys(_lookatOrders),
-                        success: function(data) {
-                            diffOrders(data);
-                        },
-                        error: function(data, status) {
-                            $log.warn('ERROR: fetchOrdersState...', status);
-                        },
-                        previousRequest: _fetchOrdersStateRequest
+                    stopPush();
+
+                    if (user.isAuthenticated()) {
+                        startPush();
+                    }
+                });
+
+                function startPush() {
+                    sockClient = new SockJS(config['push.url']);
+
+                    stompClient = Stomp.over(sockClient);
+                    stompClient.debug = false;
+
+                    stompClient.connect({}, function(frame){
+                        stompSubscription = stompClient.subscribe(config['push.orders.state.url'], function(data){
+                            onPushOrdersState(angular.fromJson(data.body));
+                        });
                     });
                 }
 
-                function diffOrders(orders) {
-                    _.each(orders, function(order){
-                        var orderId     = order.id,
-                            lookatOrder = _lookatOrders[order.id];
+                function stopPush() {
+                    if (sockClient) {
+                        sockClient.close();
+                        sockClient = null;
+                    }
 
-                        if (lookatOrder && lookatOrder.status !== order.status) {
-                            lookatOrder.status = order.status;
+                    if (stompSubscription) {
+                        stompSubscription.unsubscribe();
+                        stompSubscription = null;
+                    }
 
-                            removeFromLookatOrders(orderId);
-                            newOrderStateNotify(lookatOrder);
+                    if (stompClient) {
+                        stompClient.disconnect();
+                        stompClient = null;
+                    }
+                }
+
+                function onPushOrdersState(orders) {
+                    _.each(orders, function(orderInfo){
+                        var order = me.result.getItemById(orderInfo.id);
+
+                        if (order) {
+                            order.status = orderInfo.status;
                         }
+
+                        addToNotViewedOrders(orderInfo.id, orderInfo);
                     });
+
+                    $rootScope.$apply(onViewedOrdersChange());
                 }
 
-                function removeFromLookatOrders(orderId) {
-                    delete _lookatOrders[orderId];
-                }
-
-                function removeFromLookatOrdersByIds(orderIds) {
-                    _.each(orderIds, function(orderId){
-                        removeFromLookatOrders(orderId);
-                    });
-                }
-
-                function getNotViewedOrderCount() {
-                    return _.size(_notViewedOrders);
+                function addToNotViewedOrders(orderId, data) {
+                    if (!_viewedOrders[orderId]) {
+                        _notViewedOrders[orderId] = data;
+                    }
                 }
 
                 function removeFromNotViewedOrders(orderId) {
                     delete _notViewedOrders[orderId];
+                    _viewedOrders[orderId] = true;
                 }
 
                 function removeFromNotViewedOrdersByIds(orderIds) {
@@ -184,20 +182,13 @@ define(function(require, exports, module) {'use strict';
                     });
                 }
 
+                function getNotViewedOrderCount() {
+                    return _.size(_notViewedOrders);
+                }
+
                 function onViewedOrdersChange() {
                     $rootScope.$emit('np-connections-orders-viewed-change', getNotViewedOrderCount());
                 }
-
-                function newOrderStateNotify(lookatOrder) {
-                    _notViewedOrders[lookatOrder.id] = lookatOrder;
-                    onViewedOrdersChange();
-                }
-
-                $rootScope.$on('np-connections-new-order', function(e, order){
-                    _lookatOrders[order.id] = order;
-                });
-
-                polling();
             };
         }]);
     //

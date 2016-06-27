@@ -54,6 +54,14 @@ define(function(require, exports, module) {'use strict';
                     }, null, options);
                 },
 
+                ordersView: function(options) {
+                    return npResource.request({
+                        method: 'POST',
+                        url: config['orders.view.url'],
+                        data: options.data
+                    }, null, options);
+                },
+
                 deleteOrders: function(options) {
                     return npResource.request({
                         method: 'DELETE',
