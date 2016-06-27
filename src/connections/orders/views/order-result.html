@@ -1,41 +1,82 @@
 <!-- order-result-view -->
 <!-- lodash template -->
 <script id="order-result-view" type="text/template">
-    <body>
-        <h1>Результат проверки связей</h1>
-        <br>
-        <%= _.size(me.order.userLists) === 1 ? '${_trc("В списке", "Экспорт результата проверки")}' : '${_trc("В списках", "Экспорт результата проверки")}' %>
-        <br>
-        <% _.each(me.order.userLists, function(userList){ %>
-            <h2><%- userList.name %></h2>
-        <% }); %>
-        <br>
-        <div>${_trc("связаны...", "Экспорт результата проверки")}</div>
-        <br>
-        <% _.each(me.getResultPairs(), function(pair, pairIndex){ %>
-            <%
-            if (!me.isPairTracesChecked(pairIndex)) {
-                return;
-            }
+    <!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta http-equiv="content-type" content="text/html;charset=utf-8">
 
-            var firstNode   = me.getResultEntry(pair.first).node,
-                secondNode  = me.getResultEntry(pair.second).node;
+            <style type="text/css">
+                @page {
+                    size: A4;
+                }
 
-            var nodeTracesResult = {
-                nodes: me.nodeTracesNodes,
-                // traces: pair.traces,
-                traces: me.getPairCheckedTraces(pairIndex),
-                relations: []
-            };
+                body {
+                    margin: 10pt;
+                    font-size: 14pt;
+                    font-family: Arial;
+                    line-height: 125%;
+                }
 
-            print(me.nodeTracesView.buildResultHTML([firstNode, secondNode], nodeTracesResult))
-            %>
-            <br>
-            <hr>
-        <% }); %>
+                h1 {
+                    font-size: 24pt;
+                }
 
-        <div><i>©&nbsp;2002—2016 ${_tr("Национальное кредитное бюро")}</i></div>
-        <div><i>+7 495 229-67-47</i></div>
-        <div><a href="http://www.creditnet.ru"><i>www.creditnet.ru</i></a></div>
-    </body>
+                h2 {
+                    font-size: 18pt;
+                }
+
+                h3 {
+                    font-size: 14pt;
+                }
+            </style>
+        </head>
+
+        <body>
+            <div class="header">
+                <br>
+                <h1><a href="http://www.creditnet.ru"><img alt='${_tr("Национальное кредитное бюро")}' border="0" width="229" height="49" align="left" src="http://www.creditnet.ru/img/nkb_logo_ru.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${_trc("Результат проверки связей", "Экспорт результата проверки")}</h1>
+                <br>
+                <hr>
+            </div>
+            <div class="content">
+                <br>
+                <%= _.size(me.order.userLists) === 1 ? '${_trc("В списке", "Экспорт результата проверки")}' : '${_trc("В списках", "Экспорт результата проверки")}' %>
+                <br>
+                <% _.each(me.order.userLists, function(userList){ %>
+                    <h2><%- userList.name %></h2>
+                <% }); %>
+                <br>
+                <div>${_trc("связаны...", "Экспорт результата проверки")}</div>
+                <br>
+                <% _.each(me.getResultPairs(), function(pair, pairIndex){ %>
+                    <%
+                    if (!me.isPairTracesChecked(pairIndex)) {
+                        return;
+                    }
+
+                    var firstNode   = me.getResultEntry(pair.first).node,
+                        secondNode  = me.getResultEntry(pair.second).node;
+
+                    var nodeTracesResult = {
+                        nodes: me.nodeTracesNodes,
+                        // traces: pair.traces,
+                        traces: me.getPairCheckedTraces(pairIndex),
+                        relations: []
+                    };
+
+                    print(me.nodeTracesView.buildResultHTML([firstNode, secondNode], nodeTracesResult))
+                    %>
+                    <br>
+                    <hr>
+                <% }); %>
+            </div>
+            <div class="footer">
+                <br>
+                <div><i>©&nbsp;2002—2016 ${_tr("Национальное кредитное бюро")}</i></div>
+                <div><i>+7 495 229-67-47</i></div>
+                <div><a href="http://www.creditnet.ru"><i>www.creditnet.ru</i></a></div>
+            </div>
+        </body>
+    </html>
 </script>
