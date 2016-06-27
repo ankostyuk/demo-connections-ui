@@ -15,7 +15,7 @@
 }
 [np-connections-orders] .orders-set .orders > .order {
     display: block;
-    padding: 20px 0 10px 0;
+    padding: 2px 0;
     border-top: 1px solid @defaultLineColor;
 }
 [np-connections-orders] .orders-set .orders > .order:first-child {
@@ -25,6 +25,14 @@
     font-weight: bold;
 }
 
+[np-connections-orders] .orders-set .orders > .order [np-connections-checked] {
+    padding: 18px 0;
+}
+[np-connections-orders] .orders-set .orders > .order .click-wrapper {
+    width: 904px;
+    padding: 18px 0 8px 0;
+    overflow: hidden;
+}
 [np-connections-orders] .orders-set .orders > .order .lists-wrapper {
     width: @orderListWrapperWidth;
 }
@@ -62,6 +70,13 @@
 */
 [np-connections-orders] .orders-set .orders > .order.order-status-READY .order-info-text {
     color: @defaultColor;
+}
+[np-connections-orders] .orders-set .orders > .order.order-status-READY .click-wrapper:hover {
+    cursor: pointer;
+}
+[np-connections-orders] .orders-set .orders > .order.order-status-READY .click-wrapper:hover a,
+[np-connections-orders] .orders-set .orders > .order.order-status-READY .click-wrapper:hover .order-info-text {
+    color: @nkbRed;
 }
 [np-connections-orders] .orders-set .orders > .order:not(.order-status-READY) .lists-wrapper a {
     color: @defaultDisabledColor;

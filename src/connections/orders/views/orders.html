@@ -17,17 +17,21 @@
             <ul class="orders" ng-hide="ordersSet.result.isEmpty()">
                 <li class="row order" ng-class="['order-status-' + order.status, ordersSet.isOrderNotViewed(order) ? 'not-viewed' : '']" ng-repeat="order in ordersSet.result.getList() track by order.id">
                     <div class="span1" np-connections-checked="order" np-connections-checked-check="ordersSet.checked.check(order)"></div>
-                    <div class="span7 lists-wrapper">
-                        <a data-target="#np-connections-orders-current-order" ng-click="order.status === 'READY' && ordersSet.showOrder(order)">
-                            <span class="list" ng-repeat="list in order.userLists track by list.id">{{list.name}}</span>
-                        </a>
-                    </div>
-                    <div class="span2 muted order-date order-info-text">{{order.changed | amDateFormat:'${_trc("medium", "Формат даты: http://momentjs.com/docs/#/displaying/format/")}'}}</div>
-                    <div class="muted align-right order-info-text">
-                        <span class="order-status-text">{{_tr('NP.CONNECTIONS.ORDER_STATUS.' + order.status)}}<span class="order-progress-indicator">...</span></span>
-                        <!-- TODO uncomment
-                        <button class="btn flat mini cancel-order" np-inline-confirm="ordersSet.removeCheckedOrders()" confirm-text='${_trc("Точно отменить?", "Проверки связей")}'><i class="icon i-delete"></i>${_trc("Отменить проверку", "Проверки связей")}</button>
-                        -->
+                    <div class="span11 click-wrapper">
+                        <div class="row" ng-click="order.status === 'READY' && ordersSet.showOrder(order)">
+                            <div class="span7 lists-wrapper">
+                                <a data-target="#np-connections-orders-current-order">
+                                    <span class="list" ng-repeat="list in order.userLists track by list.id">{{list.name}}</span>
+                                </a>
+                            </div>
+                            <div class="span2 muted order-date order-info-text">{{order.changed | amDateFormat:'${_trc("medium", "Формат даты: http://momentjs.com/docs/#/displaying/format/")}'}}</div>
+                            <div class="muted align-right order-info-text">
+                                <span class="order-status-text">{{_tr('NP.CONNECTIONS.ORDER_STATUS.' + order.status)}}<span class="order-progress-indicator">...</span></span>
+                                <!-- TODO uncomment
+                                <button class="btn flat mini cancel-order" np-inline-confirm="ordersSet.removeCheckedOrders()" confirm-text='${_trc("Точно отменить?", "Проверки связей")}'><i class="icon i-delete"></i>${_trc("Отменить проверку", "Проверки связей")}</button>
+                                -->
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>

@@ -330,6 +330,8 @@ define(function(require, exports, module) {'use strict';
             });
 
             $httpBackend.whenPOST('/connections/api/orders/state').respond(204);
+
+            $httpBackend.whenPOST('/connections/api/orders/view').respond(200);
         }]);
     //
 });

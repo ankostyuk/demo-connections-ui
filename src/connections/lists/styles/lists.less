@@ -21,17 +21,32 @@
 }
 [np-connections-lists] .lists-set .lists > .list {
     display: block;
-    padding: 10px 0;
+    padding: 2px 0;
     border-top: 1px solid @defaultLineColor;
 }
 [np-connections-lists] .lists-set .lists > .list:first-child {
     border-top: 0 none;
 }
+[np-connections-lists] .lists-set .lists > .list [np-connections-checked] {
+    padding: 8px 0;
+}
 [np-connections-lists] .lists-set .lists > .list [np-connections-checked] a:hover,
 [np-connections-lists] .lists-set .lists > .list [np-connections-checked] a.checked {
     color: @orderElementColor;
 }
-[np-connections-lists] .lists-set .lists > .list .list-name-wrapper a {
+[np-connections-lists] .lists-set .lists > .list .click-wrapper {
+    width: 904px;
+    padding: 8px 0;
+    overflow: hidden;
+}
+[np-connections-lists] .lists-set .lists > .list .click-wrapper:hover {
+    cursor: pointer;
+}
+[np-connections-lists] .lists-set .lists > .list .click-wrapper:hover a,
+[np-connections-lists] .lists-set .lists > .list .click-wrapper:hover .muted {
+    color: @nkbRed;
+}
+[np-connections-lists] .lists-set .lists > .list .click-wrapper a {
     display: inline-block;
 }
 

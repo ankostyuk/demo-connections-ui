@@ -20,13 +20,6 @@
                         </label>
                     </div>
                     <div class="span9" ng-show="listsSet.successfulOrder">
-                        <!--
-                        ${_trc("О готовности", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}
-                        <a ng-click="navigation.showDesktopNav('#np-connections-orders')">${_trc("Проверки связей", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}</a>
-                        ${_trc("вы будете извещены по электронной почте и в", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}
-                        <a ng-click="navigation.showDesktopNav('#np-connections-notifications')">${_trc("Уведомлениях", "О готовности [Проверки связей] вы будете извещены по электронной почте и в [Уведомлениях]")}</a>
-                        -->
-
                         ${_trc("Проверка выполняется, результат проверки можно посмотреть ", "Проверки связей")} <a ng-click="navigation.showDesktopNav('#np-connections-orders')">${_trc("здесь", "Проверка выполняется, результат проверки можно посмотреть здесь")}</a>
                     </div>
                     <div class="align-right">
@@ -38,10 +31,14 @@
             <ul class="lists" ng-hide="listsSet.result.isEmpty()">
                 <li class="row list" ng-repeat="list in listsSet.result.getList() track by list.id">
                     <div class="span1" np-connections-checked="list" np-connections-checked-check="listsSet.check(list)"></div>
-                    <div class="span8 list-name-wrapper">
-                        <a data-target="#np-connections-lists-current-list" ng-click="listsSet.showList(list)">{{list.name}}</a>
+                    <div class="span11 click-wrapper">
+                        <div class="row" ng-click="listsSet.showList(list)">
+                            <div class="span8">
+                                <a data-target="#np-connections-lists-current-list">{{list.name}}</a>
+                            </div>
+                            <div class="muted align-right">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.type)}}</div>
+                        </div>
                     </div>
-                    <div class="muted align-right">{{_tr('NP.CONNECTIONS.LIST_TYPE.' + list.type)}}</div>
                 </li>
             </ul>
         </div>
