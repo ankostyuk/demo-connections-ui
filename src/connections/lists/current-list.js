@@ -16,7 +16,7 @@ define(function(require, exports, module) {'use strict';
     return angular.module('np.connections.current-list', _.pluck(angularModules, 'name'))
         //
         .factory('npConnectionsCurrentList', ['$log', '$rootScope', 'npConnectionsListsResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsListsResource, npConnectionsUtils){
-            return function() {
+            return function(options) {
                 var me                      = this,
                     _updateRequest          = null,
                     _deleteRequest          = null,
@@ -25,7 +25,23 @@ define(function(require, exports, module) {'use strict';
                     _deleteEntriesRequest   = null;
 
                 me.info = null;
-                me.entriesResult = new npConnectionsUtils.PaginationResult();
+
+                me.entriesResult = new npConnectionsUtils.PaginationResult({
+                    element: options.paginationResultElement,
+                    showingItemNumbers: true,
+                    defaultPageConfig: {
+                        size: 20
+                    },
+                    doNextPage: function(isFirstPage, pageConfig, callback) {
+                        if (isFirstPage) {
+                            return fetchEntriesRequest(pageConfig, callback).completePromise;
+                        }
+
+                        return $rootScope.$emit('np-connections-loading', function(done){
+                            fetchEntriesRequest(pageConfig, done);
+                        }).targetScope.loader.completePromise;
+                    }
+                });
 
                 me.checked = new npConnectionsUtils.Checked({
                     checkedProperty: '__checked',
@@ -137,9 +153,13 @@ define(function(require, exports, module) {'use strict';
 
                 me.fetchEntries = function(callback) {
                     resetChecked();
+                    me.entriesResult.firstPage(callback);
+                };
 
+                function fetchEntriesRequest(pageConfig, callback) {
                     _entriesRequest = npConnectionsListsResource.listEntries({
                         id: me.info.id,
+                        params: pageConfig,
                         success: function(data) {
                             me.entriesResult.setResult(data);
 
@@ -171,12 +191,14 @@ define(function(require, exports, module) {'use strict';
                             npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            resetEntries();
+                            // resetEntries();
                             npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _entriesRequest
                     });
-                };
+
+                    return _entriesRequest;
+                }
 
                 me.updateEntry = function(entryId, updatedData, callback) {
                     _updateEntryRequest = npConnectionsListsResource.updateListEntry({

@@ -49,8 +49,8 @@ define(function(require, exports, module) {'use strict';
 
                 me.getNavElement = function(target) {
                     return options.element
-                                .find('[data-target="' + target + '"]')
-                                .eq(0);
+                            .find('[data-target="' + target + '"]')
+                            .eq(0);
                 };
 
                 function showNav(target, noStore) {

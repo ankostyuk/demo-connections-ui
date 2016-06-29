@@ -22,7 +22,7 @@ define(function(require, exports, module) {'use strict';
         .factory('npConnectionsOrdersSet', ['$log', '$rootScope', 'appConfig', 'nkbUser', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, appConfig, nkbUser, npConnectionsOrdersResource, npConnectionsUtils){
             var config = appConfig.resource || {};
 
-            return function() {
+            return function(options) {
                 var me                          = this,
                     _notViewedOrders            = {},
                     _viewedOrders               = {},
@@ -30,7 +30,19 @@ define(function(require, exports, module) {'use strict';
                     _deleteOrdersRequest        = null,
                     user                        = nkbUser.user();
 
-                me.result = new npConnectionsUtils.PaginationResult();
+                me.result = new npConnectionsUtils.PaginationResult({
+                    element: options.paginationResultElement,
+                    showingItemNumbers: true,
+                    doNextPage: function(isFirstPage, pageConfig, callback) {
+                        if (isFirstPage) {
+                            return fetchRequest(pageConfig, callback).completePromise;
+                        }
+
+                        return $rootScope.$emit('np-connections-loading', function(done){
+                            fetchRequest(pageConfig, done);
+                        }).targetScope.loader.completePromise;
+                    }
+                });
 
                 me.checked = new npConnectionsUtils.Checked({
                     checkedProperty: '__checked',
@@ -39,19 +51,25 @@ define(function(require, exports, module) {'use strict';
 
                 me.fetch = function(callback) {
                     resetChecked();
+                    me.result.firstPage(callback);
+                };
 
+                function fetchRequest(pageConfig, callback) {
                     _request = npConnectionsOrdersResource.orders({
+                        params: pageConfig,
                         success: function(data) {
                             me.result.setResult(data);
                             npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            resetResult();
+                            // resetResult();
                             npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _request
                     });
-                };
+
+                    return _request;
+                }
 
                 me.doDeleteOrders = function() {
                     $rootScope.$emit('np-connections-loading', function(done){

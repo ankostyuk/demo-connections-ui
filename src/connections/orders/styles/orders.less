@@ -8,7 +8,6 @@
 [np-connections-orders] .orders-set .orders {
     margin: 10px 0 0 0;
     list-style: none;
-    overflow: hidden;
 }
 [np-connections-orders] .orders-set .tools .delete-orders-btn {
     margin-top: -5px;
@@ -17,6 +16,13 @@
     display: block;
     padding: 2px 0;
     border-top: 1px solid @defaultLineColor;
+}
+[np-connections-orders] .orders-set .orders > .order > .row {
+    position: relative;
+}
+[np-connections-orders] .orders-set .orders > .order .list-item-info {
+    padding: 18px 0 0 0;
+    font-weight: normal;
 }
 [np-connections-orders] .orders-set .orders > .order:first-child {
     border-top: 0 none;

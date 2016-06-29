@@ -52,6 +52,7 @@ define(function(require, exports, module) {'use strict';
                 lists: function(options) {
                     return npResource.request({
                         method: 'GET',
+                        params: options.params,
                         url: config['lists.url']
                     }, null, options);
                 },
@@ -80,6 +81,7 @@ define(function(require, exports, module) {'use strict';
                 listEntries: function(options) {
                     return npResource.request({
                         method: 'GET',
+                        params: options.params,
                         url: $interpolate(config['list.entries.url'])({
                             id: options.id
                         })

@@ -193,7 +193,7 @@ define(function(require, exports, module) {'use strict';
             });
 
             // lists
-            $httpBackend.whenGET('/connections/api/lists').respond(function(){
+            $httpBackend.whenGET(/^\/connections\/api\/lists.*$/).respond(function(){
                 return accessIsDenied() || [200, testData['connections']['lists']];
             });
 
@@ -314,7 +314,7 @@ define(function(require, exports, module) {'use strict';
             });
 
             // orders
-            $httpBackend.whenGET('/connections/api/orders').respond(testData['connections']['orders']);
+            $httpBackend.whenGET(/^\/connections\/api\/orders.*$/).respond(testData['connections']['orders']);
 
             $httpBackend.whenDELETE('/connections/api/orders').respond(function(method, url, data){
                 var orders      = testData['connections']['orders'],

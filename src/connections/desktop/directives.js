@@ -29,6 +29,9 @@ define(function(require, exports, module) {'use strict';
         }])
         //
         .directive('npConnectionsDesktop', ['$log', '$rootScope', '$timeout', '$q', 'nkbUser', 'npUtils', 'npRsearchMetaHelper', 'npConnectionsNavigation', function($log, $rootScope, $timeout, $q, nkbUser, npUtils, npRsearchMetaHelper, npConnectionsNavigation){
+            //
+            var scrollDuration = 200;
+
             return {
                 restrict: 'A',
                 scope: {},
@@ -44,6 +47,8 @@ define(function(require, exports, module) {'use strict';
                     _.extend(scope, {
                         loader: {}, // см. directive npLoader
                         loading: function(operation) {
+                            var completer = $q.defer();
+
                             npUtils.loading(
                                 operation,
                                 function(){
@@ -51,8 +56,11 @@ define(function(require, exports, module) {'use strict';
                                 },
                                 function(){
                                     scope.loader.hide();
+                                    completer.resolve();
                                 },
                             500);
+
+                            return completer.promise;
                         },
                         message: {}, // см. directive npMessage
                         isUserAuthenticated: function() {
@@ -62,7 +70,9 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     $rootScope.$on('np-connections-loading', function(e, operation){
-                        scope.loading(operation);
+                        $rootScope.loader = {
+                            completePromise: scope.loading(operation)
+                        };
                     });
 
                     $rootScope.$on('np-connections-error', function(){
@@ -73,6 +83,9 @@ define(function(require, exports, module) {'use strict';
                 link: function(scope, element, attrs) {
                     //
                     scope.message.setMessageHtml(templates['messages']['default-error'].html);
+
+                    //
+                    var htmlbodyElement = $('html, body');
 
                     //
                     var navOptions = {
@@ -122,6 +135,14 @@ define(function(require, exports, module) {'use strict';
                         scope.navigation.showNav(target);
                     });
 
+                    $rootScope.$on('np-connections-scroll-top', function(e){
+                        scrollTop();
+                    });
+
+                    $rootScope.$on('np-connections-scroll-to-item-or-top', function(e, itemId){
+                        scrollToItemOrTop(itemId);
+                    });
+
                     //
                     $q.all([nkbUser.initPromise(), npRsearchMetaHelper.initPromise()]).then(function(){
                         $timeout(function(){
@@ -129,6 +150,26 @@ define(function(require, exports, module) {'use strict';
                             // $rootScope.$emit('np-connections-show-desktop-nav', '#np-connections-orders');
                         }, 100);
                     });
+
+                    //
+                    function scrollTop() {
+                        htmlbodyElement.animate({
+                            scrollTop: 0
+                        }, scrollDuration);
+                    }
+
+                    function scrollToItemOrTop(itemId) {
+                        var itemElement = $('#' + itemId);
+
+                        if (_.isEmpty(itemElement)) {
+                            scrollTop(element);
+                            return;
+                        }
+
+                        htmlbodyElement.animate({
+                            scrollTop: itemElement.offset().top
+                        }, scrollDuration);
+                    }
                 }
             };
         }]);

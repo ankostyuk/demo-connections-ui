@@ -13,6 +13,8 @@ define(function(require, exports, module) {'use strict';
         angular         = require('angular'),
         templateUtils   = require('template-utils');
 
+                          require('ng-infinite-scroll');
+
     // for encoding user file
                           require('text-encoding');
     var jschardet       = require('jschardet');
@@ -22,7 +24,7 @@ define(function(require, exports, module) {'use strict';
     ];
 
     //
-    return angular.module('np.connections.lists.directives', _.pluck(angularModules, 'name'))
+    return angular.module('np.connections.lists.directives', _.pluck(angularModules, 'name').concat(['infinite-scroll']))
         //
         .run([function(){
             templates = templateUtils.processTemplate(templates).templates;
@@ -35,28 +37,52 @@ define(function(require, exports, module) {'use strict';
                 template: templates['lists-view'].html,
                 link: function(scope, element, attrs) {
                     //
-                    var newListNameInput = element.find('.new-list input.list-name');
+                    var newListNameInput = element.find('.new-list input.list-name'),
+                        viewedListId;
 
                     //
-                    var navOptions = {
-                        element: element,
-                        markActive: false,
-                        targets: {
-                            '#np-connections-lists-new-list': {
-                                after: function(targetProxy) {
-                                    if (!scope.newList.isReady()) {
-                                        newListNameInput.focus();
+                    _.extend(scope, {
+                        navigation: new npConnectionsNavigation({
+                            element: element,
+                            markActive: false,
+                            targets: {
+                                '#np-connections-lists-lists-set': {
+                                    after: function(targetProxy) {
+                                        $rootScope.$emit('np-connections-scroll-to-item-or-top', scope.buildListItemDomId(viewedListId));
+                                    }
+                                },
+                                '#np-connections-lists-current-list': {
+                                    after: function(targetProxy) {
+                                        $rootScope.$emit('np-connections-scroll-top');
+                                    }
+                                },
+                                '#np-connections-lists-new-list': {
+                                    after: function(targetProxy) {
+                                        viewedListId = null;
+
+                                        $rootScope.$emit('np-connections-scroll-top');
+
+                                        if (!scope.newList.isReady()) {
+                                            newListNameInput.focus();
+                                        }
                                     }
                                 }
                             }
-                        }
-                    };
+                        }),
 
-                    _.extend(scope, {
-                        navigation:     new npConnectionsNavigation(navOptions),
-                        listsSet:       new npConnectionsListsSet(),
-                        newList:        new npConnectionsNewList(),
-                        currentList:    new npConnectionsCurrentList()
+                        listsSet: new npConnectionsListsSet({
+                            paginationResultElement: element.find('.lists-set .lists')
+                        }),
+
+                        currentList: new npConnectionsCurrentList({
+                            paginationResultElement: element.find('.current-list .list-entries')
+                        }),
+
+                        newList: new npConnectionsNewList(),
+
+                        buildListItemDomId: function(listId) {
+                            return listId ? ('list-' + listId) : null;
+                        }
                     }, i18n.translateFuncs);
 
                     //
@@ -80,6 +106,7 @@ define(function(require, exports, module) {'use strict';
                     $rootScope.$on('np-connections-show-list', function(e, list){
                         $rootScope.$emit('np-connections-loading', function(done){
                             scope.currentList.fetch(list, function(){
+                                viewedListId = list.id;
                                 scope.navigation.showNav('#np-connections-lists-current-list');
                                 done();
                             });
@@ -88,11 +115,7 @@ define(function(require, exports, module) {'use strict';
 
                     $rootScope.$on('np-connections-new-list', function(e, newList, callback){
                         scope.listsSet.fetch(function(){
-                            var fetchedList = _.find(scope.listsSet.result.getList(), function(list){
-                                return list.id === newList.id;
-                            });
-
-                            var list = fetchedList || newList;
+                            var list = scope.listsSet.result.getItemById(newList.id) || newList;
 
                             scope.currentList.fetch(list, function(){
                                 scope.newList.reset();
@@ -114,6 +137,8 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     $rootScope.$on('np-connections-delete-list', function(e, list, callback){
+                        viewedListId = null;
+
                         scope.listsSet.fetch(function(){
                             scope.navigation.showNav('#np-connections-lists-lists-set', true);
 

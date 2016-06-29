@@ -14,22 +14,27 @@
                 </div>
             </div>
             <div class="muted align-center empty-result" ng-show="ordersSet.result.isEmpty()">${_trc("У вас нет проверок связей", "Проверки связей")}</div>
-            <ul class="orders" ng-hide="ordersSet.result.isEmpty()">
-                <li class="row order" ng-class="['order-status-' + order.status, ordersSet.isOrderNotViewed(order) ? 'not-viewed' : '']" ng-repeat="order in ordersSet.result.getList() track by order.id">
-                    <div class="span1" np-connections-checked="order" np-connections-checked-check="ordersSet.checked.check(order)"></div>
-                    <div class="span11 click-wrapper">
-                        <div class="row" ng-click="order.status === 'READY' && ordersSet.showOrder(order)">
-                            <div class="span7 lists-wrapper">
-                                <a data-target="#np-connections-orders-current-order">
-                                    <span class="list" ng-repeat="list in order.userLists track by list.id">{{list.name}}</span>
-                                </a>
-                            </div>
-                            <div class="span2 muted order-date order-info-text">{{order.changed | amDateFormat:'${_trc("medium", "Формат даты: http://momentjs.com/docs/#/displaying/format/")}'}}</div>
-                            <div class="muted align-right order-info-text">
-                                <span class="order-status-text">{{_tr('NP.CONNECTIONS.ORDER_STATUS.' + order.status)}}<span class="order-progress-indicator">...</span></span>
-                                <!-- TODO uncomment
-                                <button class="btn flat mini cancel-order" np-inline-confirm="ordersSet.removeCheckedOrders()" confirm-text='${_trc("Точно отменить?", "Проверки связей")}'><i class="icon i-delete"></i>${_trc("Отменить проверку", "Проверки связей")}</button>
-                                -->
+            <ul class="orders" ng-hide="ordersSet.result.isEmpty()" infinite-scroll="ordersSet.result.nextPage()" infinite-scroll-disabled="ordersSet.result.hasNotNextPage()" infinite-scroll-distance="0">
+                <li class="order" ng-class="['order-status-' + order.status, ordersSet.isOrderNotViewed(order) ? 'not-viewed' : '']" id="{{buildOrderItemDomId(order.id)}}" ng-repeat="order in ordersSet.result.getList() track by order.id">
+                    <div class="row">
+                        <div class="list-item-info">
+                            <div class="list-item-info-entry list-item-number" ng-show="ordersSet.result.isShowingItemNumbers()">{{$index + 1}}.</div>
+                        </div>
+                        <div class="span1" np-connections-checked="order" np-connections-checked-check="ordersSet.checked.check(order)"></div>
+                        <div class="span11 click-wrapper">
+                            <div class="row" ng-click="order.status === 'READY' && ordersSet.showOrder(order)">
+                                <div class="span7 lists-wrapper">
+                                    <a data-target="#np-connections-orders-current-order">
+                                        <span class="list" ng-repeat="list in order.userLists track by list.id">{{list.name}}</span>
+                                    </a>
+                                </div>
+                                <div class="span2 muted order-date order-info-text">{{order.changed | amDateFormat:'${_trc("medium", "Формат даты: http://momentjs.com/docs/#/displaying/format/")}'}}</div>
+                                <div class="muted align-right order-info-text">
+                                    <span class="order-status-text">{{_tr('NP.CONNECTIONS.ORDER_STATUS.' + order.status)}}<span class="order-progress-indicator">...</span></span>
+                                    <!-- TODO uncomment
+                                    <button class="btn flat mini cancel-order" np-inline-confirm="ordersSet.removeCheckedOrders()" confirm-text='${_trc("Точно отменить?", "Проверки связей")}'><i class="icon i-delete"></i>${_trc("Отменить проверку", "Проверки связей")}</button>
+                                    -->
+                                </div>
                             </div>
                         </div>
                     </div>

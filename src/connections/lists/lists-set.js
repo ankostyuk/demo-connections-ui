@@ -15,15 +15,27 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.lists-set', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsListsSet', ['$log', '$rootScope', 'npConnectionsListsResource', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, npConnectionsListsResource, npConnectionsOrdersResource, npConnectionsUtils){
-            return function() {
+        .factory('npConnectionsListsSet', ['$log', '$rootScope', '$timeout', 'npConnectionsListsResource', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsListsResource, npConnectionsOrdersResource, npConnectionsUtils){
+            return function(options) {
                 var me                  = this,
                     _request            = null,
                     _createOrderRequest = null;
 
                 me.successfulOrder = null;
 
-                me.result = new npConnectionsUtils.PaginationResult();
+                me.result = new npConnectionsUtils.PaginationResult({
+                    element: options.paginationResultElement,
+                    showingItemNumbers: true,
+                    doNextPage: function(isFirstPage, pageConfig, callback) {
+                        if (isFirstPage) {
+                            return fetchRequest(pageConfig, callback).completePromise;
+                        }
+
+                        return $rootScope.$emit('np-connections-loading', function(done){
+                            fetchRequest(pageConfig, done);
+                        }).targetScope.loader.completePromise;
+                    }
+                });
 
                 me.checked = new npConnectionsUtils.Checked({
                     checkedProperty: '__checked',
@@ -41,19 +53,25 @@ define(function(require, exports, module) {'use strict';
 
                 me.fetch = function(callback) {
                     resetChecked();
+                    me.result.firstPage(callback);
+                };
 
+                function fetchRequest(pageConfig, callback) {
                     _request = npConnectionsListsResource.lists({
+                        params: pageConfig,
                         success: function(data) {
                             me.result.setResult(data);
                             npConnectionsUtils.requestDone(false, arguments, callback);
                         },
                         error: function() {
-                            resetResult();
+                            // resetResult();
                             npConnectionsUtils.requestDone(true, arguments, callback);
                         },
                         previousRequest: _request
                     });
-                };
+
+                    return _request;
+                }
 
                 me.doOrder = function() {
                     $rootScope.$emit('np-connections-loading', function(done){

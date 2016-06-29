@@ -17,12 +17,14 @@
 [np-connections-lists] .lists-set .lists {
     margin: 10px 0 0 0;
     list-style: none;
-    overflow: hidden;
 }
 [np-connections-lists] .lists-set .lists > .list {
     display: block;
     padding: 2px 0;
     border-top: 1px solid @defaultLineColor;
+}
+[np-connections-lists] .lists-set .lists > .list > .row {
+    position: relative;
 }
 [np-connections-lists] .lists-set .lists > .list:first-child {
     border-top: 0 none;
@@ -84,6 +86,9 @@
 }
 [np-connections-lists] .current-list .list-entries .list-entry.shadow-lift-lb-corner:after {
     background-color: @defaultBackgroundColor;
+}
+[np-connections-lists] .current-list .list-entries .list-entry .list-item-info {
+    padding: 7px 13px 0 0;
 }
 [np-connections-lists] .current-list .list-entries .user-data-wrapper {
     margin-left: 10px;

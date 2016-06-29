@@ -13,11 +13,13 @@ define(function(require, exports, module) {'use strict';
         angular         = require('angular'),
         templateUtils   = require('template-utils');
 
+                          require('ng-infinite-scroll');
+
     var angularModules = [
     ];
 
     //
-    return angular.module('np.connections.orders.directives', _.pluck(angularModules, 'name'))
+    return angular.module('np.connections.orders.directives', _.pluck(angularModules, 'name').concat(['infinite-scroll']))
         //
         .run([function(){
             templates = templateUtils.processTemplate(templates).templates;
@@ -30,15 +32,36 @@ define(function(require, exports, module) {'use strict';
                 template: templates['orders-view'].html,
                 link: function(scope, element, attrs) {
                     //
-                    var navOptions = {
-                        element: element,
-                        markActive: false
-                    };
+                    var viewedOrderId;
 
+                    //
                     _.extend(scope, {
-                        navigation:     new npConnectionsNavigation(navOptions),
-                        ordersSet:      new npConnectionsOrdersSet(),
-                        currentOrder:   new npConnectionsCurrentOrder()
+                        navigation: new npConnectionsNavigation({
+                            element: element,
+                            markActive: false,
+                            targets: {
+                                '#np-connections-orders-orders-set': {
+                                    after: function(targetProxy) {
+                                        $rootScope.$emit('np-connections-scroll-to-item-or-top', scope.buildOrderItemDomId(viewedOrderId));
+                                    }
+                                },
+                                '#np-connections-orders-current-order': {
+                                    after: function(targetProxy) {
+                                        $rootScope.$emit('np-connections-scroll-top');
+                                    }
+                                }
+                            }
+                        }),
+
+                        ordersSet: new npConnectionsOrdersSet({
+                            paginationResultElement: element.find('.orders-set .orders')
+                        }),
+
+                        currentOrder: new npConnectionsCurrentOrder(),
+
+                        buildOrderItemDomId: function(orderId) {
+                            return orderId ? ('order-' + orderId) : null;
+                        }
                     }, i18n.translateFuncs);
 
                     //
@@ -73,6 +96,8 @@ define(function(require, exports, module) {'use strict';
                                     return;
                                 }
 
+                                viewedOrderId = order.id;
+
                                 scope.currentOrder.sendOrderView(function(){
                                     complete();
                                 });
@@ -99,6 +124,7 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     $rootScope.$on('np-connections-delete-orders', function(e, orderIds){
+                        viewedOrderId = null;
                         scope.navigation.showNav('#np-connections-orders-orders-set', true);
                     });
                 }

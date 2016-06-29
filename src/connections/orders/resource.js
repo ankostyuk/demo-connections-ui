@@ -42,6 +42,7 @@ define(function(require, exports, module) {'use strict';
                 orders: function(options) {
                     return npResource.request({
                         method: 'GET',
+                        params: options.params,
                         url: config['orders.url']
                     }, null, options);
                 },

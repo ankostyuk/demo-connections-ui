@@ -15,14 +15,7 @@ define(function(require, exports, module) {'use strict';
     //
     return angular.module('np.connections.utils', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsUtils', ['$log', '$rootScope', function($log, $rootScope){
-            //
-            var paginationResultDefaultPaths = {
-                listPath: '_embedded.list',
-                pageInfoPath: 'page',
-                totalPath: 'page.totalElements'
-            };
-
+        .factory('npConnectionsUtils', ['$log', '$rootScope', '$timeout', function($log, $rootScope, $timeout){
             //
             return {
                 requestDone: function(hasError, args, callback) {
@@ -33,7 +26,8 @@ define(function(require, exports, module) {'use strict';
                         config:     args[3]
                     };
 
-                    if (hasError && response.status !== 403) {
+                    // response.status = -1 -- при принудительной отмене запросов
+                    if (hasError && response.status !== -1 && response.status !== 403) {
                         $rootScope.$emit('np-connections-error');
                     }
 
@@ -42,23 +36,44 @@ define(function(require, exports, module) {'use strict';
                     }
                 },
 
-                getPaginationResultDefaultPaths: function(options) {
-                    return paginationResultDefaultPaths;
-                },
-
                 PaginationResult: function(options) {
-                    options = options || _.extend({}, paginationResultDefaultPaths);
+                    //
+                    var paginationResultDefaultPaths = {
+                        list:       '_embedded.list',
+                        pageInfo:   'page',
+                        total:      'page.totalElements'
+                    };
 
-                    var me = this;
+                    var paginationResultDefaultPageConfig = {
+                        // Раскомментировать,
+                        // если по умолчанию нужны параметры постраничной выдачи
+                        // отличные от серверных
+
+                        // size: 50
+                    };
+
+                    //
+                    options = options || {};
+                    options.paths = options.paths || _.extend({}, paginationResultDefaultPaths);
+                    options.defaultPageConfig = options.defaultPageConfig || _.extend({}, paginationResultDefaultPageConfig);
+
+                    //
+                    var me                  = this,
+                        _timeoutComplete    = false;
 
                     me.result = null;
+                    me.list = null;
 
-                    me.setResult = function(result) {
-                        me.result = result;
+                    me.isShowingItemNumbers = function() {
+                        return options.showingItemNumbers;
+                    };
+
+                    me.getPageList = function() {
+                        return _.get(me.result, options.paths.list);
                     };
 
                     me.getList = function() {
-                        return _.get(me.result, options.listPath);
+                        return me.list;
                     };
 
                     me.getItemById = function(id) {
@@ -68,20 +83,88 @@ define(function(require, exports, module) {'use strict';
                     };
 
                     me.getPageInfo = function() {
-                        return _.get(me.result, options.pageInfoPath);
+                        return _.get(me.result, options.paths.pageInfo);
                     };
 
                     me.getTotal = function() {
-                        return _.get(me.result, options.totalPath);
+                        return _.get(me.result, options.paths.total);
                     };
 
                     me.isEmpty = function() {
                         return !me.getTotal();
                     };
 
+                    me.firstPage = function(callback) {
+                        nextPage(true, callback);
+                    };
+
+                    me.nextPage = function() {
+                        nextPage(false);
+                    };
+
+                    me.hasNotNextPage = function() {
+                        return !_timeoutComplete || !hasNextPage() || options.element.is(':hidden');
+                    };
+
+                    me.setResult = function(result) {
+                        me.result = result;
+
+                        var pageList = me.getPageList() || [];
+
+                        me.list = (isFirstPageResult() || !me.list) ?
+                            pageList : me.list.concat(pageList);
+                    };
+
                     me.reset = function() {
                         me.result = null;
+                        me.list = null;
                     };
+
+                    function isFirstPageResult() {
+                        var pageInfo = me.getPageInfo();
+
+                        if (!pageInfo) {
+                            return null;
+                        }
+
+                        return pageInfo.number === 0;
+                    }
+
+                    function getNextPageConfig() {
+                        var pageInfo = me.getPageInfo();
+
+                        if (!pageInfo) {
+                            return options.defaultPageConfig;
+                        }
+
+                        return {
+                            page: pageInfo.number + 1,
+                            size: pageInfo.size
+                        };
+                    }
+
+                    function hasNextPage() {
+                        var pageInfo = me.getPageInfo();
+
+                        if (pageInfo) {
+                            return pageInfo.number < (pageInfo.totalPages - 1);
+                        }
+
+                        return null;
+                    }
+
+                    function nextPage(isFirstPage, callback) {
+                        _timeoutComplete = false;
+
+                        var pageConfig      = isFirstPage ? options.defaultPageConfig : getNextPageConfig(),
+                            completePromise = options.doNextPage(isFirstPage, pageConfig, callback);
+
+                        completePromise.then(function(){
+                            $timeout(function(){
+                                _timeoutComplete = true;
+                            });
+                        });
+                    }
                 },
 
                 Checked: function(options) {
