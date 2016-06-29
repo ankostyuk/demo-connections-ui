@@ -15,14 +15,14 @@
             </div>
             <div class="muted align-center empty-result" ng-show="ordersSet.result.isEmpty()">${_trc("У вас нет проверок связей", "Проверки связей")}</div>
             <ul class="orders" ng-hide="ordersSet.result.isEmpty()" infinite-scroll="ordersSet.result.nextPage()" infinite-scroll-disabled="ordersSet.result.hasNotNextPage()" infinite-scroll-distance="0">
-                <li class="order" ng-class="['order-status-' + order.status, ordersSet.isOrderNotViewed(order) ? 'not-viewed' : '']" id="{{buildOrderItemDomId(order.id)}}" ng-repeat="order in ordersSet.result.getList() track by order.id">
+                <li class="order" ng-class="['order-status-' + order.status, ordersSet.canViewOrder(order) ? 'can-view' : '', ordersSet.isOrderNotViewed(order) ? 'not-viewed' : '']" id="{{buildOrderItemDomId(order.id)}}" ng-repeat="order in ordersSet.result.getList() track by order.id">
                     <div class="row">
                         <div class="list-item-info">
                             <div class="list-item-info-entry list-item-number" ng-show="ordersSet.result.isShowingItemNumbers()">{{$index + 1}}.</div>
                         </div>
                         <div class="span1" np-connections-checked="order" np-connections-checked-check="ordersSet.checked.check(order)"></div>
                         <div class="span11 click-wrapper">
-                            <div class="row" ng-click="order.status === 'READY' && ordersSet.showOrder(order)">
+                            <div class="row" ng-click="ordersSet.canViewOrder(order) && ordersSet.showOrder(order)">
                                 <div class="span7 lists-wrapper">
                                     <a data-target="#np-connections-orders-current-order">
                                         <span class="list" ng-repeat="list in order.userLists track by list.id">{{list.name}}</span>
@@ -63,7 +63,19 @@
                         <span ng-show="currentOrder.order.checkOptions.insideList">${_trc("Проводилась проверка внутри списков", "Проверки связей")}</span>
                     </div>
                 </div>
-                <div class="align-center" ng-show="currentOrder.isEmptyResult()">${_trc("Связей не найдено", "Проверки связей")}</span></div>
+
+                <div class="order-result-box align-center" ng-show="currentOrder.isEmptyResult()">${_trc("Связей не найдено", "Проверки связей")}</div>
+
+                <div class="order-result-box align-center" ng-show="currentOrder.isFailResult()">
+                    <p>${_trc("Что-то пошло не так", "Ошибка при выполнении приложения")}&nbsp;&nbsp;<i class="icon i-sad"></i></p>
+                    <p>${_trc("К сожалению, проверка связей не выполнена.", "Проверки связей")}</p>
+                    <p>
+                        ${_trc("Обратитесь", "Обратитесь в службу поддержки Национального кредитного бюро.")}
+                        <a class="underline" href="/contacts/" target="_blank">${_trc("в службу поддержки", "Обратитесь в службу поддержки Национального кредитного бюро.")}</a>
+                        ${_trc("Национального кредитного бюро.", "Обратитесь в службу поддержки Национального кредитного бюро.")}
+                    </p>
+                </div>
+
                 <div class="order-result-box" ng-class="{'current-trace-checked': currentOrder.isCurrentTraceChecked()}" ng-show="currentOrder.isResult()">
                     <div class="align-right tools">
                         <div class="trace-check">

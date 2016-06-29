@@ -74,17 +74,17 @@
     display: inline-block;
 }
 */
-[np-connections-orders] .orders-set .orders > .order.order-status-READY .order-info-text {
+[np-connections-orders] .orders-set .orders > .order.can-view .order-info-text {
     color: @defaultColor;
 }
-[np-connections-orders] .orders-set .orders > .order.order-status-READY .click-wrapper:hover {
+[np-connections-orders] .orders-set .orders > .order.can-view .click-wrapper:hover {
     cursor: pointer;
 }
-[np-connections-orders] .orders-set .orders > .order.order-status-READY .click-wrapper:hover a,
-[np-connections-orders] .orders-set .orders > .order.order-status-READY .click-wrapper:hover .order-info-text {
+[np-connections-orders] .orders-set .orders > .order.can-view .click-wrapper:hover a,
+[np-connections-orders] .orders-set .orders > .order.can-view .click-wrapper:hover .order-info-text {
     color: @nkbRed;
 }
-[np-connections-orders] .orders-set .orders > .order:not(.order-status-READY) .lists-wrapper a {
+[np-connections-orders] .orders-set .orders > .order:not(.can-view) .lists-wrapper a {
     color: @defaultDisabledColor;
     cursor: default;
 }
@@ -118,6 +118,7 @@
 [np-connections-orders] .current-order .order-info.order-status-PROGRESS .order-progress-indicator {
     display: inline;
 }
+[np-connections-orders] .current-order .order-info.order-status-FAILED .order-info-text,
 [np-connections-orders] .current-order .order-info.order-status-READY .order-info-text {
     color: @defaultColor;
 }

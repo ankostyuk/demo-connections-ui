@@ -195,6 +195,10 @@ define(function(require, exports, module) {'use strict';
                     return _.get(me.order, 'status') === 'READY' && _.isEmpty(me.getResultPairs());
                 };
 
+                me.isFailResult = function() {
+                    return _.get(me.order, 'status') === 'FAILED';
+                };
+
                 me.isResult = function() {
                     return _.get(me.order, 'status') === 'READY' && !_.isEmpty(me.getResultPairs());
                 };

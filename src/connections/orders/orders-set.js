@@ -101,6 +101,10 @@ define(function(require, exports, module) {'use strict';
                     });
                 };
 
+                me.canViewOrder = function(order) {
+                    return order.status === 'READY' || order.status === 'FAILED';
+                };
+
                 me.showOrder = function(order) {
                     removeFromNotViewedOrders(order.id);
                     onViewedOrdersChange();
