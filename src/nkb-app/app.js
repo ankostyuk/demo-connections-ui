@@ -44,6 +44,7 @@ define(function(require) {'use strict';
             yandexMetrikaCounterName: 'yaCounter23296318',
             resource: {
                 'meta.url':                 '/nkbrelation/api/meta',
+                'relation-ui.report.url':   '/nkbrelation/report',
 
                 // connections
                 'list.create.url':          '/connections/api/list',

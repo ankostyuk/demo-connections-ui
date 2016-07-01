@@ -30,7 +30,9 @@ define(function(require, exports, module) {'use strict';
             orderResultTemplates = templateUtils.processTemplate(orderResultTemplates).templates;
         }])
         //
-        .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', '$timeout', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsOrdersResource, npConnectionsUtils){
+        .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', '$timeout', '$window', 'appConfig', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, $window, appConfig, npConnectionsOrdersResource, npConnectionsUtils){
+            var config = appConfig.resource || {};
+
             return function() {
                 var me                      = this,
                     _tracesInfo             = {},
@@ -137,7 +139,7 @@ define(function(require, exports, module) {'use strict';
                     me.nodeTracesCurrentPair = pairIndex;
                 };
 
-                function buildNodeTraces() {
+                function buildNodesTraces() {
                     if (!me.isResult()) {
                         return;
                     }
@@ -224,7 +226,7 @@ define(function(require, exports, module) {'use strict';
                             _.extend(me.order, data);
 
                             normalizeResult();
-                            buildNodeTraces();
+                            buildNodesTraces();
 
                             npConnectionsUtils.requestDone(false, arguments, callback);
                         },
@@ -292,6 +294,71 @@ define(function(require, exports, module) {'use strict';
                     });
 
                     return html;
+                }
+
+                //
+                // open in relation
+                //
+                me.doOpenInRelation = function() {
+                    var nodesGrid = buildNodesGrid();
+                    $window.localStorage.setItem('nkb_nodes_grid', angular.toJson(nodesGrid));
+                    $window.open(config['relation-ui.report.url'] + '/?nodes-grid=nkb_nodes_grid', '_blank');
+                };
+
+                function buildNodesGrid() {
+                    var result = {
+                        nodes: [],
+                        grid: []
+                    };
+
+                    _.each(me.getResultPairs(), function(pair, pairIndex){
+                        if (!me.isPairTracesChecked(pairIndex)) {
+                            return;
+                        }
+
+                        var firstNode   = me.getResultEntry(pair.first).node,
+                            secondNode  = me.getResultEntry(pair.second).node,
+                            traces      = me.getPairCheckedTraces(pairIndex),
+                            nodesRow, nodes, node, i, n;
+
+                        _.each(traces, function(trace){
+                            nodes = trace.nodes;
+
+                            nodesRow = [pushNode(firstNode)];
+
+                            for (i = 1; i < _.size(nodes) - 1; i++) {
+                                n = nodes[i];
+                                node = me.nodeTracesNodes[n];
+                                nodesRow.push(pushNode(node));
+                            }
+
+                            nodesRow.push(pushNode(secondNode));
+
+                            result.grid.push(nodesRow);
+                        });
+                    });
+
+                    function pushNode(node) {
+                        var index = null;
+
+                        _.each(result.nodes, function(n, i){
+                            if (node._id === n.id && node._type === n.type) {
+                                index = i;
+                                return false;
+                            }
+                        });
+
+                        if (index === null) {
+                            index = result.nodes.push({
+                                id: node._id,
+                                type: node._type
+                            }) - 1;
+                        }
+
+                        return index;
+                    }
+
+                    return result;
                 }
             };
         }]);
