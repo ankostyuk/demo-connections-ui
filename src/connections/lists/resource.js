@@ -99,6 +99,14 @@ define(function(require, exports, module) {'use strict';
                             'Content-Type': 'application/json;charset=UTF-8'
                         }
                     }, null, options);
+                },
+
+                nodesLists: function(options) {
+                    return npResource.request({
+                        method: 'POST',
+                        url: config['nodes.lists.url'],
+                        data: options.data
+                    }, null, options);
                 }
             };
         }]);

@@ -1,0 +1,206 @@
+{
+    "list": [{
+        "_connections": {
+            "userLists": [{
+                "id": "list-1",
+                "name": "Тендерная комиссия",
+                "type": "INDIVIDUAL",
+                "userId": "user-1"
+            }]
+        },
+        "dead_dt": 1251662400000,
+        "founded_dt": 1029920111010,
+        "egrul_state": {
+            "_actual": 1456693200000,
+            "code": "12",
+            "_since": 1251662400000,
+            "type": "Ликвидировано"
+        },
+        "nameshortsort": "НКБ ФГУ \"СОМЦ РОСЗДРАВА\"",
+        "chief_gender": "MALE",
+        "addressindex": 630068,
+        "okved_main_short_text": "Здравоохранение и предоставление социальных услуг",
+        "bsn_id": 4493593,
+        "okved_main_text": "Деятельность больничных учреждений широкого профиля и специализированных",
+        "ogrn": "1025402453966",
+        "_info": {
+            "updates": {
+                "rosstat": 1456693200000
+            },
+            "in": {
+                "HEAD_COMPANY": {
+                    "actual": 1
+                },
+                "PHONE": {
+                    "actual": 1
+                },
+                "ADDRESS": {
+                    "actual": 1
+                },
+                "EXECUTIVE_INDIVIDUAL": {
+                    "actual": 1
+                }
+            },
+            "out": {},
+            "matches": ["name"]
+        },
+        "addresssort": "г Новосибирск, ул Одоевского, 12",
+        "chief_name": "Гюнтер Петр Петрович",
+        "inn": "5406234802",
+        "_type": "COMPANY",
+        "namesort": "НОВОСИБИРСКАЯ КЛИНИЧЕСКАЯ БОЛЬНИЦА ФГУ \"СОМЦ РОСЗДРАВА\"",
+        "okatocode": 50401382000,
+        "okpo": "59232102",
+        "okfs_text": "Федеральная собственность",
+        "_relations": [{
+            "_holderDst": true,
+            "_dstId": "4493593",
+            "_actual": 1456693200000,
+            "_srcId": "50-3387117",
+            "_type": "PHONE",
+            "_since": 1220212800000,
+            "_source": "rosstat"
+        }, {
+            "_holderDst": true,
+            "_dstId": "4493593",
+            "_actual": 1456693200000,
+            "_srcId": "500d9ea2ce474774f594a68f3c85a83dea9de3b704",
+            "_type": "ADDRESS",
+            "_since": 1220212800000,
+            "_source": "rosstat"
+        }, {
+            "_holderDst": true,
+            "_dstId": "4493593",
+            "_actual": 1456693200000,
+            "_srcId": "4514214",
+            "_type": "HEAD_COMPANY",
+            "_since": 1206993600000,
+            "_source": "rosstat"
+        }, {
+            "_holderDst": true,
+            "_actual": 1456693200000,
+            "_dstId": "4493593",
+            "outdated": false,
+            "_srcId": "da3ac4db8dc60b77da18603eb0d462deba1932f8",
+            "name": "Гюнтер Петр Петрович",
+            "_type": "EXECUTIVE_INDIVIDUAL",
+            "_since": 1206993600000,
+            "_source": "rosstat",
+            "position": "ГЛАВНЫЙ ВРАЧ"
+        }],
+        "okvedcode_main": "85111",
+        "okfscode": 12,
+        "_id": "4493593",
+        "okopfcode": 30001
+    }, {
+        "founded_dt": 1190790155987,
+        "individual_placeholders": [{
+            "_since": 1190987714840,
+            "sharePercent": 100,
+            "shareAmount": 10000,
+            "name": "ГРАЖДАНЕ РОССИИ"
+        }],
+        "egrul_state": {
+            "_actual": 1456693200000,
+            "code": "5",
+            "_since": 1190790155987,
+            "type": "Действующее"
+        },
+        "nameshortsort": "ООО \"НКБ-СИБИРЬ\"",
+        "chief_gender": "MALE",
+        "addressindex": 630077,
+        "okved_main_short_text": "Предоставление прочих видов услуг",
+        "bsn_id": 4620972,
+        "okved_main_text": "Консультирование по вопросам коммерческой деятельности и управления",
+        "ogrn": "1075404026961",
+        "_info": {
+            "updates": {
+                "rosstat": 1456693200000,
+                "xegrul": 1376419679000
+            },
+            "in": {
+                "FOUNDER_INDIVIDUAL": {
+                    "actual": 2
+                },
+                "ADDRESS": {
+                    "actual": 1
+                },
+                "EXECUTIVE_INDIVIDUAL": {
+                    "actual": 1
+                }
+            },
+            "out": {},
+            "matches": ["name"]
+        },
+        "addresssort": "г Новосибирск, ул Степная, 3",
+        "chief_name": "Галушко Глеб Владимирович",
+        "inn": "5404339246",
+        "_type": "COMPANY",
+        "namesort": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"НОВОСИБИРСКОЕ КРЕДИТНОЕ БЮРО-СИБИРЬ\"",
+        "okatocode": 50401377000,
+        "okpo": "82309572",
+        "okfs_text": "Частная собственность",
+        "_relations": [{
+            "_holderDst": true,
+            "_dstId": "4620972",
+            "_actual": 1456693200000,
+            "_srcId": "5034a0765fb946a2491636d909734ea2e9ca0e536f",
+            "_type": "ADDRESS",
+            "_since": 1220212800000,
+            "_source": "rosstat"
+        }, {
+            "_holderDst": true,
+            "_actual": 1376419679000,
+            "_dstId": "4620972",
+            "outdated": false,
+            "_srcId": "84305121afa613a22d68e82f0fe7ae67e3150b0e",
+            "name": "Альбах Евгений Викторович",
+            "_type": "FOUNDER_INDIVIDUAL",
+            "_since": 1190750400000,
+            "_source": "xegrul",
+            "sharePercent": 50.0,
+            "shareAmount": 5000
+        }, {
+            "_holderDst": true,
+            "_actual": 1376419679000,
+            "_dstId": "4620972",
+            "outdated": false,
+            "_srcId": "9c0cbaed275713193c7b2969876418b3a44f8dfa",
+            "name": "Иценков Андрей Валерьевич",
+            "_type": "FOUNDER_INDIVIDUAL",
+            "_since": 1190750400000,
+            "_source": "xegrul",
+            "sharePercent": 50.0,
+            "shareAmount": 5000
+        }, {
+            "_holderDst": true,
+            "_actual": 1456693200000,
+            "_dstId": "4620972",
+            "outdated": false,
+            "_srcId": "334beeae286080857f2f3b119bfb52d8505d2297",
+            "name": "Галушко Глеб Владимирович",
+            "_type": "EXECUTIVE_INDIVIDUAL",
+            "_since": 1190750400000,
+            "_source": "rosstat",
+            "position": "Директор"
+        }],
+        "okvedcode_main": "7414",
+        "okfscode": 16,
+        "_id": "4620972",
+        "name_diff": true,
+        "okopfcode": 12165
+    }],
+    "total": 2,
+    "info": {
+        "nodeFacet": {
+            "region_code": {
+                "50": 2
+            }
+        }
+    },
+    "pageSize": 20,
+    "pageNumber": 1,
+    "pageCount": 1,
+    "firstNumber": 1,
+    "lastNumber": 2
+}

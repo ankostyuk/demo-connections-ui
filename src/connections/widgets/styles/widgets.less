@@ -1,0 +1,57 @@
+@import './config.less';
+
+/* np-connections-widgets-node-favorites */
+[np-connections-widgets-node-favorites] .favorites-link .favorites-mark {
+    display: none;
+}
+[np-connections-widgets-node-favorites] .favorites-link.in-favorites .favorites-mark {
+    display: inline;
+}
+[np-connections-widgets-node-favorites] .favorites-link.in-favorites .no-favorites-mark {
+    display: none;
+}
+
+[np-connections-widgets-node-favorites] .lists-popup {
+    display: block;
+    float: none;
+    width: 500px;
+    border-radius: 4px;
+    padding: 8px 12px 12px 12px;
+}
+
+[np-connections-widgets-node-favorites] .lists-popup .close-box {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+[np-connections-widgets-node-favorites] .lists-popup .header-sep {
+    margin: 10px -12px 15px -12px;
+}
+[np-connections-widgets-node-favorites] .lists-popup .footer-sep {
+    margin: 15px -12px 10px -12px;
+}
+
+[np-connections-widgets-node-favorites] .lists-popup .list-action {
+    padding-top: 5px;
+    white-space: nowrap;
+}
+[np-connections-widgets-node-favorites] .lists-popup .list-action a {
+    margin: 0 0 0 10px;
+}
+[np-connections-widgets-node-favorites] .lists-popup .list-action select,
+[np-connections-widgets-node-favorites] .lists-popup .list-action input {
+    margin: 0;
+}
+[np-connections-widgets-node-favorites] .lists-popup .list-action .tools {
+    padding-top: 20px;
+}
+
+/* np-loader */
+[np-connections-widgets-node-favorites] [np-loader] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}

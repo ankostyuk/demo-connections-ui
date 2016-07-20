@@ -41,6 +41,9 @@ define(function(require, exports, module) {'use strict';
                 'ready-result-1-nodes': angular.fromJson(require('text!./data/connections/order/ready-result-1-nodes.json'))
             },
         },
+        'nodes': {
+            'search-result':    angular.fromJson(require('text!./data/nodes/search-result.json'))
+        },
         'siteapp': {
             'login':            angular.fromJson(require('text!./data/siteapp/login.json')),
             'login-error':      angular.fromJson(require('text!./data/siteapp/login-error.json')),
@@ -133,9 +136,6 @@ define(function(require, exports, module) {'use strict';
                 return user.isAuthenticated() ? false : [403];
             }
 
-            // nkbrelation
-            $httpBackend.whenGET(/^\/nkbrelation\//).passThrough();
-
             // user
             if (_.isUndefined(auth)) {
                 $httpBackend.whenGET(/^\/siteapp\//).passThrough();
@@ -145,6 +145,11 @@ define(function(require, exports, module) {'use strict';
                 $httpBackend.whenGET('/siteapp/logout').respond(testData['siteapp']['logout']);
                 $httpBackend.whenGET('/siteapp/api/users/me/limits').respond(auth ? testData['siteapp']['limits'] : testData['siteapp']['limits-forbidden']);
             }
+
+            // nkbrelation
+            $httpBackend.whenGET(/^\/nkbrelation\/api\/meta\//).passThrough();
+
+            $httpBackend.whenGET(/^\/nkbrelation\/api\/nodes\/COMPANY/).respond(testData['nodes']['search-result']);
 
             // list
             $httpBackend.whenPOST('/connections/api/list').respond(function(method, url, data, headers, params){
@@ -273,6 +278,22 @@ define(function(require, exports, module) {'use strict';
                 return [200, entry];
             });
 
+            // /connections/api/nodes/lists
+            $httpBackend.whenPOST(/^\/connections\/api\/nodes\/lists/).respond(function(method, url, data){
+                var nodeInfoList = angular.fromJson(data);
+
+                // TODO взять из данных
+                $log.debug(method, url, data);
+
+                var result = [];
+
+                _.each(nodeInfoList, function(nodeInfo){
+                    result.push([]);
+                });
+
+                return [200, result];
+            });
+
             // order
             $httpBackend.whenPOST('/connections/api/order').respond(function(method, url, data, headers, params){
                 var orderData   = angular.fromJson(data),
@@ -332,6 +353,14 @@ define(function(require, exports, module) {'use strict';
             $httpBackend.whenPOST('/connections/api/orders/state').respond(204);
 
             $httpBackend.whenPOST('/connections/api/orders/view').respond(200);
+        }])
+        //
+        .factory('dataMocksHelper', ['$log', function($log){
+
+            // API
+            return {
+                testData: testData
+            };
         }]);
     //
 });

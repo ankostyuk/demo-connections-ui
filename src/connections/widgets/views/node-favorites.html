@@ -1,0 +1,38 @@
+<script id="favorites-view" type="text/template">
+    <a class="favorites-link" ng-class="{'in-favorites': inFavorites()}" ng-click="toggleListsPopup()"><span class="no-favorites-mark">&#9734;</span><span class="favorites-mark">&#9733;</span></a>
+
+    <div class="lists-popup dropdown-menu" ng-show="listsPopupShow">
+        <div np-loader="loader" np-loader-type="'line-balls'" fade="true" fade-opacity="0.75" fade-duration="250"></div>
+
+        <div class="close-box"><a ng-click="hideListsPopup()"><i class="icon i-delete"></i></a></div>
+        <div>${_trc("Добавление в избранное", "Пакетная проверка. Пользовательские списки")}</div>
+        <hr class="header-sep">
+
+        <p class="muted">${_trc("Выберете список или создайте новый список", "Пакетная проверка. Пользовательские списки")}</p>
+
+        <div class="list-action" ng-show="mode === 'LIST'">
+            <select class="span5 lists-select" ng-disabled="isNoLists()" ng-model="selectedListId">
+                <option value="null" ng-disabled="true" ng-selected="selectedListId === 'null'">{{isNoLists() ? '${_trc("У вас нет списков", "Пакетная проверка. Пользовательские списки")}' : '${_trc("Выберете список...", "Пакетная проверка. Пользовательские списки")}'}}</option>
+                <optgroup label="&nbsp;"></optgroup>
+                <option value="{{list.id}}" ng-disabled="list.__isNode || list.type !== node._type" ng-selected="selectedListId === list.id" ng-repeat="list in getUserLists() track by $index">{{list.__isNode ? '&#9733; ' : ''}}{{list.name}}</option>
+            </select>
+            <a ng-click="setMode('NEW_LIST')">${_trc("Новый список", "Пакетная проверка. Пользовательские списки")}</a>
+            <div class="tools align-right">
+                <button class="btn flat" ng-disabled="isNoLists() || selectedListId === 'null' || includesNodeUserList(selectedListId)" ng-click="addToList()">${_trc("Добавить в выбранный список", "Пакетная проверка. Пользовательские списки")}</button>
+            </div>
+        </div>
+
+        <div class="list-action" ng-show="mode === 'NEW_LIST'">
+            <input class="span5 new-list" type="text" placeholder='${_trc("Укажите наименование нового списка", "Пакетная проверка. Пользовательские списки")}' ng-model="newListName">
+            <a ng-click="setMode('LIST')">${_trc("Списки", "Пакетная проверка. Пользовательские списки")}</a>
+            <div class="tools align-right">
+                <button class="btn flat" ng-disabled="!newListName" ng-click="addToNewList()">${_trc("Создать новый список и добавить в него", "Пакетная проверка. Пользовательские списки")}</button>
+            </div>
+        </div>
+
+        <hr class="footer-sep">
+        <div class="align-right">
+            <a class="underline" target="_blank" href="/connections/">${_trc("Открыть Пакетную проверку", "Пакетная проверка")}</a>
+        </div>
+    </div>
+</script>

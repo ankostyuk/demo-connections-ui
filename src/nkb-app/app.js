@@ -55,6 +55,8 @@ define(function(require) {'use strict';
                 'list.entry.url':           '/connections/api/list/{{listId}}/entry/{{entryId}}',
                 'list.entries.url':         '/connections/api/list/{{id}}/entries',
 
+                'nodes.lists.url':          '/connections/api/nodes/lists',
+
                 'order.create.url':         '/connections/api/order',
                 'order.url':                '/connections/api/order/{{id}}',
                 'orders.url':               '/connections/api/orders',

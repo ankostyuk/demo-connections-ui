@@ -1,0 +1,35 @@
+/* НКБ стили */
+@import '../../../external_components/nullpointer-commons/nkb/styles/styles.less';
+
+/*
+ * Общие стили для всего приложения
+ */
+
+@import './config.less';
+
+.container {
+    padding-top: 40px;
+}
+
+/* nodes */
+.nodes .node {
+    position: relative;
+}
+
+/* np-connections-widgets-node-favorites */
+[np-connections-widgets-node-favorites] {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    margin-right: 20px;
+}
+[np-connections-widgets-node-favorites] .favorites-link .favorites-mark {
+    color: @favoritesColor;
+}
+[np-connections-widgets-node-favorites] .favorites-link:hover .favorites-mark {
+    color: @nkbRed;
+}
+[np-connections-widgets-node-favorites] [np-loader] .line-balls {
+    color: @favoritesColor;
+    opacity: 0.75;
+}
