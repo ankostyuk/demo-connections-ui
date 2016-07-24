@@ -5,6 +5,17 @@
         <div class="tab-pane lists-set" id="np-connections-lists-lists-set">
             <ul class="row lists-nav tools">
                 <li class="span6" ng-show="navigation.prevTarget === '#np-connections-lists-current-list'"><a data-target="#np-connections-lists-current-list" ng-click="navigation.doNav($event)">&larr; ${_trc("вернуться к просмотру списка", "Пользовательские списки")}</a></li>
+                <li class="span6 dropdown dropdown-help" ng-hide="navigation.prevTarget === '#np-connections-lists-current-list'">
+                    <a data-toggle="dropdown">&nbsp;<i class="icon i-comment-2 icon-help"></i></a>
+                    <div class="dropdown-menu">
+                        <h4 class="align-center">Поиск признаков конфликта интересов</h4>
+                        <p>Новый сервис предназначен для проверки вероятных связей между физическими лицами и&nbsp;/&nbsp;или компаниями.</p>
+                        <p>Для этого необходимо воспользоваться опцией, создать &laquo;<a>новый список</a>&raquo;&nbsp;&mdash; ввести в&nbsp;систему раздельные списки физических и&nbsp;/&nbsp;или юридических лиц, подлежащих проверке и&nbsp;запустить поиск связей между ними &laquo;<a>проверить связи</a>&raquo;.</p>
+                        <p>Система в&nbsp;режиме отложенного запроса проведет проверку и&nbsp;проинформирует о&nbsp;завершении соответствующим сигналом на&nbsp;странице сервиса. Уведомление поступит и&nbsp;на&nbsp;электронную почту.</p>
+                        <p>На&nbsp;странице результатов проверки будут указаны пары лиц из&nbsp;списков, между которыми найдены признаки аффилированности, глубина и&nbsp;количество связей. Здесь&nbsp;же предусмотрены инструменты для просмотра подробной информации о&nbsp;цепочках связей, визуализации результатов в&nbsp;формате графических схем и&nbsp;вывода в&nbsp;печать в&nbsp;формате word.</p>
+                        <p>Все сформированные пользователем списки и&nbsp;результаты проверки хранятся в&nbsp;системе в&nbsp;привязке к&nbsp;аккаунту пользователя неограниченное время.</p>
+                    </div>
+                </li>
                 <li class="align-right"><a data-target="#np-connections-lists-new-list" ng-click="navigation.doNav($event)"><i class="icon i-plus"></i> ${_trc("Новый список", "Пользовательские списки")}</a></li>
             </ul>
             <div class="tools order" ng-hide="listsSet.result.isEmpty()">

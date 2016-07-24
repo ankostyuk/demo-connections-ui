@@ -237,7 +237,7 @@ define(function(require, exports, module) {'use strict';
                             },
                             previousRequest: nodesListsRequest
                         });
-                    };
+                    }
 
                     function doNodesListsResult(result) {
                         var userLists = _.head(result);
@@ -340,7 +340,7 @@ define(function(require, exports, module) {'use strict';
                             },
                             previousRequest: createListRequest
                         });
-                    };
+                    }
 
                     //
                     //
