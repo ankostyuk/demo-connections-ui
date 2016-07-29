@@ -48,7 +48,7 @@ define(function(require, exports, module) {'use strict';
                 me.nodeTracesCurrentTrace = null;
 
                 var _tracesDataSource = {
-                    reverse: false,
+                    reverse: true,
                     srcInTrace: false,
                     depths: null,
                     tracesRequest: _.noop,

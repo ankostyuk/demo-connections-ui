@@ -97,7 +97,6 @@
     "private": true,
     "resolutions": {
         "requirejs": "2.1.16",
-        "jquery": "2.1.*",
-        "nullpointer-autokad": "1.4.1"
+        "jquery": "2.1.*"
     }
 }
