@@ -22,7 +22,7 @@
         "stomp-websocket": "2.3.4",
         "nullpointer-commons": "git://github.com/newpointer/commons-js.git",
         "nullpointer-i18n": "git://github.com/newpointer/i18n-js.git",
-        "nullpointer-rsearch": "git://github.com/newpointer/rsearch.git#connections",
+        "nullpointer-rsearch": "git://github.com/newpointer/rsearch.git#v5_connections",
         "downloadjs": "1.4.5",
         "text-encoding": "v0.6.0",
         "jschardet": "git://github.com/aadsm/jschardet.git#v1.4.1",
