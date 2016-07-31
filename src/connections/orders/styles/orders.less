@@ -185,12 +185,12 @@
 
 [np-connections-orders] .current-order .order-result-box.current-trace-checked > .tools .trace-check,
 [np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces,
-[np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces .relation .target-relations-info {
+[np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces .relation [np-rsearch-node-relations-info] {
     background-color: @checkedTraceColor;
 }
 [np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces .relation.parents:after {
-    border-top-color: @checkedTraceColor;
+    border-bottom-color: @checkedTraceColor;
 }
 [np-connections-orders] .current-order .order-result-box.current-trace-checked [np-rsearch-node-traces] .trace-result .traces .relation.children:after {
-    border-bottom-color: @checkedTraceColor;
+    border-top-color: @checkedTraceColor;
 }
