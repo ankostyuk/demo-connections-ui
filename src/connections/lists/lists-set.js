@@ -13,6 +13,26 @@ define(function(require, exports, module) {'use strict';
     ];
 
     //
+    var ORDER_RELATION_TYPES = [
+        'FOUNDER_COMPANY',
+        'FOUNDER_INDIVIDUAL',
+        'HEAD_COMPANY',
+        'EXECUTIVE_COMPANY',
+        'EXECUTIVE_INDIVIDUAL',
+        'AFFILIATED_COMPANY',
+        'AFFILIATED_INDIVIDUAL',
+        'PREDECESSOR_COMPANY',
+        'REGISTER_HOLDER',
+        'ADDRESS',
+        'PHONE',
+        'CUSTOMER_COMPANY',
+        'COMMISSION_MEMBER',
+        // 'PARTICIPANT_COMPANY',
+        // 'PARTICIPANT_INDIVIDUAL',
+        'EMPLOYEE'
+    ];
+
+    //
     return angular.module('np.connections.lists-set', _.pluck(angularModules, 'name'))
         //
         .factory('npConnectionsListsSet', ['$log', '$rootScope', '$timeout', 'npConnectionsListsResource', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsListsResource, npConnectionsOrdersResource, npConnectionsUtils){
@@ -96,7 +116,8 @@ define(function(require, exports, module) {'use strict';
                         data: {
                             userListIds: _.pluck(me.checked.getChecked(), 'id'),
                             checkOptions: {
-                                insideList: me.checked.getCheckedCount() > 1 ? me.checkOptions.insideList : true
+                                insideList: me.checked.getCheckedCount() > 1 ? me.checkOptions.insideList : true,
+                                relTypes: ORDER_RELATION_TYPES
                             }
                         },
                         success: function(data) {
