@@ -1,6 +1,31 @@
 {
     "_embedded": {
         "list": [{
+            "created": 1476227159604,
+            "changed": 1476227161426,
+            "status": "READY",
+            "checkOptions": {
+                "maxDepth": 3,
+                "insideList": true,
+                "relTypes": ["CUSTOMER_COMPANY", "COMMISSION_MEMBER", "PARTICIPANT_COMPANY", "PARTICIPANT_INDIVIDUAL"]
+            },
+            "userId": "75b054a7-b505-4c6c-87f9-f8933ecf75e8",
+            "userLists": [{
+                "name": "#3239 Раздельный фильтр при проверке - Елисеев Алексей Андреевич",
+                "type": "INDIVIDUAL",
+                "id": "57da9497a7b11b0005818963"
+            }, {
+                "name": "#3239 Раздельный фильтр при проверке - Закупки",
+                "type": "COMPANY",
+                "id": "57a3730ea7b11b0007bee5bb"
+            }],
+            "_links": {
+                "self": {
+                    "href": "http://testing0.nkb/api/order/57fd7057a7b11b0006d086ba"
+                }
+            },
+            "id": "57fd7057a7b11b0006d086ba"
+        }, {
             "id": "order-1",
             "created": 1460387732392,
             "changed": 1463748952608,

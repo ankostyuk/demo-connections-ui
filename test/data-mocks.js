@@ -37,8 +37,8 @@ define(function(require, exports, module) {'use strict';
             'orders':                   angular.fromJson(emptyOrders ? require('text!./data/connections/empty-orders.json') : require('text!./data/connections/orders.json')),
 
             'order': {
-                'ready-result-1':       angular.fromJson(require('text!./data/connections/order/ready-result-1.json')),
-                'ready-result-1-nodes': angular.fromJson(require('text!./data/connections/order/ready-result-1-nodes.json'))
+                'order-1':                  angular.fromJson(require('text!./data/connections/order/order-1.json')),
+                '57fd7057a7b11b0006d086ba': angular.fromJson(require('text!./data/connections/order/57fd7057a7b11b0006d086ba.json'))
             },
         },
         'nodes': {
@@ -52,11 +52,6 @@ define(function(require, exports, module) {'use strict';
             'limits-forbidden': 403
         }
     };
-
-    //
-    _.each(testData['connections']['order']['ready-result-1'].entries, function(entry, i){
-        entry.node = testData['connections']['order']['ready-result-1-nodes'][i];
-    });
 
     //
     function getList(listId) {
@@ -327,9 +322,7 @@ define(function(require, exports, module) {'use strict';
                 var orderId = getUrlParam(url, 'order'),
                     order   = getOrder(orderId);
 
-                if (orderId === 'order-1') {
-                    order.result = testData['connections']['order']['ready-result-1'];
-                }
+                _.extend(order, testData['connections']['order'][orderId]);
 
                 return [200, order];
             });
