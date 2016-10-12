@@ -14,6 +14,7 @@ define(function(require, exports, module) {'use strict';
         require('../orders/orders'),
         require('../notifications/notifications'),
         require('../navigation/navigation'),
+        require('../filters/filters'),
         require('../utils/utils'),
         require('np.directives'),
         require('np.utils'),

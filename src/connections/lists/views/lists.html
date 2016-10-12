@@ -20,18 +20,33 @@
             </ul>
             <div class="tools order" ng-hide="listsSet.result.isEmpty()">
                 <div class="row">
-                    <div class="span9 muted" ng-hide="listsSet.successfulOrder || listsSet.checked.getCheckedCount() > 1">
-                        <span ng-hide="listsSet.checked.getCheckedCount() === 1">${_tr("Выберете список или несколько списков для проверки связей")}</span>
-                        <span ng-show="listsSet.checked.getCheckedCount() === 1">${_tr("Вы можете выбрать несколько списков для проверки связей")}</span>
-                    </div>
-                    <div class="span9" ng-show="!listsSet.successfulOrder && listsSet.checked.getCheckedCount() > 1">
-                        <label class="checkbox inside-list">
-                            <input type="checkbox" ng-model="listsSet.checkOptions.insideList">
-                            ${_tr("проверять связи внутри каждого списка")}
-                        </label>
-                    </div>
-                    <div class="span9" ng-show="listsSet.successfulOrder">
-                        ${_trc("Проверка выполняется, результат проверки можно посмотреть ", "Проверки связей")} <a ng-click="navigation.showDesktopNav('#np-connections-orders')">${_trc("здесь", "Проверка выполняется, результат проверки можно посмотреть здесь")}</a>
+                    <div class="span9">
+                        <div class="row check-options" ng-hide="listsSet.successfulOrder">
+                            <div class="span3 muted" ng-hide="listsSet.checked.getCheckedCount() > 1">
+                                <span ng-hide="listsSet.checked.getCheckedCount() === 1">${_tr("Выберете список или несколько списков для проверки связей")}</span>
+                                <span ng-show="listsSet.checked.getCheckedCount() === 1">${_tr("Вы можете выбрать несколько списков для проверки связей")}</span>
+                            </div>
+                            <div class="span3" ng-show="listsSet.checked.getCheckedCount() > 1">
+                                <label class="checkbox inside-list">
+                                    <input type="checkbox" ng-model="listsSet.checkOptions.insideList">
+                                    ${_tr("проверять связи внутри каждого списка")}
+                                </label>
+                            </div>
+                            <div class="span6 filters" ng-show="listsSet.checked.getCheckedCount() > 0">
+                                <select class="span3" ng-model="listsSet.checkOptions.filter">
+                                    <option value="AFFILIATIONS">${_trc("Аффилированность", "Фильтр проверки связей")}</option>
+                                    <option value="PURCHASES">${_trc("Закупки", "Фильтр проверки связей")}</option>
+                                </select>
+                                <select class="span3" ng-model="listsSet.checkOptions.history" ng-show="listsSet.isShowHistoryFilter()">
+                                    <option value="" ng-selected="!listsSet.checkOptions.history">${_trc("Любые цепочки", "Фильтр проверки связей")}</option>
+                                    <option value="false">${_trc("Актуальные связи", "Фильтр проверки связей")}</option>
+                                    <option value="true">${_trc("Исторические связи", "Фильтр проверки связей")}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div ng-show="listsSet.successfulOrder">
+                            ${_trc("Проверка выполняется, результат проверки можно посмотреть ", "Проверки связей")} <a ng-click="navigation.showDesktopNav('#np-connections-orders')">${_trc("здесь", "Проверка выполняется, результат проверки можно посмотреть здесь")}</a>
+                        </div>
                     </div>
                     <div class="align-right">
                         <button class="btn flat order-btn" ng-disabled="listsSet.successfulOrder || !listsSet.checked.isChecked()" ng-click="listsSet.doOrder()"><i class="icon i-graph-relation"></i>&nbsp;&nbsp;${_trc("Проверить связи", "Связи между объектами")}</button>

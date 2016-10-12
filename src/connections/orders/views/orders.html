@@ -57,14 +57,27 @@
                         <span class="order-status-text">{{_tr('NP.CONNECTIONS.ORDER_STATUS.' + currentOrder.order.status)}}<span class="order-progress-indicator">...</span></span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="span6 muted check-options-info" ng-show="currentOrder.getListCount() > 1">
-                        <span ng-hide="currentOrder.order.checkOptions.insideList">${_trc("Проверка внутри списков не проводилась", "Проверки связей")}</span>
-                        <span ng-show="currentOrder.order.checkOptions.insideList">${_trc("Проводилась проверка внутри списков", "Проверки связей")}</span>
+
+                <div class="check-options-info-box">
+                    <div class="row check-options-info">
+                        <div class="span5">
+                            <span ng-show="currentOrder.getListCount() > 1 && !currentOrder.order._info.insideList">${_trc("Проверка внутри списков не проводилась", "Проверки связей")}</span>
+                            <span ng-show="currentOrder.getListCount() > 1 && currentOrder.order._info.insideList">${_trc("Проводилась проверка внутри списков", "Проверки связей")}</span>
+                            <span ng-show="currentOrder.getListCount() === 1 && currentOrder.order._info.insideList">${_trc("Проводилась проверка внутри списка", "Проверки связей")}</span>
+                        </div>
+                        <div class="span3">
+                            <span ng-show="currentOrder.order._info.filter === 'AFFILIATIONS'">${_trc("Аффилированность", "Фильтр проверки связей")}</span>
+                            <span ng-show="currentOrder.order._info.filter === 'PURCHASES'">${_trc("Закупки", "Фильтр проверки связей")}</span>
+                        </div>
+                        <div class="span3" ng-show="currentOrder.order._info.useHistory">
+                            <span ng-show="currentOrder.order._info.history === null">${_trc("Любые цепочки", "Фильтр проверки связей")}</span>
+                            <span ng-show="currentOrder.order._info.history === false">${_trc("Актуальные связи", "Фильтр проверки связей")}</span>
+                            <span ng-show="currentOrder.order._info.history === true">${_trc("Исторические связи", "Фильтр проверки связей")}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="order-result-box align-center" ng-show="currentOrder.isEmptyResult()">${_trc("Связей не найдено", "Проверки связей")}</div>
+                <div class="order-result-box align-center strong" ng-show="currentOrder.isEmptyResult()">${_trc("Связей не найдено", "Проверки связей")}</div>
 
                 <div class="order-result-box align-center" ng-show="currentOrder.isFailResult()">
                     <p>${_trc("Что-то пошло не так", "Ошибка при выполнении приложения")}&nbsp;&nbsp;<i class="icon i-sad"></i></p>

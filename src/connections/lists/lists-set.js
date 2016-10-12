@@ -13,29 +13,9 @@ define(function(require, exports, module) {'use strict';
     ];
 
     //
-    var ORDER_RELATION_TYPES = [
-        'FOUNDER_COMPANY',
-        'FOUNDER_INDIVIDUAL',
-        'HEAD_COMPANY',
-        'EXECUTIVE_COMPANY',
-        'EXECUTIVE_INDIVIDUAL',
-        'AFFILIATED_COMPANY',
-        'AFFILIATED_INDIVIDUAL',
-        'PREDECESSOR_COMPANY',
-        'REGISTER_HOLDER',
-        'ADDRESS',
-        'PHONE',
-        'CUSTOMER_COMPANY',
-        'COMMISSION_MEMBER',
-        // 'PARTICIPANT_COMPANY',
-        // 'PARTICIPANT_INDIVIDUAL',
-        'EMPLOYEE'
-    ];
-
-    //
     return angular.module('np.connections.lists-set', _.pluck(angularModules, 'name'))
         //
-        .factory('npConnectionsListsSet', ['$log', '$rootScope', '$timeout', 'npConnectionsListsResource', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsListsResource, npConnectionsOrdersResource, npConnectionsUtils){
+        .factory('npConnectionsListsSet', ['$log', '$rootScope', '$timeout', 'npConnectionsListsResource', 'npConnectionsOrdersResource', 'npConnectionsFilters', 'npConnectionsUtils', function($log, $rootScope, $timeout, npConnectionsListsResource, npConnectionsOrdersResource, npConnectionsFilters, npConnectionsUtils){
             return function(options) {
                 var me                  = this,
                     _request            = null,
@@ -63,7 +43,14 @@ define(function(require, exports, module) {'use strict';
                 });
 
                 me.checkOptions = {
-                    insideList: false
+                    insideList: false,
+                    filter: 'AFFILIATIONS',
+                    history: null
+                };
+
+                me.isShowHistoryFilter = function() {
+                    var filter = npConnectionsFilters.orderFilters.getFilterByName(me.checkOptions.filter);
+                    return filter.useHistory;
                 };
 
                 me.check = function(list) {
@@ -115,10 +102,7 @@ define(function(require, exports, module) {'use strict';
                     _createOrderRequest = npConnectionsOrdersResource.createOrder({
                         data: {
                             userListIds: _.pluck(me.checked.getChecked(), 'id'),
-                            checkOptions: {
-                                insideList: me.checked.getCheckedCount() > 1 ? me.checkOptions.insideList : true,
-                                relTypes: ORDER_RELATION_TYPES
-                            }
+                            checkOptions: buildOrderCheckOptions()
                         },
                         success: function(data) {
                             npConnectionsUtils.requestDone(false, arguments, callback);
@@ -139,6 +123,17 @@ define(function(require, exports, module) {'use strict';
                 me.showList = function(list) {
                     $rootScope.$emit('np-connections-show-list', list);
                 };
+
+                function buildOrderCheckOptions() {
+                    var filter = npConnectionsFilters.orderFilters.getFilterByName(me.checkOptions.filter);
+
+                    return {
+                        insideList: me.checked.getCheckedCount() > 1 ? me.checkOptions.insideList : true,
+                        maxDepth: filter.maxDepth,
+                        history: filter.useHistory ? (me.checkOptions.history || null) : null,
+                        relTypes: filter.relationTypes
+                    };
+                }
 
                 function resetChecked() {
                     me.checked.resetChecked();

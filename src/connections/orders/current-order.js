@@ -30,7 +30,7 @@ define(function(require, exports, module) {'use strict';
             orderResultTemplates = templateUtils.processTemplate(orderResultTemplates).templates;
         }])
         //
-        .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', '$timeout', '$window', 'appConfig', 'npConnectionsOrdersResource', 'npConnectionsUtils', function($log, $rootScope, $timeout, $window, appConfig, npConnectionsOrdersResource, npConnectionsUtils){
+        .factory('npConnectionsCurrentOrder', ['$log', '$rootScope', '$timeout', '$window', 'appConfig', 'npConnectionsOrdersResource', 'npConnectionsFilters', 'npConnectionsUtils', function($log, $rootScope, $timeout, $window, appConfig, npConnectionsOrdersResource, npConnectionsFilters, npConnectionsUtils){
             var config = appConfig.resource || {};
 
             return function() {
@@ -223,8 +223,7 @@ define(function(require, exports, module) {'use strict';
                     _request = npConnectionsOrdersResource.order({
                         id: me.order.id,
                         success: function(data) {
-                            _.extend(me.order, data);
-
+                            fillOrder(data);
                             normalizeResult();
                             buildNodesTraces();
 
@@ -249,6 +248,21 @@ define(function(require, exports, module) {'use strict';
                         previousRequest: _sendOrdersViewRequest
                     });
                 };
+
+                function fillOrder(data) {
+                    _.extend(me.order, data);
+
+                    var checkOptions    = me.order.checkOptions,
+                        filter          = npConnectionsFilters.orderFilters.getFilterByRelationTypes(checkOptions.relTypes);
+
+                    me.order['_info'] = {
+                        insideList: checkOptions.insideList,
+                        maxDepth: checkOptions.maxDepth,
+                        history: filter && filter.useHistory && _.isBoolean(checkOptions.history) ? checkOptions.history : null,
+                        useHistory: filter ? filter.useHistory : null,
+                        filter: filter ? filter._name : null
+                    };
+                }
 
                 // Убрать дубликаты цепочек
                 // TODO убрать данный код,
