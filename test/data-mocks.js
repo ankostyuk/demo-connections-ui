@@ -38,7 +38,8 @@ define(function(require, exports, module) {'use strict';
 
             'order': {
                 'order-1':                  angular.fromJson(require('text!./data/connections/order/order-1.json')),
-                '57fd7057a7b11b0006d086ba': angular.fromJson(require('text!./data/connections/order/57fd7057a7b11b0006d086ba.json'))
+                '57fd7057a7b11b0006d086ba': angular.fromJson(require('text!./data/connections/order/57fd7057a7b11b0006d086ba.json')),
+                '57fe478aa7b11b0006d087bc': angular.fromJson(require('text!./data/connections/order/57fe478aa7b11b0006d087bc.json'))
             },
         },
         'nodes': {

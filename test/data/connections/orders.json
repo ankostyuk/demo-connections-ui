@@ -1,6 +1,27 @@
 {
     "_embedded": {
         "list": [{
+            "created": 1476282250652,
+            "changed": 1476282251618,
+            "status": "READY",
+            "checkOptions": {
+                "maxDepth": 3,
+                "insideList": true,
+                "relTypes": ["CUSTOMER_COMPANY", "COMMISSION_MEMBER", "PARTICIPANT_COMPANY", "PARTICIPANT_INDIVIDUAL"]
+            },
+            "userId": "75b054a7-b505-4c6c-87f9-f8933ecf75e8",
+            "userLists": [{
+                "name": "#3252 Подробная информация о закупке в цепочке связей - Компании",
+                "type": "COMPANY",
+                "id": "57fe4528a7b11b0006d087b1"
+            }],
+            "_links": {
+                "self": {
+                    "href": "http://testing0.nkb/api/order/57fe478aa7b11b0006d087bc"
+                }
+            },
+            "id": "57fe478aa7b11b0006d087bc"
+        }, {
             "created": 1476227159604,
             "changed": 1476227161426,
             "status": "READY",
