@@ -270,7 +270,9 @@ define(function(require, exports, module) {'use strict';
                     }
 
                     function resetFileReader() {
-                        fileReader.abort();
+                        if (fileReader.readyState === fileReader.LOADING) {
+                            fileReader.abort();
+                        }
                         scope.fileLoad = false;
                     }
 
