@@ -1,3 +1,1 @@
-# connections-ui
-
-Пользовательский интерфейс "Пакетной проверки Связей"
+"NCB Search For Signs Of Competitive Interests" frontend demo code
